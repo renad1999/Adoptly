@@ -24,6 +24,5 @@ from django.views.generic import ListView, DetailView
 #? pet detail, render request pet_detail.html, id param required
 
 
-#? below for create, update & delete views for both pet and user
-
 #! Class based views
+#? below for create, update & delete views for both pet and user
