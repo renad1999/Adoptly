@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 
+#! Functions
+#? Pawfect matches
+    # if score = 3 show pet.name else append
+
+
 #! Create your views here.
 
 #? Login, render request login.html
@@ -21,4 +26,4 @@ from django.views.generic import ListView, DetailView
 
 #? below for create, update & delete views for both pet and user
 
-
+#! Class based views
