@@ -10,13 +10,15 @@ from django.views.generic import ListView, DetailView
 #? Home, render request home.html
 
 
-#? questionnaire, render request questionnaire.html
+#? user form, render request userform.html
+
+
+#? pet form, render request petform.html
 
 
 #? pet detail, render request pet_detail.html, id param required
 
 
 #? below for create, update & delete views for both pet and user
-
 
 
