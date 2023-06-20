@@ -10,6 +10,7 @@ from django.db import models
 
 
 #? pet prompts as a separate model with a many to many relationship with the pet model
+# user can only choose 3, once all 3 chosen user can't add anymore
 
 
 #? user model
