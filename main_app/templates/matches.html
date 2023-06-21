@@ -1,1 +1,7 @@
-
+{% for match in matches %}
+<div>
+  <h2>{{ match.name }}</h2>
+  <p>{{ match.description }}</p>
+  <!-- Other pet details here -->
+</div>
+{% endfor %}

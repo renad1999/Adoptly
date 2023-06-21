@@ -3,12 +3,31 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import Pet
+from .models import Pet, UserDetails
+
+
+
 
 
 #! Functions
 #? Pawfect matches
     # if score = 3 show pet.name else append
+def find_matches(request):
+  user_id = request.session['user_id']
+  user = UserDetails.objects.get(id=user_id)
+  pets = Pet.objects.all()
+  matches = []
+  for pet in pets:
+    score = 0
+    if user.activity_level == pet.activity_level:
+        score += 1
+    if user.sociability == pet.sociability:
+        score += 1
+    if user.size == pet.size:
+       score += 1
+    if score >= 2:
+       matches.append(pet)
+  return render(request, 'matches.html', {'matches': matches})
 
 #? Login and signup, render request gateway.html
 def signup(request): #! Sign up function, do not touch! - Lou
