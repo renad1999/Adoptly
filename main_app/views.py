@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 #? Pawfect matches
     # if score = 3 show pet.name else append
 
-def signup(request): # Sign up function, do not touch! - Lou
+def signup(request): #! Sign up function, do not touch! - Lou
   error_message = ''
   if request.method == 'POST':
     # This is how to create a 'user' form object
@@ -19,7 +19,7 @@ def signup(request): # Sign up function, do not touch! - Lou
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('index')
+      return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
@@ -27,6 +27,13 @@ def signup(request): # Sign up function, do not touch! - Lou
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+
+def home(request):
+    return render(request, 'home.html')
+
+
+def gateway(request):
+  return render(request, 'gateway.html')
 #! Create your views here.
 
 #? Login, render request login.html

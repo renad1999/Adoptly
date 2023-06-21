@@ -1,0 +1,16 @@
+<!-- Probably no need to extend base.html as login will have restricted access -->
+<!-- Mobile centric approach maybe -->
+
+<!--TODO figure out the links that send the user to the registration signup/login page after clicking login/sign up on the opening page of the app (adoptly sign up page)- LOU -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+    <li><a href="{% url 'login' %}">Log In</a></li>
+  </body>
+</html>
