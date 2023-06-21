@@ -15,6 +15,7 @@ urlpatterns = [
     path('pet/create', views.PetCreate.as_view(), name="pet_create"),
     path('pet/<int:pet_id>/update', views.PetCreate.as_view(), name="pet_update"),
     path('about/', views.about, name="about"),
+    path('profile/settings/', views.user_settings, name="settings"),
 ]
 
 

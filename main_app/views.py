@@ -67,12 +67,33 @@ def about(request):
 #! Class based views
 #? below for create, update & delete views for both pet and user
 
+#? adoption preference forms
 #will we need an if statement for the boolean value of if the user is
-#creating an adopter account or 
+#creating an adopter account or pet account? - KB
 class AdoptionPreferences(CreateView):
   model = AdoptionPreferences
   fields ='__all__'
 
+class AdoptionPreferencesUpdate(UpdateView):
+  model = AdoptionPreferences
+  fields ='__all__'
+
+class AdoptionPreferencesDelete(DeleteView):
+  model = AdoptionPreferences
+  success_url ='/'
+
+#? pet forms
 class PetCreate(CreateView):
   model = PetTable
   fields ='__all__'
+
+class PetUpdate(UpdateView):
+  model = PetTable
+  # Chosen these as the only editable options to update a pet - KB
+  fields =['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost']
+  
+class PetDelete(DeleteView):
+  model = PetTable
+  # maybe need a 'are you sure you wish to delete' or a form option
+  # 'why are you deleting, has  {% pet.name %}  found a new home?' - KB
+  success_url ='/'
