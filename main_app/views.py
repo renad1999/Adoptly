@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import Pet
+from .models import PetTable, AdoptionPreferences
 
 
 #! Functions
@@ -49,10 +49,6 @@ def pet_detail(request, pet_id):
     'pet': pet
   })
 
-#? pet form, render request petform.html
-
-
-#? pet detail, render request pet_detail.html, id param required
 
 
 #! Class based views
@@ -60,10 +56,10 @@ def pet_detail(request, pet_id):
 
 #will we need an if statement for the boolean value of if the user is
 #creating an adopter account or 
-class UserCreate(CreateView):
-  model = unk
+class AdoptionPreferences(CreateView):
+  model = AdoptionPreferences
   fields ='__all__'
 
 class PetCreate(CreateView):
-  model = unk
+  model = PetTable
   fields ='__all__'
