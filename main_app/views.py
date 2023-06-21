@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
+
 #! Functions
 #? Pawfect matches
     # if score = 3 show pet.name else append
