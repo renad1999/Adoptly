@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import Pet, UserDetails
+from .models import PetTable, UserDetails
 
 
 
@@ -15,7 +15,7 @@ from .models import Pet, UserDetails
 def find_matches(request):
   user_id = request.session['user_id']
   user = UserDetails.objects.get(id=user_id)
-  pets = Pet.objects.all()
+  pets = PetTable.objects.all()
   matches = []
   for pet in pets:
     score = 0
@@ -25,6 +25,7 @@ def find_matches(request):
         score += 1
     if user.size == pet.size:
        score += 1
+       
     if score >= 2:
        matches.append(pet)
   return render(request, 'matches.html', {'matches': matches})
