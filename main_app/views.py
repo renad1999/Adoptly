@@ -3,11 +3,13 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from .models import Pet
 
 #! Functions
 #? Pawfect matches
     # if score = 3 show pet.name else append
 
+#? Login and signup, render request gateway.html
 def signup(request): #! Sign up function, do not touch! - Lou
   error_message = ''
   if request.method == 'POST':
@@ -28,24 +30,23 @@ def signup(request): #! Sign up function, do not touch! - Lou
   return render(request, 'registration/signup.html', context)
 
 
-def home(request):
-    return render(request, 'home.html')
-
 
 def gateway(request):
   return render(request, 'gateway.html')
 #! Create your views here.
 
 
-#? Login, render request login.html
-def login(request):
-    return render(request, 'gateway.html')
-
 #? Home, render request home.html
+def home(request):
+    return render(request, 'home.html')
 
 
-#? user form, render request userform.html
-
+#? pet details, render request pets/details.html
+def pet_detail(request, pet_id):
+  pet = Pet.objects.get(id=pet_id)
+  return render(request, 'pets/details.html', {
+    'pet': pet
+  })
 
 #? pet form, render request petform.html
 
@@ -55,3 +56,13 @@ def login(request):
 
 #! Class based views
 #? below for create, update & delete views for both pet and user
+
+#will we need an if statement for the boolean value of if the user is
+#creating an adopter account or 
+class UserCreate(CreateView):
+  model = unk
+  fields ='__all__'
+
+class PetCreate(CreateView):
+  model = unk
+  fields ='__all__'
