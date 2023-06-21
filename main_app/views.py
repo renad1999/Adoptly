@@ -12,11 +12,47 @@ FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
 
 
 
+from formtools.wizard.views import SessionWizardView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
 
+
+#! Forms
+
+PETFORMS = [("name", PetNameForm), 
+         ("Age", PetAgeForm),
+         ("activity", PetActivityForm),
+         ("sociability", PetSociabilityForm),
+         ("size", PetSizeForm),
+         ("weight", PetWeightForm),
+         ("healthStatus", PetHealthStatusForm),
+         ("activity_level", PetEnergyLevelForm),
+         ("vaccinationInformation", PetVaccinationInformationForm),
+         ("monthlyCost", PetMonthlyCostForm),
+]
 
 #! Functions
 #? Pawfect matches
     # if score = 3 show pet.name else append
+def find_matches(request):
+  user_id = request.session['user_id']
+  user = AdoptionPreferences.objects.get(id=user_id)
+  pets = PetTable.objects.all()
+  matches = []
+  for pet in pets:
+    score = 0
+    if user.activityLevel == pet.activity_level:
+        score += 1
+    if user.sociability == pet.sociability:
+        score += 1
+    if user.size == pet.size:
+       score += 1
+       
+    if score >= 2:
+       matches.append(pet)
+  return render(request, 'matches.html', {'matches': matches})
+
 
 #? Login and signup, render request gateway.html
 def signup(request): #! Sign up function, do not touch! - Lou
@@ -46,8 +82,11 @@ def gateway(request):
 
 
 #? Home, render request home.html
-def home(request):
-    return render(request, 'home.html')
+def home(request, pet_id=None):
+    pet = PetTable.objects.get(id=pet_id)
+    return render(request, 'home.html', {
+      'pet': pet
+    })
 
 
 #? pet details, render request pets/details.html
@@ -108,7 +147,8 @@ class PetCreate(CreateView):
 class PetUpdate(UpdateView):
   model = PetTable
   # Chosen these as the only editable options to update a pet - KB
-  fields =['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost']
+  fields =['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost', 
+           'prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3']
   
 class PetDelete(DeleteView):
   model = PetTable
@@ -129,3 +169,34 @@ class QuestionnareWizardView(SessionWizardView):
           setattr(questionnare, field, value)
           questionnare.save()
           return ()
+
+class PetCreateWizard(SessionWizardView):
+    form_list = PETFORMS
+    template_name = 'main_app/pettable_form.html'
+
+    def done(self, form_list, **kwargs):
+      instance = PetTable()
+      instance.user = self.request.user
+      for form in form_list:
+        for field, value in form.cleaned_data.items():
+            setattr(instance, field, value)
+      instance.save()
+      return HttpResponseRedirect(reverse('home'))
+    
+
+class PetNameCreate(CreateView):
+  model = PetTable
+  form_class = PetNameForm
+  template_name = 'pets/PetTable_form.html' 
+
+  def form_valid(self, form):
+      self.object = form.save(commit=False)  # Create the object but don't save to the database yet
+      self.object.user = self.request.user  # Set the user
+      self.object.save()  # Now you can save the object
+      self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
+      return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
+
+  def get_success_url(self):
+      return reverse('home')  
+  
+  
