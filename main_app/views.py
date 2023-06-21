@@ -9,8 +9,10 @@ from django.views.generic import ListView, DetailView
 
 #! Create your views here.
 
-#? Login, render request login.html
 
+#? Login, render request login.html
+def login(request):
+    return render(request, 'gateway.html')
 
 #? Home, render request home.html
 
