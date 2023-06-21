@@ -50,6 +50,19 @@ def pet_detail(request, pet_id):
   })
 
 
+#? Profile settings
+def user_settings(request):
+  return render(request, 'profile_settings.html')
+
+
+#? Pet matches (list of pets already matched with)
+def matches(request):
+  return render(request, 'matches.html')
+
+#? About page
+def about(request):
+  return render(request, 'about.html')
+
 
 #! Class based views
 #? below for create, update & delete views for both pet and user
