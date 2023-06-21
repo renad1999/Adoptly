@@ -23,6 +23,8 @@ from .forms import (
 urlpatterns = [
     path('', views.gateway, name='gateway'), 
     path('home/', views.home, name='home'),
+    path('about/', views.about, name="about"),
+    path('profile/settings/', views.user_settings, name="settings"),
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('matches/', views.matches, name="matches"),
@@ -42,8 +44,6 @@ urlpatterns = [
     PetPromptsForm]), name="pet_create"),
     path('pet/<int:pet_id>/update/', views.PetUpdate.as_view(), name="pet_update"),
     path('pet/<int:pet_id>/delete/', views.PetDelete.as_view(), name="pet_delete"),
-    path('about/', views.about, name="about"),
-    path('profile/settings/', views.user_settings, name="settings"),
     path('user/<int:user_id>/assoc_pet/<int:pet_id>/', views.assoc_pet, name="match"),
     path('user/<int:user_id>/unassoc_pet/<int:pet_id>/', views.unassoc_pet, name="unmatch"),
 ]
