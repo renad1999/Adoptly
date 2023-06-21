@@ -5,6 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import Pet
 
+
 #! Functions
 #? Pawfect matches
     # if score = 3 show pet.name else append
