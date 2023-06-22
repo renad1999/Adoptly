@@ -3,15 +3,14 @@ body.gateway {
     rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 25%), url("/static/images/gateway-hero.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-
-
 
 button.signup {
     display: flex;
     justify-content: center;
-    margin-top: 160vmin;
-    margin-left: 28vmin;
     font-size: 3vmin;
     padding-top: 2vmin;
     padding-bottom: 2vmin;
@@ -21,4 +20,9 @@ button.signup {
     border-radius: 3vmin;
     background-color: orange;
     color: white;
+}
+
+a.login {
+    color: white;
+    text-decoration-line: none;
 }
