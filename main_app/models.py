@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from storages.backends.s3boto3 import S3Boto3Storage
+
 
 #! tuples here
 GENDER_CHOICES = (
@@ -128,7 +130,7 @@ class PetMatch(models.Model):
 
 # #? image model
 class PetImage(models.Model):
-    url = models.URLField(max_length=200)
+    photo = models.ImageField(upload_to='pets/', storage=S3Boto3Storage())
     pet_id = models.ForeignKey(PetTable, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -1,5 +1,5 @@
 from django import forms
-from .models import PetTable, PetImage
+from .models import PetTable
 
 class PetNameForm(forms.ModelForm):
     class Meta:
@@ -85,15 +85,7 @@ class PetMonthlyCostForm(forms.ModelForm):
 
 
 class PetPromptsForm(forms.ModelForm):
-    url = forms.ModelMultipleChoiceField(queryset=PetImage.objects.all(), required=False)
     class Meta:
         model = PetTable
-        fields = ['prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3', 'url']
+        fields = ['prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3']
        
-class PetImageForm(forms.ModelForm):
-    class Meta:
-        model = PetImage
-        fields = ['url']
-        labels = {
-            'url': 'Please upload an image of your pet',
-        }
