@@ -12,7 +12,7 @@ from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm
 
 #! Forms
 
-FORMS = [("name", PetNameForm), 
+PETFORMS = [("name", PetNameForm), 
          ("Age", PetAgeForm),
          ("activity", PetActivityForm),
          ("sociability", PetSociabilityForm),
@@ -129,16 +129,17 @@ class PetDelete(DeleteView):
 
 
 class PetCreateWizard(SessionWizardView):
-    form_list = FORMS
+    form_list = PETFORMS
     template_name = 'main_app/pettable_form.html'
 
     def done(self, form_list, **kwargs):
-        instance = PetTable()
-        for form in form_list:
-            for field, value in form.cleaned_data.items():
-                setattr(instance, field, value)
-        instance.save()
-        return HttpResponseRedirect(reverse('main_app:home'))
+      instance = PetTable()
+      instance.user = self.request.user
+      for form in form_list:
+        for field, value in form.cleaned_data.items():
+            setattr(instance, field, value)
+      instance.save()
+      return HttpResponseRedirect(reverse('home'))
     
 
 class PetNameCreate(CreateView):
@@ -148,8 +149,12 @@ class PetNameCreate(CreateView):
 
   def form_valid(self, form):
       self.object = form.save(commit=False)  # Create the object but don't save to the database yet
+      self.object.user = self.request.user  # Set the user
+      self.object.save()  # Now you can save the object
       self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
       return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
 
   def get_success_url(self):
-      return reverse('/home/')  #! NEED TO DEFINE THIS VIEW AND URL
+      return reverse('home')  
+  
+  
