@@ -11,14 +11,19 @@
     <title>Create Pet</title>
   </head>
   <body>
-    <form method="post">
-      {% csrf_token %} {{ wizard.management_form }} {% if wizard.form.forms %}
-      {{ wizard.form.management_form }} {% for form in wizard.form.forms %} {{
-      form }} {% endfor %} {% else %} {{ wizard.form }} {% endif %}
-      <input type="submit" value=">" class="pet-pp-next" />
-    </form>
-    <p class="pet-pp-create">
-      {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
-    </p>
+    <div class="container">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} {{ wizard.management_form }} {% if wizard.form.forms %}
+        {{ wizard.form.management_form }} {% for form in wizard.form.forms %}
+        <div class="form-group">{{ form }}</div>
+        {% endfor %} {% else %} {{ wizard.form }} {% endif %}
+        <div class="form-group">
+          <input type="submit" value=">" class="pet-pp-next" />
+        </div>
+      </form>
+      <p class="pet-pp-create">
+        {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
+      </p>
+    </div>
   </body>
 </html>

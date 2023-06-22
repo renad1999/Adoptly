@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <form method="POST">
+      {% csrf_token %} {{ form.name.label_tag }} {{ form.name }} {% if
+      form.name.errors %}
+      <div class="error">{{ form.name.errors }}</div>
+      {% endif %}
+      <button type="submit">Next</button>
+    </form>
+  </body>
+</html>

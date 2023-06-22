@@ -1,5 +1,5 @@
 from django import forms
-from .models import PetTable
+from .models import PetTable, PetImage
 
 class PetNameForm(forms.ModelForm):
     class Meta:
@@ -88,4 +88,23 @@ class PetPromptsForm(forms.ModelForm):
     class Meta:
         model = PetTable
         fields = ['prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3']
+        labels = {
+            'prompt1': 'Written Prompts',
+            'prompt2': 'Written Prompts',
+            'prompt3': 'Written Prompts',
+        }
        
+
+class PetImageForm(forms.ModelForm):
+    photo1 = forms.ImageField(label='+')
+    photo2 = forms.ImageField(label='+', required=False)
+    photo3 = forms.ImageField(label='+', required=False)
+
+    class Meta:
+        model = PetImage
+        fields = ['photo1', 'photo2', 'photo3']
+        labels = {
+            'photo1':'+', 
+            'photo2':'+',
+            'photo3':'+',
+        }
