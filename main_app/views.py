@@ -4,6 +4,13 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import PetTable, AdoptionPreferences, UserDetails
+from .forms import AdoptionPreferences, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability
+from formtools.wizard.views import SessionWizardView
+FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
+    ("size", AdoptionPreferencesSize),
+    ("sociability", AdoptionPreferencesSociability), ]
+
+
 
 
 
@@ -108,3 +115,17 @@ class PetDelete(DeleteView):
   # maybe need a 'are you sure you wish to delete' or a form option
   # 'why are you deleting, has  {% pet.name %}  found a new home?' - KB
   success_url ='/'
+
+
+  # questionnare 
+class QuestionnareWizardView(SessionWizardView):
+  form_list = FORMS
+  template_name = 'user/create/'
+
+  def done(self, form_list, **kwargs):
+    questionnare = AdoptionPreferences(user=self.request.user)
+    for form in form_list:
+      for field, value in form.cleaned_data.items():
+          setattr(questionnare, field, value)
+          questionnare.save()
+          return ()

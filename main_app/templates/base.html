@@ -1,26 +1,31 @@
 {% load static %}
 
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="/static/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+
     <title>Adoptly</title>
-  </head>
+ </head>
   <body>
-    <!-- nav bar, for mobile first design will need to be moved to bottom in css -->
-
-
-
-
-
-
+    <header class="navbar-fixed">
+<nav>
+  <div class="nav-wrapper">
+      <a href="{% url 'gateway' %}" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="{% url 'home' %}"><i class="fas fa-home"></i></a></li>
+        <li><a href="{% url 'matches' %}">Matches</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'settings' %}"><i class="fas fa-cog"></i></a></li>
+      </ul>
+    </div>
+</nav>
 
     {% block content %}
     {% endblock %}
