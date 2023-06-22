@@ -58,7 +58,7 @@ def signup(request): #! Sign up function, do not touch! - Lou
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('home')
+      return redirect('user_create')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
