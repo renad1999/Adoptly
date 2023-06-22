@@ -1,6 +1,7 @@
 <!-- Probably no need to extend base.html as login will have restricted access -->
 <!-- Mobile centric approach maybe -->
 {% load static %}
+
 <!--TODO figure out the links that send the user to the registration signup/login page after clicking login/sign up on the opening page of the app (adoptly sign up page)- LOU -->
 <!DOCTYPE html>
 <html lang="en">
@@ -8,10 +9,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
   </head>
   <body class="gateway">
-    <button class="signup"><a href="{% url 'signup' %}">Sign Up</a></button>
+    <button class="signup">
+      <a href="{% url 'signup' %}" class="signup">Sign Up</a>
+    </button>
     <a href="{% url 'login' %}" class="login">Log In</a>
+    <div class="color-overlay"></div>
   </body>
 </html>
