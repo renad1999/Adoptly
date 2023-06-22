@@ -56,7 +56,7 @@ class PetHealthStatusForm(forms.ModelForm):
         model = PetTable
         fields = ['healthStatus']
         labels = {
-            'healthStatus': 'How would you describe your pet\'s wellness?',
+            'healthStatus': 'How would you describe your pet\'s health?',
         }
 
 class PetEnergyLevelForm(forms.ModelForm):
@@ -80,7 +80,7 @@ class PetMonthlyCostForm(forms.ModelForm):
         model = PetTable
         fields = ['monthlyCost']
         labels = {
-            'monthlyCost': 'What do you spend on average each month on essentials for your pet? Think food, vet bills, grooming, etc.',
+            'monthlyCost': 'What do you spend on average each month on essentials for your pet? Think food, vet bills, grooming, etc. £',
         }
 
 
