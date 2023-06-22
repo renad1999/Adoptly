@@ -2,28 +2,28 @@
 
 {% block content %}
 <!-- pet profile page, same layout as the like screen with more info and message option -->
-    <h1> {{ PetTable.name }} </h1>
+    <h1> {{ pet.name }} </h1>
     <div class="img-container" id="img1-container"></div>
-    <div class="prompt-container" id="prompt1-container">{{ PetTable.prompt1 }}</div>
+    <div class="prompt-container" id="prompt1-container">{{ pet.prompt1 }}</div>
     <div class="pet-info-container">
         <ul>
-            <li>{{ PetTable.gender }}</li>
-            <li>{{ PetTable.age }}</li>
-            <li>{{ PetTable.breed }}</li>
-            <li>{{ PetTable.size }}</li>
-            <li>{{ PetTable.weight }}</li>
-            <li>{{ PetTable.activity_level }}</li>
-            <li>{{ PetTable.sociability }}</li>
-            <li>{{ PetTable.energy_level }}</li>
-            <li>{{ PetTable.monthlycost }}</li>
-            <li>{{ PetTable.healthStatus }}</li>
-            <li>{{ PetTable.vaccinationInformation }}</li>
+            <li>{{ pet.gender }}</li>
+            <li>{{ pet.age }}</li>
+            <li>{{ pet.breed }}</li>
+            <li>{{ pet.size }}</li>
+            <li>{{ pet.weight }}</li>
+            <li>{{ pet.activity_level }}</li>
+            <li>{{ pet.sociability }}</li>
+            <li>{{ pet.energy_level }}</li>
+            <li>{{ pet.monthlycost }}</li>
+            <li>{{ pet.healthStatus }}</li>
+            <li>{{ pet.vaccinationInformation }}</li>
         </ul>
     </div>
     <div class="img-container" id="img2container"></div>
-    <div class="prompt-container" id="prompt2container">{{ PetTable.prompt2 }}</div>
+    <div class="prompt-container" id="prompt2container">{{ pet.prompt2 }}</div>
     <div class="img-container" id="img3container"></div>
-    <div class="prompt-container" id="prompt3container">{{ PetTable.prompt3 }}</div>
+    <div class="prompt-container" id="prompt3container">{{ pet.prompt3 }}</div>
     <!-- message btn replaces the like btn from the home page -->
     <div class="message-btn"></div>
     <div class="no-like-btn">

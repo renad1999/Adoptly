@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
@@ -74,10 +74,11 @@ def gateway(request):
 
 
 #? Home, render request home.html
-def home(request, pet_id=None):
-    pet = PetTable.objects.get(id=pet_id)
+def home(request):
+    # pet = PetTable.objects.get(id=pet_id)
+    pets = PetTable.objects.all()
     return render(request, 'home.html', {
-      'pet': pet
+      'pets': pets
     })
 
 
