@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import PetTable, AdoptionPreferences, UserDetails
+from .models import PetTable, AdoptionPreferences, UserDetails, PetImage
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -170,11 +170,14 @@ class PetNameCreate(CreateView):
   template_name = 'pets/PetTable_form.html' 
 
   def form_valid(self, form):
-      self.object = form.save(commit=False)  # Create the object but don't save to the database yet
-      self.object.user = self.request.user  # Set the user
-      self.object.save()  # Now you can save the object
-      self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
-      return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
+    self.object = form.save(commit=False)  # Create the object but don't save to the database yet
+    self.object.user = self.request.user  # Set the user
+    self.object.save()  # Now you can save the object
+    for url in form.cleaned_data['url']:
+        PetImage.objects.create(url=url, pet_id=self.object)
+    self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
+    return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
+
 
   def get_success_url(self):
       return reverse('home')  
