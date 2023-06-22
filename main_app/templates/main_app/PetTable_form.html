@@ -1,4 +1,20 @@
-
 <!-- for the creation of pet's for adoption -->
 <!-- if object (edit) else (add) -->
 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Create Pet</h2>
+    <form method="post">
+      {% csrf_token %} {{ wizard.management_form }} {% if wizard.form.forms %}
+      {{ wizard.form.management_form }} {% for form in wizard.form.forms %} {{
+      form }} {% endfor %} {% else %} {{ wizard.form }} {% endif %}
+      <input type="submit" />
+    </form>
+  </body>
+</html>

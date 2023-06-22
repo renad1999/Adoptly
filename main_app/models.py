@@ -36,6 +36,30 @@ SIZE_CHOICES = (
     ('L', 'Large'),
 )
 
+PROMPT_CHOICES = [
+    ('a', 'If your pet had a catchphrase, what would it be?'),
+    ('b', "What's the funniest thing your pet has ever done?"),
+    ('c', "If your pet was a character from a movie or book, who would they be and why?"),
+    ('d', "Can you describe a time when your pet was surprisingly clever?"),
+    ('e', "What's your pet's favorite 'toy' that isn't actually a toy?"),
+    ('f', "How does your pet act when they want your attention?"),
+    ('g', "How does your pet show they're happy?"),
+    ('h', "If your pet could talk for 60 seconds, what do you think they would say?"),
+    ('i', "How would your pet react to seeing their reflection in the mirror?"),
+    ('j', "What activity does your pet love so much that they'd do it for hours"),
+    ('k', "If your pet could have a superpower, based on their personality, what would it be?"),
+    ('l', "What's the most peculiar habit your pet has?"),
+    ('m', "How does your pet act when they meet new people or animals?"),
+    ('n', "If your pet had a job, based on their personality, what would it be?"),
+    ('o', "What song would be your pet's personal theme song?"),
+    ('p', "What human food does your pet beg for the most?"),
+    ('q', "Can you describe a situation in which your pet acted bravely?"),
+    ('r', "How would your pet react if they saw a squirrel in the backyard?"),
+    ('s', "What's the most unusual friendship your pet has struck up with another animal?"),
+    ('t', "If your pet could choose a vacation destination, where would it be?"),
+    # Add more prompts here...
+]
+
 #! Models go below.
 #? user model
 # login info
@@ -81,6 +105,12 @@ class PetTable(models.Model):
         choices=VACCINATION_CHOICES,
     )
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2)
+    prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    a1 = models.TextField(max_length=250, null=True)
+    prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    a2 = models.TextField(max_length=250, null=True)
+    prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    a3 = models.TextField(max_length=250, null=True)
 
     #? PET MATCH
 # use perfect match scoring of 1 - 0 to help push perfect matches to the top of the matches list
