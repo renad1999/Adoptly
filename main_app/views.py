@@ -7,18 +7,19 @@ from .models import PetTable, AdoptionPreferences, UserDetails
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetActivityLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm
+from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
 
 
 #! Forms
 
 FORMS = [("name", PetNameForm), 
+         ("Age", PetAgeForm),
          ("activity", PetActivityForm),
          ("sociability", PetSociabilityForm),
          ("size", PetSizeForm),
          ("weight", PetWeightForm),
          ("healthStatus", PetHealthStatusForm),
-         ("activity_level", PetActivityLevelForm),
+         ("activity_level", PetEnergyLevelForm),
          ("vaccinationInformation", PetVaccinationInformationForm),
          ("monthlyCost", PetMonthlyCostForm),
 ]
@@ -151,4 +152,4 @@ class PetNameCreate(CreateView):
       return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
 
   def get_success_url(self):
-      return reverse('')  #! NEED TO DEFINE THIS VIEW AND URL
+      return reverse('/home/')  #! NEED TO DEFINE THIS VIEW AND URL

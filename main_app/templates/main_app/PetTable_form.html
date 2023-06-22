@@ -6,15 +6,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Create Pet</title>
   </head>
   <body>
-    <h2>Create Pet</h2>
     <form method="post">
       {% csrf_token %} {{ wizard.management_form }} {% if wizard.form.forms %}
       {{ wizard.form.management_form }} {% for form in wizard.form.forms %} {{
       form }} {% endfor %} {% else %} {{ wizard.form }} {% endif %}
-      <input type="submit" />
+      <input type="submit" value=">" class="pet-pp-next" />
     </form>
+    <p class="pet-pp-create">
+      {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
+    </p>
   </body>
 </html>

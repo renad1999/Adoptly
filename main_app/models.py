@@ -19,6 +19,12 @@ ACTIVITY_LEVEL_CHOICES = (
     ('high', 'High'),
 )
 
+ENERGY_LEVEL_CHOICES = (
+    ('low', 'Very Energetic'),
+    ('moderate', 'Medium'),
+    ('high', 'Chill'),
+)
+
 VACCINATION_CHOICES = (
     ('N', 'No'),
     ('Y', 'Fully Vaccinated'),
@@ -100,6 +106,7 @@ class PetTable(models.Model):
     weight = models.FloatField()
     healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES)
     activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES)
+    energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
     vaccinationInformation = models.CharField(
         max_length=1,
         choices=VACCINATION_CHOICES,
