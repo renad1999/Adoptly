@@ -9,6 +9,23 @@ from .models import PetTable, AdoptionPreferences, UserDetails
 #! Functions
 #? Pawfect matches
     # if score = 3 show pet.name else append
+def find_matches(request):
+  user_id = request.session['user_id']
+  user = AdoptionPreferences.objects.get(id=user_id)
+  pets = PetTable.objects.all()
+  matches = []
+  for pet in pets:
+    score = 0
+    if user.activityLevel == pet.activity_level:
+        score += 1
+    if user.sociability == pet.sociability:
+        score += 1
+    if user.size == pet.size:
+       score += 1
+       
+    if score >= 2:
+       matches.append(pet)
+  return render(request, 'matches.html', {'matches': matches})
 
 
 #? Login and signup, render request gateway.html
