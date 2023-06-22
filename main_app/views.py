@@ -4,7 +4,25 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import PetTable, AdoptionPreferences, UserDetails
+from formtools.wizard.views import SessionWizardView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
 
+
+#! Forms
+
+PETFORMS = [("name", PetNameForm), 
+         ("Age", PetAgeForm),
+         ("activity", PetActivityForm),
+         ("sociability", PetSociabilityForm),
+         ("size", PetSizeForm),
+         ("weight", PetWeightForm),
+         ("healthStatus", PetHealthStatusForm),
+         ("activity_level", PetEnergyLevelForm),
+         ("vaccinationInformation", PetVaccinationInformationForm),
+         ("monthlyCost", PetMonthlyCostForm),
+]
 
 #! Functions
 #? Pawfect matches
@@ -56,7 +74,7 @@ def gateway(request):
 
 
 #? Home, render request home.html
-def home(request, pet_id):
+def home(request, pet_id=None):
     pet = PetTable.objects.get(id=pet_id)
     return render(request, 'home.html', {
       'pet': pet
@@ -129,3 +147,36 @@ class PetDelete(DeleteView):
   # maybe need a 'are you sure you wish to delete' or a form option
   # 'why are you deleting, has  {% pet.name %}  found a new home?' - KB
   success_url ='/'
+
+
+
+class PetCreateWizard(SessionWizardView):
+    form_list = PETFORMS
+    template_name = 'main_app/pettable_form.html'
+
+    def done(self, form_list, **kwargs):
+      instance = PetTable()
+      instance.user = self.request.user
+      for form in form_list:
+        for field, value in form.cleaned_data.items():
+            setattr(instance, field, value)
+      instance.save()
+      return HttpResponseRedirect(reverse('home'))
+    
+
+class PetNameCreate(CreateView):
+  model = PetTable
+  form_class = PetNameForm
+  template_name = 'pets/PetTable_form.html' 
+
+  def form_valid(self, form):
+      self.object = form.save(commit=False)  # Create the object but don't save to the database yet
+      self.object.user = self.request.user  # Set the user
+      self.object.save()  # Now you can save the object
+      self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
+      return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
+
+  def get_success_url(self):
+      return reverse('home')  
+  
+  
