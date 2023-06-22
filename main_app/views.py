@@ -56,7 +56,7 @@ def gateway(request):
 
 
 #? Home, render request home.html
-def home(request, pet_id):
+def home(request, pet_id=None):
     pet = PetTable.objects.get(id=pet_id)
     return render(request, 'home.html', {
       'pet': pet
