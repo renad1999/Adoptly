@@ -8,6 +8,10 @@ class PetNameForm(forms.ModelForm):
         labels = {
             'name': 'What is your pet\'s name?',
         }
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'my-label-class'}),
+            'name': forms.
+        }
 
 
 class PetActivityForm(forms.ModelForm):
@@ -17,6 +21,9 @@ class PetActivityForm(forms.ModelForm):
         labels = {
             'activity_level': 'How much does your dog like being walked?',
         }
+        widgets = {
+            'activity_level': forms.RadioSelect,
+        }
 
 class PetSociabilityForm(forms.ModelForm):
     class Meta:
@@ -25,6 +32,9 @@ class PetSociabilityForm(forms.ModelForm):
         labels = {
             'sociability': 'How social is your pet?',
         }
+        widgets = {
+            'sociability': forms.RadioSelect,
+        }
 
 class PetSizeForm(forms.ModelForm):
     class Meta:
@@ -32,6 +42,9 @@ class PetSizeForm(forms.ModelForm):
         fields = ['size']
         labels = {
             'size': 'What size is your pet?',
+        }
+        widgets = {
+            'size': forms.RadioSelect,
         }
 
 class PetAgeForm(forms.ModelForm):
@@ -58,6 +71,9 @@ class PetHealthStatusForm(forms.ModelForm):
         labels = {
             'healthStatus': 'How would you describe your pet\'s health?',
         }
+        widgets = {
+            'healthStatus': forms.RadioSelect,
+        }
 
 class PetEnergyLevelForm(forms.ModelForm):
     class Meta:
@@ -66,6 +82,9 @@ class PetEnergyLevelForm(forms.ModelForm):
         labels = {
             'energy_level': 'How would you describe your pet\'s energy levels?',
         }
+        widgets = {
+            'energy_level': forms.RadioSelect,
+        }
 
 class PetVaccinationInformationForm(forms.ModelForm):
     class Meta:
@@ -73,6 +92,9 @@ class PetVaccinationInformationForm(forms.ModelForm):
         fields = ['vaccinationInformation']
         labels = {
             'vaccinationInformation': 'Is your pet vaccinated?',
+        }
+        widgets = {
+            'vaccinationInformation': forms.RadioSelect,
         }
 
 class PetMonthlyCostForm(forms.ModelForm):

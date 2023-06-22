@@ -10,16 +10,14 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>Create Pet</title>
   </head>
-  <body>
+  <body class="pet-pp-create">
     <div class="container">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %} {{ wizard.management_form }} {% if wizard.form.forms %}
         {{ wizard.form.management_form }} {% for form in wizard.form.forms %}
         <div class="form-group">{{ form }}</div>
         {% endfor %} {% else %} {{ wizard.form }} {% endif %}
-        <div class="form-group">
-          <input type="submit" value=">" class="pet-pp-next" />
-        </div>
+        <input type="submit" value=">" class="pet-pp-next" />
       </form>
       <p class="pet-pp-create">
         {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
