@@ -3,10 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import PetTable, UserDetails, AdoptionPreferences
-
-
-
+from .models import PetTable, AdoptionPreferences, UserDetails
 
 
 #! Functions
@@ -64,26 +61,67 @@ def home(request):
 
 #? pet details, render request pets/details.html
 def pet_detail(request, pet_id):
-  pet = Pet.objects.get(id=pet_id)
+  pet = PetTable.objects.get(id=pet_id)
   return render(request, 'pets/details.html', {
     'pet': pet
   })
 
-#? pet form, render request petform.html
+
+#? Profile settings
+def user_settings(request):
+  return render(request, 'profile_settings.html')
 
 
-#? pet detail, render request pet_detail.html, id param required
+#? Pet matches (list of pets already matched with)
+def matches(request):
+  return render(request, 'matches.html')
 
+#? About page
+def about(request):
+  return render(request, 'about.html')
+
+
+#? Matching func 
+def assoc_pet(request, user_id, pet_id):
+  UserDetails.objects.get(id=user_id).PetTable.add(pet_id)
+  return redirect(home, user_id=user_id)
+
+#? Unmatching func
+def unassoc_pet(request, user_id, pet_id):
+  UserDetails.objects.get(id=user_id).PetTable.remove(pet_id)
+  return redirect('home', user_id=user_id)
 
 #! Class based views
 #? below for create, update & delete views for both pet and user
 
+#? adoption preference forms
 #will we need an if statement for the boolean value of if the user is
-#creating an adopter account or 
-class UserCreate(CreateView):
-  model = unk
+#creating an adopter account or pet account? - KB
+class AdoptionPreferences(CreateView):
+  model = AdoptionPreferences
   fields ='__all__'
 
-class PetCreate(CreateView):
-  model = unk
+class AdoptionPreferencesUpdate(UpdateView):
+  model = AdoptionPreferences
   fields ='__all__'
+
+class AdoptionPreferencesDelete(DeleteView):
+  model = AdoptionPreferences
+  success_url ='/'
+
+#? pet forms
+class PetCreate(CreateView):
+  model = PetTable
+  fields ='__all__'
+
+class PetUpdate(UpdateView):
+  model = PetTable
+  # Chosen these as the only editable options to update a pet - KB
+  fields =['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost', 
+           'prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3']
+  
+class PetDelete(DeleteView):
+  model = PetTable
+  # maybe need a 'are you sure you wish to delete' or a form option
+  # 'why are you deleting, has  {% pet.name %}  found a new home?' - KB
+  success_url ='/'
