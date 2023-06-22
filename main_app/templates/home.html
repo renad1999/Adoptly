@@ -2,12 +2,13 @@
 
 {% block content %}
 <!-- for match in pawfect matches -->
-<!-- like and dislike buttons sit here -->
 
     {% if UserDetails.adopter == True %}
     <h1> {{ PetTable.name }} </h1>
     <div class="img-container" id="img1-container"></div>
     <div class="prompt-container" id="prompt1-container">{{ PetTable.prompt1 }}</div>
+    <!-- Do we need this much info on the matching/home page when we have all this in
+    the pet details page? - KB -->
     <div class="pet-info-container">
         <ul>
             <li>{{ PetTable.gender }}</li>
@@ -25,8 +26,14 @@
     <div class="prompt-container" id="prompt2container">{{ PetTable.prompt2 }}</div>
     <div class="img-container" id="img3container"></div>
     <div class="prompt-container" id="prompt3container">{{ PetTable.prompt3 }}</div>
-    <div class="like-btn"></div>
-    <div class="no-like-btn"></div>
+    <!-- like and dislike buttons sit here - KB -->
+    <!-- should float as the user scrolls - KB -->
+    <div class="like-btn">
+        <a href="{% url 'match' %}"></a>
+    </div>
+    <div class="no-like-btn">
+        <a href="{% url 'unmatch' %}"></a>
+    </div>
     <!-- If not a pet adopter you won't see the list of potential matches - KB -->
     {% else %}
     <h1>The user test</h1>
