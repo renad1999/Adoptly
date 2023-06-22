@@ -9,6 +9,24 @@ from .models import PetTable, AdoptionPreferences, UserDetails
 #! Functions
 #? Pawfect matches
     # if score = 3 show pet.name else append
+def pawfect_match(AdoptionPreferences, PetTable):
+  user_pref = AdoptionPreferences.objects.get(user=user)
+  pet = PetTable.objects.get(id=id)
+  match_counter = 0
+  if user_pref.activityLevel == pet.activity_level:
+    match_counter += 1
+  else:
+    match_counter + 0
+  if user_pref.sociability == pet.sociability:
+    match_counter += 1
+  else:
+    match_counter + 0
+  if user_pref.size == pet.size:
+    match_counter += 1
+  else:
+    match_counter + 0
+
+
 
 #? Login and signup, render request gateway.html
 def signup(request): #! Sign up function, do not touch! - Lou
