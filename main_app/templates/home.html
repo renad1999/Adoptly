@@ -4,31 +4,38 @@
 <!-- for match in pawfect matches -->
 <!-- like and dislike buttons sit here -->
     {% if UserDetails.adopter == True %}
-        <h1> {% PetTable.name %} </h1>
-        <div class="img-container" id="img1-container"></div>
-        <div class="prompt-container" id="prompt1-container">{% PetTable.prompt1 %}</div>
-        <div class="pet-info-container">
-            <ul>
-                <li>{% PetTable.gender %}</li>
-                <li>{% PetTable.age %}</li>
-                <li>{% PetTable.breed %}</li>
-                <li>{% PetTable.size %}</li>
-                <li>{% PetTable.weight %}</li>
-                <li>{% PetTable.activity_level %}</li>
-                <li>{% PetTable.sociability %}</li>
-                <li>{% PetTable.monthlycost %}</li>
-                <li>{% PetTable.vaccinationInformation %}</li>
-            </ul>
-        </div>
-        <div class="img-container" id="img2container"></div>
-        <div class="prompt-container" id="prompt2container">{% PetTable.prompt2 %}</div>
-        <div class="img-container" id="img3container"></div>
-        <div class="prompt-container" id="prompt3container">{% PetTable.prompt2 %}</div>
-        <div class="like-btn"></div>
-        <div class="no-like-btn"></div>
-        <!-- If not a pet adopter you won't see the list of potential matches - KB -->
+    <h1>name: {% pet.name %}</h1>
+    {% else %}
+    <h2>This still worked</h2>
+    {% endif %}
+
+    {% if UserDetails.adopter == True %}
+    <h1> {% PetTable.name %} </h1>
+    <div class="img-container" id="img1-container"></div>
+    <div class="prompt-container" id="prompt1-container">{% PetTable.prompt1 %}</div>
+    <div class="pet-info-container">
+        <ul>
+            <li>{% PetTable.gender %}</li>
+            <li>{% PetTable.age %}</li>
+            <li>{% PetTable.breed %}</li>
+            <li>{% PetTable.size %}</li>
+            <li>{% PetTable.weight %}</li>
+            <li>{% PetTable.activity_level %}</li>
+            <li>{% PetTable.sociability %}</li>
+            <li>{% PetTable.monthlycost %}</li>
+            <li>{% PetTable.vaccinationInformation %}</li>
+        </ul>
+    </div>
+    <div class="img-container" id="img2container"></div>
+    <div class="prompt-container" id="prompt2container">{% PetTable.prompt2 %}</div>
+    <div class="img-container" id="img3container"></div>
+    <div class="prompt-container" id="prompt3container">{% PetTable.prompt3 %}</div>
+    <div class="like-btn"></div>
+    <div class="no-like-btn"></div>
+    <!-- If not a pet adopter you won't see the list of potential matches - KB -->
     {% else %}
     <h1>The user test</h1>
     {% endif %}
+
 
 {% endblock %}
