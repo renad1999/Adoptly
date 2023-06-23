@@ -1,4 +1,3 @@
-
 import boto3
 import uuid
 import os
@@ -8,32 +7,20 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-<<<<<<< HEAD
 from .models import PetTable, AdoptionPreferences, UserDetails, PetImage
-=======
 from .models import PetTable, AdoptionPreferences, UserDetails
 from .forms import AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, UserChoiceForm
-from formtools.wizard.views import SessionWizardView
 FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
     ("size", AdoptionPreferencesSize),
     ("sociability", AdoptionPreferencesSociability),
      ("energyLevel", AdoptionPreferencesEnergy),
      ("Are you a pet owner?", UserChoiceForm)]
-
-
-
->>>>>>> a375687f06f76c2a254b4946854d2ce21eb7a5bb
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, PetImageForm, PetPromptsForm, PetImageForm
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> a375687f06f76c2a254b4946854d2ce21eb7a5bb
 #! Forms
 
 PETFORMS = [("name", PetNameForm), 
@@ -49,10 +36,6 @@ PETFORMS = [("name", PetNameForm),
          ("prompts", PetPromptsForm),
          ("image", PetImageForm)
 ]
-<<<<<<< HEAD
->>>>>>> development
-=======
->>>>>>> a375687f06f76c2a254b4946854d2ce21eb7a5bb
 
 #! Functions
 #? Pawfect matches
@@ -77,7 +60,7 @@ def find_matches(request):
 
 
 #? Login and signup, render request gateway.html
-def signup(request): #! Sign up function, do not touch! - Lou
+def signup(request): #! Sign up function
   error_message = ''
   if request.method == 'POST':
     # This is how to create a 'user' form object
@@ -89,6 +72,7 @@ def signup(request): #! Sign up function, do not touch! - Lou
       # This is how we log a user in via code
       login(request, user)
       return redirect('user_create')
+    
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
@@ -192,31 +176,8 @@ class AdoptionPreferencesWizard(SessionWizardView):
       for field, value in form.cleaned_data.items():
           setattr(instance, field, value)
           instance.save()
-          return HttpResponseRedirect(reverse(''))
+          return HttpResponseRedirect(reverse('home'))
 
-
-
-# class PetCreateWizard(SessionWizardView):
-#     form_list = PETFORMS
-#     template_name = 'main_app/pettable_form.html'
-
-#     def get_form(self, step=None, data=None, files=None):
-#         form = super(PetCreateWizard, self).get_form(step, data, files)
-
-#         # add form for photo upload if it's the last step
-#         if step == '3':
-#             form = PetImageForm(data, files)
-#         return form
-
-#     def done(self, form_list, **kwargs):
-#       instance = PetTable()
-#       instance.user = self.request.user
-#       for form in form_list:
-#         for field, value in form.cleaned_data.items():
-#             setattr(instance, field, value)
-#       instance.save()
-#       return HttpResponseRedirect(reverse('home'))
-    
 
 class PetCreateWizard(SessionWizardView):
     form_list = PETFORMS
@@ -237,7 +198,6 @@ class PetCreateWizard(SessionWizardView):
         return form
 
     def done(self, form_list, **kwargs):
-<<<<<<< HEAD
         instance = PetTable()
         instance.user = self.request.user
         for form in form_list:
@@ -268,42 +228,35 @@ class PetCreateWizard(SessionWizardView):
             else:
                 for field, value in form.cleaned_data.items():
                     setattr(instance, field, value)
-
         instance.save()
         return HttpResponseRedirect(reverse('home'))
 
-=======
-      instance = PetTable()
-      instance.user = self.request.user
-      for form in form_list:
-        for field, value in form.cleaned_data.items():
-            setattr(instance, field, value)
-      instance.save()
-      return HttpResponseRedirect(reverse(''))
->>>>>>> a375687f06f76c2a254b4946854d2ce21eb7a5bb
-    
-    def get_form_step_data(self, form):
-        data = super().get_form_step_data(form)
+  
 
-        # If form is an instance of PetImageForm then append files data as well
-        if isinstance(form, PetImageForm):
-            data.update(self.get_form_step_files(form))
-        return data
+    def get_form_step_data(self, form):
+      data = super().get_form_step_data(form)
+
+
+    # If form is an instance of PetImageForm then append files data as well
+      if isinstance(form, PetImageForm):
+        data.update(self.get_form_step_files(form))
+      return data
 
 class PetNameCreate(CreateView):
-  model = PetTable
-  form_class = PetNameForm
-  template_name = 'pets/PetTable_form.html' 
+    model = PetTable
+    form_class = PetNameForm
+    template_name = 'pets/PetTable_form.html'
 
-  def form_valid(self, form):
-      self.object = form.save(commit=False)  # Create the object but don't save to the database yet
-      self.object.user = self.request.user  # Set the user
-      self.object.save()  # Now you can save the object
-      self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
-      return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
+def form_valid(self, form):
+    self.object = form.save(commit=False)  # Create the object but don't save to the database yet
+    self.object.user = self.request.user  # Set the user
+    self.object.save()  # Now you can save the object
+    self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
+    return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
 
-  def get_success_url(self):
-      return reverse('home')  
+def get_success_url(self):
+    return reverse('home')
+
   
   
 
@@ -311,7 +264,7 @@ class AdoptionPreferencesCreateView(CreateView):
     model = AdoptionPreferences
     form_class = AdoptionPreferencesForm
     template_name = 'main_app/adoptionpreferences_form.html'
-
+    success_url = '/home'
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
