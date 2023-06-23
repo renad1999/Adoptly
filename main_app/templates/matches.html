@@ -3,11 +3,15 @@
 {% block content %}
 
   {% for match in matches %}
-  <div>
-    <h2>{{ match.name }}</h2>
-    <p>{{ match.description }}</p>
-    <!-- Other pet details here -->
-  </div>
+  <a href="{% url 'pet_details' %}">
+    <div class="match-container">
+      <div class="match-image"></div>
+      <h2>{{ match.name }}</h2>
+      <p>{{ match.description }}</p>
+      <p>{{ match.age }}</p>
+      <!-- Other pet details here -->
+    </div>
+  </a>
   {% endfor %}
 
 {% endblock %}
