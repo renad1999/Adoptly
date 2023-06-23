@@ -1,3 +1,24 @@
-
 <!-- for the user to complete their questionnaire and preferences -->
 <!-- if object (edit) else (add) -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Questionnaire</title>
+  </head>
+  <body>
+
+    <form method="post" id="wizard-form">
+      {% csrf_token %} {{ wizard.management_form }} {% if wizard.form.forms %}
+      {{ wizard.form.management_form }} {% for form in wizard.form.forms %} {{
+      form }} {% endfor %} {% else %} {{ wizard.form }} {% endif %}
+      <input type="submit" value=">" class="petpref-pp-next" />
+    </form>
+    <p class="petpref-pp-create">
+      {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
+    </p>
+  </body>
+</html>
