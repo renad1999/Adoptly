@@ -16,10 +16,13 @@
         {% if wizard.form.forms %} {{ wizard.form.management_form }}
         <!-- Loop through the forms in the wizard -->
         {% for form in wizard.form.forms %}
+
         <!-- Loop through the fields in the form -->
         {% for field in form %}
         <div class="form-group">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          <label for="{{ field.id_for_label }}" class="new-class"
+            >{{ field.label }}</label
+          >
           {{ field.errors }} {{ field.help_text }} {{ field }}
         </div>
         <!-- End of field loop -->
@@ -28,7 +31,7 @@
         {% endfor %}
         <!-- If there are no forms in the wizard -->
         {% else %} {{ wizard.form }} {% endif %}
-        <input type="submit" value=">" class="pet-pp-next" />
+        <input type="submit" value=">" id="pet-pp-next" />
       </form>
       <p class="pet-pp-create">
         {{ wizard.steps.step1 }} / {{ wizard.steps.count }}

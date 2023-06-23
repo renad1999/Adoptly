@@ -5,7 +5,7 @@ class PetNameForm(forms.ModelForm):
     class Meta:
         model = PetTable
         fields = ['name']
-        labels = {
+        label = {
             'name': 'What is your pet\'s name?',
         }
         widgets = {
@@ -24,17 +24,19 @@ class PetNameForm(forms.ModelForm):
 
 
 class PetActivityForm(forms.ModelForm):
+    # title = 'How much does your dog like being walked?'
     class Meta:
         model = PetTable
         fields = ['activity_level']
-        labels = {
+        label = {
             'activity_level': 'How much does your dog like being walked?',
         }
         widgets = {
-            'activity_level': forms.RadioSelect(attrs={'id': 'pet-create-radio'}),
+            'activity_level': forms.RadioSelect(attrs={'class': 'my-input-class'}), 
         }
 
     def __init__(self, *args, **kwargs):
+        # self.title = kwargs.pop('title', '')
         super(PetActivityForm, self).__init__(*args, **kwargs)
 
         # specific field

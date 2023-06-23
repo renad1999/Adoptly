@@ -52,8 +52,8 @@ a.signup {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* next button */
-input.pet-pp-next {    
+/* NEXT button */
+input#pet-pp-next {    
     margin-top: 1rem;
     padding: 3vmin 5vmin;
     background-color: #fab005;
@@ -62,9 +62,9 @@ input.pet-pp-next {
     border-radius: 10vmin;
     cursor: pointer;
     font-size: 8vmin;
-    position: relative;
-    top: 40vmin;
-    left: 5vmin;
+    position: fixed;
+    top: 165vmin;
+    left: 70vmin;
 }
 
 .container {
@@ -111,9 +111,10 @@ input.pet-pp-next {
 p.pet-pp-create {
     font-weight: 100;
     font-size: 2vmin;
-    position: static;
-    margin-top: 45vmin;
+    position: fixed;
+    margin-top: 125vmin;
     color: #aaa;
+    margin-left: 20vmin;
 }
 
 /* pet name question input field*/
@@ -148,7 +149,8 @@ input#cost_q.name_q
     margin-bottom: 0.5rem;
 }
 /* Title questions on pet form */
-label[for=pet_name], label[for=id_1-age] {
+label[for=pet_name], 
+label[for=id_1-age] {
     font-family: 'Open Sans', sans-serif;
     font-size: 10vmin;
     font-weight: 300;
@@ -157,8 +159,22 @@ label[for=pet_name], label[for=id_1-age] {
     justify-content: start;
     text-align: start;
     width: 80vmin;
-    margin-top: 30vmin;
-    margin-bottom: 15vmin;
+    margin-top: 20vmin;
+    margin-bottom:20vmin;
+}
+
+label[for=activity],
+form>label
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10vmin;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    width: 80vmin;
+    margin-top: 20vmin;
 }
 
 label[for=cost_q] {
@@ -186,6 +202,7 @@ label[for=pet_name_2], label[for=pet_name_1], label[for=pet_name_0] {
     margin-top: 2vmin;
 }
 
+
 /* multiple choice answers on activity form */
 div#activity.name_q, 
 div#sociability.name_q, 
@@ -197,7 +214,6 @@ div#vaccinationInformation.name_q
     display: flex;
     flex-direction: column;
     gap: 3vmin;
-    margin-top: 20vmin;
     background: white;
     cursor: pointer;
     padding: 15vmin;
@@ -303,11 +319,13 @@ textarea#id_10-a3
 /* Prompt selection */
 select#id_10-prompt1,
 select#id_10-prompt2,
-select#id_10-prompt3 {
+select#id_10-prompt3,
+select#activity.name_q
+ {
     cursor: text;
     margin-bottom: 5vmin;
     width: 80vmin;
-    height: 8vmin;
+    height: 10vmin;
     font-size: 13px;
     padding: 10px 8px 10px 14px;
     background: #fff;
@@ -327,4 +345,12 @@ label[for=id_10-prompt3] {
     width: 80vmin;
     font-size: 4vmin;
     color: #7c7c7c;
+}
+
+option[value="a"]
+{
+    font-size:10vmin;
+}
+input[type=text] {
+    font-size: 10vmin;
 }
