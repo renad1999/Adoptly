@@ -14,12 +14,13 @@ from .forms import (
     PetActivityForm,
     PetSociabilityForm, 
     PetSizeForm,
-    PetWeightForm, 
+    # PetWeightForm, 
     PetHealthStatusForm,
     PetEnergyLevelForm, 
     PetVaccinationInformationForm, 
-    PetMonthlyCostForm, 
-    PetPromptsForm
+    # PetMonthlyCostForm, 
+    PetPromptsForm, 
+    PetImageForm
 )
 
 
@@ -38,16 +39,17 @@ urlpatterns = [
     path('user/create/', views.AdoptionPreferencesWizard.as_view([AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy]), name="user_create"),
     path('user/<int:user_id>/update/', views.AdoptionPreferencesUpdate.as_view(), name="user_update"),
     path('user/<int:user_id>/delete/', views.AdoptionPreferencesDelete.as_view(), name="user_delete"),
-    path('pet/create/', views.PetCreateWizard.as_view([PetNameForm, PetAgeForm,
+    path('pet/create/', views.PetCreateWizard.as_view([PetNameForm, 
+    PetAgeForm,
     PetActivityForm,
     PetSociabilityForm, 
     PetSizeForm,
-    PetWeightForm, 
+    # PetWeightForm, 
     PetHealthStatusForm,
     PetEnergyLevelForm, 
     PetVaccinationInformationForm, 
-    PetMonthlyCostForm, 
-    PetPromptsForm]), name="pet_create"),
+    # PetMonthlyCostForm, 
+    PetPromptsForm, PetImageForm]), name="pet_create"),
     path('pet/<int:pet_id>/update/', views.PetUpdate.as_view(), name="pet_update"),
     path('pet/<int:pet_id>/delete/', views.PetDelete.as_view(), name="pet_delete"),
     path('user/<int:user_id>/assoc_pet/<int:pet_id>/', views.assoc_pet, name="match"),

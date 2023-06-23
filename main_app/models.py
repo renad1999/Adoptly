@@ -89,7 +89,7 @@ class AdoptionPreferences(models.Model):
     energyLevel = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
 
 
-#? PET TABLE MODEL
+#? PET TABLE MODELz
 # name, species, breed, age, description charfields
 # user can only choose 3 prompts, once all 3 chosen user can't add anymore
 class PetTable(models.Model):
@@ -113,12 +113,24 @@ class PetTable(models.Model):
     )
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2)
     prompt1 = models.CharField(max_length=255, choices=PROMPT_CHOICES, null=True)
+    prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='a')
     a1 = models.TextField(max_length=250, null=True)
-    prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='b')
     a2 = models.TextField(max_length=250, null=True)
-    prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='c')
     a3 = models.TextField(max_length=250, null=True)
 
+#? ADOPTION PREFERENCES
+# activity levels, sociability, size, is_owner charfields
+class AdoptionPreferences(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activityLevel = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES)
+    sociability = models.CharField(max_length=50, choices=SOCIABILITY_CHOICES)
+    size = models.CharField(
+        max_length=1, 
+        choices=SIZE_CHOICES)
+    liked_pets = models.ManyToManyField(PetTable, related_name='liked_by_users')
+    
     #? PET MATCH
 # use perfect match scoring of 1 - 0 to help push perfect matches to the top of the matches list
 class PetMatch(models.Model):
