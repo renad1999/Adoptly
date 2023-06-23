@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from storages.backends.s3boto3 import S3Boto3Storage
 
-
 #! tuples here
 GENDER_CHOICES = (
     ('M', 'Male'),
@@ -95,25 +94,25 @@ class AdoptionPreferences(models.Model):
 # user can only choose 3 prompts, once all 3 chosen user can't add anymore
 class PetTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=50, choices=GENDER_CHOICES, default='M')
-    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES, default='introvert')
+    name = models.CharField(max_length=255)
+    gender = models.CharField(max_length=255, choices=GENDER_CHOICES, default='M')
+    sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='introvert')
     age = models.IntegerField()
     breed = models.TextField(max_length=100) 
     size = models.CharField(
-        max_length=50,
+        max_length=255,
         choices=SIZE_CHOICES, default='S'
     )
     weight = models.FloatField()
     healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES, default='good health')
-    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES, default='low')
-    energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
+    activity_level = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
+    energy_level = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
     vaccinationInformation = models.CharField(
         max_length=1,
         choices=VACCINATION_CHOICES, default='N'
     )
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2)
-    prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    prompt1 = models.CharField(max_length=255, choices=PROMPT_CHOICES, null=True)
     a1 = models.TextField(max_length=250, null=True)
     prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
     a2 = models.TextField(max_length=250, null=True)
@@ -125,7 +124,7 @@ class PetTable(models.Model):
 class PetMatch(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     pet_id = models.ForeignKey(PetTable, on_delete=models.CASCADE)
-    matchStatus = models.CharField(max_length=50)
+    matchStatus = models.CharField(max_length=255)
 
 # #? image model
 class PetImage(models.Model):

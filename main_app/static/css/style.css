@@ -52,14 +52,19 @@ a.signup {
     font-family: 'Open Sans', sans-serif;
 }
 
-input.pet-pp-next {    
+/* NEXT button */
+input#pet-pp-next {    
+    margin-top: 1rem;
+    padding: 3vmin 5vmin;
     background-color: #fab005;
-    border: 0vmin;
-    border-radius: 5vmin;
-    padding: 3vmin;
-    margin-left: 3vmin;
     color: white;
+    border: none;
+    border-radius: 10vmin;
     cursor: pointer;
+    font-size: 8vmin;
+    position: fixed;
+    top: 165vmin;
+    left: 70vmin;
 }
 
 .container {
@@ -106,12 +111,17 @@ input.pet-pp-next {
 p.pet-pp-create {
     font-weight: 100;
     font-size: 2vmin;
-    position: relative;
-    top: 80vmin;
+    position: fixed;
+    margin-top: 125vmin;
+    color: #aaa;
+    margin-left: 20vmin;
 }
 
 /* pet name question input field*/
-input#pet_name.name_q, input#id_1-age {
+input#pet_name.name_q, 
+input#id_1-age, 
+input#cost_q.name_q 
+{
     border: none;
     cursor: text;
     background-color: #f9f9f9;
@@ -121,7 +131,8 @@ input#pet_name.name_q, input#id_1-age {
 }
 
 .pet-create-radio li {
-    list-style-type: none;  /* Removes the bullet points */
+    list-style-type: none;
+    margin-bottom: 30vmin;  /* Removes the bullet points */
 }
 
 .pet-create-radio input[type="radio"] {
@@ -138,9 +149,37 @@ input#pet_name.name_q, input#id_1-age {
     margin-bottom: 0.5rem;
 }
 /* Title questions on pet form */
-label[for=pet_name], label[for=id_1-age] {
+label[for=pet_name], 
+label[for=id_1-age] {
     font-family: 'Open Sans', sans-serif;
     font-size: 10vmin;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    width: 80vmin;
+    margin-top: 20vmin;
+    margin-bottom:20vmin;
+}
+
+label[for=activity],
+form>label
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10vmin;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    width: 80vmin;
+    margin-top: 20vmin;
+}
+
+label[for=cost_q] {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 8vmin;
     font-weight: 300;
     display: flex;
     flex-direction: column;
@@ -152,7 +191,7 @@ label[for=pet_name], label[for=id_1-age] {
 }
 
 div#pet_name.name_q {
-    display: inline-block;
+    display: flex;
     padding: 10px 20px;
     background: #f9f9f9;
     cursor: pointer;
@@ -164,14 +203,82 @@ label[for=pet_name_2], label[for=pet_name_1], label[for=pet_name_0] {
 }
 
 
+/* multiple choice answers on activity form */
+div#activity.name_q, 
+div#sociability.name_q, 
+div#size.name_q,
+div#healthStatus.name_q,
+div#energy_level.name_q,
+div#vaccinationInformation.name_q
+ {
+    display: flex;
+    flex-direction: column;
+    gap: 3vmin;
+    background: white;
+    cursor: pointer;
+    padding: 15vmin;
+    border-radius: 5vmin;
+}
 
-
-/* Hide the radio button */
-/* .your-form .pet-create-radio input[type="radio"], */input#pet_name_0.name_q, input#pet_name_1.name_q, input#pet_name_2.name_q { 
-    display: none;
+label[for=activity_1], 
+label[for=activity_0],
+label[for=activity_2],
+label[for=sociability_0],
+label[for=sociability_1],
+label[for=sociability_2],
+label[for=size_0],
+label[for=size_1],
+label[for=size_2],
+label[for=healthStatus_0],
+label[for=healthStatus_1],
+label[for=healthStatus_2],
+label[for=energy_level_0],
+label[for=energy_level_1],
+label[for=energy_level_2],
+label[for=vaccinationInformation_0],
+label[for=vaccinationInformation_1],
+label[for=vaccinationInformation_2]
+{
+    color: black;
+    border: 0.5vmin solid #ddd;
+    padding-top: 5vmin;
+    padding-bottom: 5vmin;
+    padding-left: 15vmin;
+    padding-right: 15vmin;
+    border-radius: 5vmin;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    display: inline-block;
+    width: 35vmin;
 }
 
 
+
+
+
+/* Hide the radio button */
+input#activity_0.name_q, 
+input#activity_1.name_q, 
+input#activity_2.name_q, 
+input#sociability_0.name_q, 
+input#sociability_1.name_q, 
+input#sociability_2.name_q,
+input#size_0.name_q,
+input#size_1.name_q,
+input#size_2.name_q, 
+input#healthStatus_0.name_q, 
+input#healthStatus_1.name_q, 
+input#healthStatus_2.name_q,
+input#energy_level_0.name_q,
+input#energy_level_1.name_q,
+input#energy_level_2.name_q,
+input#vaccinationInformation_0.name_q,
+input#vaccinationInformation_1.name_q,
+input#vaccinationInformation_2.name_q
+{ 
+    display: none;
+}
 
 input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name_2.name_q:checked {
     color: red;
@@ -179,7 +286,7 @@ input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name
 
 /* Style the label to look like a button */
 .your-form .pet-create-radio label {
-    display: inline-block;
+    display: flex;
     padding: 10px 20px;
     background: #ddd;
     cursor: pointer;
@@ -189,27 +296,3 @@ input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name
 .your-form .pet-create-radio input[type="radio"]:checked + label {
     color: red;
 }
-
-
-
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Next button styles */
-  .petpref-pp-next {
-    padding: 10px 20px;
-    background-color: orange;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .petpref-pp-next:hover {
-    background-color: darkgoldenrod;
-  }
