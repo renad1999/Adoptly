@@ -3,6 +3,7 @@ import boto3
 import uuid
 import os
 from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
@@ -64,7 +65,7 @@ def signup(request): #! Sign up function, do not touch! - Lou
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('home')
+      return redirect('user_create')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
@@ -80,10 +81,11 @@ def gateway(request):
 
 
 #? Home, render request home.html
-def home(request, pet_id=None):
-    pet = PetTable.objects.get(id=pet_id)
+def home(request):
+    # pet = PetTable.objects.get(id=pet_id)
+    pets = PetTable.objects.all()
     return render(request, 'home.html', {
-      'pet': pet
+      'pets': pets
     })
 
 
