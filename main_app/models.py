@@ -84,9 +84,8 @@ class AdoptionPreferences(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activityLevel = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES)
     sociability = models.CharField(max_length=50, choices=SOCIABILITY_CHOICES)
-    size = models.CharField(
-        max_length=1, 
-        choices=SIZE_CHOICES)
+    size = models.CharField( max_length=1, choices=SIZE_CHOICES)
+    energyLevel = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
 
 
 #? PET TABLE MODEL

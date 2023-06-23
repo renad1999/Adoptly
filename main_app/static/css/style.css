@@ -7,3 +7,35 @@ input.pet-pp-next {
     color: white;
     cursor: pointer;
 }
+
+* {
+    background-color: #F9F9F9
+}
+
+
+
+/* style.css */
+
+/* Form styles */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Next button styles */
+  .petpref-pp-next {
+    padding: 10px 20px;
+    background-color: orange;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .petpref-pp-next:hover {
+    background-color: darkgoldenrod;
+  }
+  

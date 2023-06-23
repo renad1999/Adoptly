@@ -8,17 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+    
+<link>
     <title>Adoptly</title>
  </head>
   <body>
     <header class="navbar-fixed">
 <nav>
   <div class="nav-wrapper">
+
       <a href="{% url 'gateway' %}" class="brand-logo">Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
         <li><a href="{% url 'home' %}"><i class="fas fa-home"></i></a></li>
         <li><a href="{% url 'matches' %}">Matches</a></li>
         <li><a href="{% url 'about' %}">About</a></li>

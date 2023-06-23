@@ -4,11 +4,13 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import PetTable, AdoptionPreferences, UserDetails
-from .forms import AdoptionPreferences, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability
+from .forms import AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, UserChoiceForm
 from formtools.wizard.views import SessionWizardView
 FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
     ("size", AdoptionPreferencesSize),
-    ("sociability", AdoptionPreferencesSociability), ]
+    ("sociability", AdoptionPreferencesSociability),
+     ("energyLevel", AdoptionPreferencesEnergy),
+     ("Are you a pet owner?", UserChoiceForm)]
 
 
 
@@ -127,7 +129,7 @@ def unassoc_pet(request, user_id, pet_id):
 #? adoption preference forms
 #will we need an if statement for the boolean value of if the user is
 #creating an adopter account or pet account? - KB
-class AdoptionPreferences(CreateView):
+class AdoptionPreferencesForm(CreateView):
   model = AdoptionPreferences
   fields ='__all__'
 
@@ -158,17 +160,20 @@ class PetDelete(DeleteView):
 
 
   # questionnare 
-class QuestionnareWizardView(SessionWizardView):
-  form_list = FORMS
-  template_name = 'user/create/'
+class AdoptionPreferencesWizard(SessionWizardView):
+  form_list =  FORMS
+  template_name = 'main_app/adoptionpreferences_form.html'
 
   def done(self, form_list, **kwargs):
-    questionnare = AdoptionPreferences(user=self.request.user)
+    instance = AdoptionPreferences()
+    instance.user=self.request.user
     for form in form_list:
       for field, value in form.cleaned_data.items():
-          setattr(questionnare, field, value)
-          questionnare.save()
-          return ()
+          setattr(instance, field, value)
+          instance.save()
+          return HttpResponseRedirect(reverse(''))
+
+
 
 class PetCreateWizard(SessionWizardView):
     form_list = PETFORMS
@@ -181,7 +186,7 @@ class PetCreateWizard(SessionWizardView):
         for field, value in form.cleaned_data.items():
             setattr(instance, field, value)
       instance.save()
-      return HttpResponseRedirect(reverse('home'))
+      return HttpResponseRedirect(reverse(''))
     
 
 class PetNameCreate(CreateView):
@@ -200,3 +205,21 @@ class PetNameCreate(CreateView):
       return reverse('home')  
   
   
+
+class AdoptionPreferencesCreateView(CreateView):
+    model = AdoptionPreferences
+    form_class = AdoptionPreferencesForm
+    template_name = 'main_app/adoptionpreferences_form.html'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('')
+    
+
+def preferences_complete(request):
+    return render(request, '')
