@@ -80,8 +80,6 @@ class UserDetails(models.Model):
     phone = models.IntegerField()
     adopter = models.BooleanField(default=False)
 
-<<<<<<< HEAD
-=======
 #? ADOPTION PREFERENCES
 # activity levels, sociability, size, is_owner charfields
 class AdoptionPreferences(models.Model):
@@ -90,7 +88,6 @@ class AdoptionPreferences(models.Model):
     sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='both')
     size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
     energyLevel = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
->>>>>>> 25f72b08849b33038da047da605d9c6d66acfc89
 
 
 #? PET TABLE MODELz

@@ -54,8 +54,6 @@ urlpatterns = [
     path('pet/<int:pet_id>/delete/', views.PetDelete.as_view(), name="pet_delete"),
     path('user/<int:user_id>/assoc_pet/<int:pet_id>/', views.assoc_pet, name="match"),
     path('user/<int:user_id>/unassoc_pet/<int:pet_id>/', views.unassoc_pet, name="unmatch")
-
-
 ]
 
 
