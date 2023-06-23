@@ -17,11 +17,9 @@
                         <li>{{ pet.age }}</li>
                         <li>{{ pet.breed }}</li>
                         <li>{{ pet.size }}</li>
-                        <li>{{ pet.weight }}</li>
                         <li>{{ pet.activity_level }}</li>
-                        <li>{{ pet.sociability }}</li>
-                        <li>{{ pet.monthlycost }}</li>
                         <li>{{ pet.vaccinationInformation }}</li>
+                        <li>{{ pet.healthStatus }}</li>
                     </ul>
                 </div>
                 <div class="img-container" id="img2-container"></div>
@@ -46,19 +44,16 @@
             })
             showPet(index)
 
-            const likeBtn = document.getElementsByClassName('like-btn');
-            const dislikeBtn = document.getElementsByClassName('no-like-btn');
-
-            for (let i = 0; i < likeBtn.length; i++) {
-                likeBtns[i].addEventListener('click', function(){
-                    handleAction(true);
-                });
-            }
-            for (let i = 0; i < dislikeBtn.length; i++) {
-                likeBtns[i].addEventListener('click', function(){
-                    handleAction(false);
-                });
-            }
+            // for (let i = 0; i < likeBtn.length; i++) {
+            //     likeBtns[i].addEventListener('click', function(){
+            //         handleAction(true);
+            //     });
+            // }
+            // for (let i = 0; i < dislikeBtn.length; i++) {
+            //     likeBtns[i].addEventListener('click', function(){
+            //         handleAction(false);
+            //     });
+            // }
 
             // function to show the pet at the given index
             function showPet(index){
