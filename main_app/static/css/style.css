@@ -171,6 +171,8 @@ label[for=pet_name_2], label[for=pet_name_1], label[for=pet_name_0] {
     display: none;
 }
 
+
+
 input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name_2.name_q:checked {
     color: red;
 } 
@@ -187,3 +189,27 @@ input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name
 .your-form .pet-create-radio input[type="radio"]:checked + label {
     color: red;
 }
+
+
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Next button styles */
+  .petpref-pp-next {
+    padding: 10px 20px;
+    background-color: orange;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .petpref-pp-next:hover {
+    background-color: darkgoldenrod;
+  }
