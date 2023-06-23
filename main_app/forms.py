@@ -9,8 +9,7 @@ class PetNameForm(forms.ModelForm):
             'name': 'What is your pet\'s name?',
         }
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'my-label-class'}),
-            'name': forms.
+            'name': forms.TextInput(attrs={'class': 'my-input-class'}), 
         }
 
 
@@ -22,7 +21,7 @@ class PetActivityForm(forms.ModelForm):
             'activity_level': 'How much does your dog like being walked?',
         }
         widgets = {
-            'activity_level': forms.RadioSelect,
+            'activity_level': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
 
 class PetSociabilityForm(forms.ModelForm):
@@ -33,7 +32,7 @@ class PetSociabilityForm(forms.ModelForm):
             'sociability': 'How social is your pet?',
         }
         widgets = {
-            'sociability': forms.RadioSelect,
+            'sociability': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
 
 class PetSizeForm(forms.ModelForm):
@@ -44,7 +43,7 @@ class PetSizeForm(forms.ModelForm):
             'size': 'What size is your pet?',
         }
         widgets = {
-            'size': forms.RadioSelect,
+            'size': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
 
 class PetAgeForm(forms.ModelForm):
@@ -72,7 +71,7 @@ class PetHealthStatusForm(forms.ModelForm):
             'healthStatus': 'How would you describe your pet\'s health?',
         }
         widgets = {
-            'healthStatus': forms.RadioSelect,
+            'healthStatus': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
 
 class PetEnergyLevelForm(forms.ModelForm):
@@ -83,7 +82,7 @@ class PetEnergyLevelForm(forms.ModelForm):
             'energy_level': 'How would you describe your pet\'s energy levels?',
         }
         widgets = {
-            'energy_level': forms.RadioSelect,
+            'energy_level': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
 
 class PetVaccinationInformationForm(forms.ModelForm):
@@ -94,7 +93,7 @@ class PetVaccinationInformationForm(forms.ModelForm):
             'vaccinationInformation': 'Is your pet vaccinated?',
         }
         widgets = {
-            'vaccinationInformation': forms.RadioSelect,
+            'vaccinationInformation': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
 
 class PetMonthlyCostForm(forms.ModelForm):

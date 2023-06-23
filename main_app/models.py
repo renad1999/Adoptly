@@ -97,21 +97,21 @@ class AdoptionPreferences(models.Model):
 class PetTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
+    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES, default='introvert')
     age = models.IntegerField()
     breed = models.TextField(max_length=100) 
     size = models.CharField(
         max_length=1,
-        choices=SIZE_CHOICES
+        choices=SIZE_CHOICES, default='S'
     )
     weight = models.FloatField()
-    healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES)
-    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES)
+    healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES, default='good health')
+    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES, default='low')
     energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
     vaccinationInformation = models.CharField(
         max_length=1,
-        choices=VACCINATION_CHOICES,
+        choices=VACCINATION_CHOICES, default='N'
     )
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2)
     prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)

@@ -186,6 +186,8 @@ class PetCreateWizard(SessionWizardView):
         form = super(PetCreateWizard, self).get_form(step, data, files)
         print(f"Serving form: {type(form).__name__}")
 
+        print("Form fields: ", form.fields)
+
         if form is None:
           form = PetImageForm(data, files)  # if super call fails, at least return an empty PetImageForm
         elif isinstance(form, PetImageForm):

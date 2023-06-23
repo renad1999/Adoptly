@@ -107,8 +107,16 @@ p.pet-pp-create {
     border: none;
     cursor: text;
     font-size: 1.2rem;
-    /* Other CSS styles */
 }
+
+.pet-create-radio li {
+    list-style-type: none;  /* Removes the bullet points */
+}
+
+.pet-create-radio input[type="radio"] {
+    display: none;  /* Hides the radio buttons */
+}
+
 .form-group ul {
     list-style-type: none;
     padding-left: 0;
@@ -117,4 +125,28 @@ p.pet-pp-create {
 .form-group ul li {
     display: block;
     margin-bottom: 0.5rem;
+}
+
+.question {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20vmin;
+    font-weight: 500;
+}
+
+/* Hide the radio button */
+.your-form .pet-create-radio input[type="radio"] {
+    display: none;
+}
+
+/* Style the label to look like a button */
+.your-form .pet-create-radio label {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #ddd;
+    cursor: pointer;
+}
+
+/* Change appearance when a label is clicked (radio button selected) */
+.your-form .pet-create-radio input[type="radio"]:checked + label {
+    color: red;
 }
