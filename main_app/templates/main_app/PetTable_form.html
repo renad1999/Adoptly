@@ -19,9 +19,7 @@
         <!-- Loop through the fields in the form -->
         {% for field in form %}
         <div class="form-group">
-          <label class="question" for="{{ field.id_for_label }}"
-            >{{ field.label }}</label
-          >
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
           {{ field.errors }} {{ field.help_text }} {{ field }}
         </div>
         <!-- End of field loop -->

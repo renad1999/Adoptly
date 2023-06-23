@@ -66,7 +66,7 @@ input.pet-pp-next {
     width: 50%;
     margin: 0 auto;
     padding: 1rem;
-    background-color: #f9f9f9;
+    background-color: white;
     border-radius: 0.5rem;
     font-family: 'Open Sans', sans-serif;
 
@@ -80,12 +80,16 @@ input.pet-pp-next {
 
 .container input[type="submit"] {
     margin-top: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 3vmin 5vmin;
     background-color: #fab005;
     color: white;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 10vmin;
     cursor: pointer;
+    font-size: 8vmin;
+    position: relative;
+    top: 70vmin;
+    left: 25vmin;
 }
 
 .container input[type="submit"]:hover {
@@ -98,15 +102,22 @@ input.pet-pp-next {
     margin-top: 1rem;
 }
 
+/* shows which question you are on ie 1/11 */
 p.pet-pp-create {
     font-weight: 100;
     font-size: 2vmin;
+    position: relative;
+    top: 80vmin;
 }
 
-.my-label-class {
+/* pet name question input field*/
+input#pet_name.name_q, input#id_1-age {
     border: none;
     cursor: text;
-    font-size: 1.2rem;
+    background-color: #f9f9f9;
+    font-size: 8vmin;
+    width: 80vmin;
+    margin-bottom: 5vmin;
 }
 
 .pet-create-radio li {
@@ -126,12 +137,26 @@ p.pet-pp-create {
     display: block;
     margin-bottom: 0.5rem;
 }
-
-.question {
+/* Title questions on pet form */
+label[for=pet_name], label[for=id_1-age] {
     font-family: 'Open Sans', sans-serif;
-    font-size: 20vmin;
-    font-weight: 500;
+    font-size: 10vmin;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    width: 80vmin;
+    margin-top: 30vmin;
+    margin-bottom: 15vmin;
 }
+
+div#pet_name.name_q {
+    
+}
+
+
+
 
 /* Hide the radio button */
 .your-form .pet-create-radio input[type="radio"] {
