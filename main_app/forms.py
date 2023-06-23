@@ -1,6 +1,112 @@
 from django import forms
 from .models import PetTable, PetImage
 
+from .models import AdoptionPreferences
+from .models import PetTable
+   
+
+class AdoptionPreferencesActivity(forms.ModelForm):
+    class Meta:
+        model = AdoptionPreferences
+        fields = ['activityLevel']
+        labels = {
+            'activityLevel': 'Preferred activity level for your desired pet',
+        }
+        widgets = {
+            'activityLevel': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super(AdoptionPreferencesActivity, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['activityLevel'].widget.attrs['id'] = 'desired_activity_level'
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'activity_level_q'
+
+
+
+class AdoptionPreferencesSociability(forms.ModelForm):
+    class Meta:
+        model = AdoptionPreferences
+        fields = ['sociability']
+        labels = {
+            'sociability': 'Preferred sociability for your desired pet',
+        }
+        widgets = {
+            'sociability': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super(AdoptionPreferencesSociability, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['sociability'].widget.attrs['id'] = 'desired_sociability'
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'sociability_q'
+
+
+        
+class AdoptionPreferencesEnergy(forms.ModelForm):
+    class Meta:
+        model = AdoptionPreferences
+        fields = ['energyLevel']
+        labels = {
+            'energyLevel': 'Preferred energy level for your desired pet',
+        }
+        widgets = {
+            'energyLevel': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super(AdoptionPreferencesEnergy, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['energyLevel'].widget.attrs['id'] = 'desired_energy_level'
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'energy_level_q'
+
+
+        
+class AdoptionPreferencesSize(forms.ModelForm):
+    class Meta:
+        model = AdoptionPreferences
+        fields = ['size']
+        labels = {
+            'size': 'Preferred pet size',
+        }
+        widgets = {
+            'size': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super(AdoptionPreferencesSize, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['size'].widget.attrs['id'] = 'desired_pet_size'
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'size_q'
+
+        
+
+class UserChoiceForm(forms.ModelForm):
+    BOOL_CHOICES = [(True, 'Yes'), (False, 'No')]  
+    is_owner = forms.BooleanField(
+        widget = forms.RadioSelect (choices=BOOL_CHOICES),
+        required= False
+    )     
+
+
+
+
 class PetNameForm(forms.ModelForm):
     class Meta:
         model = PetTable
@@ -44,7 +150,6 @@ class PetActivityForm(forms.ModelForm):
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'name_q'
 
-
 class PetSociabilityForm(forms.ModelForm):
     class Meta:
         model = PetTable
@@ -84,8 +189,6 @@ class PetAgeForm(forms.ModelForm):
         labels = {
             'age': 'How old is your pet?',
         }
-
-
 class PetWeightForm(forms.ModelForm):
     class Meta:
         model = PetTable
@@ -93,7 +196,6 @@ class PetWeightForm(forms.ModelForm):
         labels = {
             'wight': 'What weight is your pet?',
         }
-
 class PetHealthStatusForm(forms.ModelForm):
     class Meta:
         model = PetTable
@@ -104,7 +206,6 @@ class PetHealthStatusForm(forms.ModelForm):
         widgets = {
             'healthStatus': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
-
 class PetEnergyLevelForm(forms.ModelForm):
     class Meta:
         model = PetTable
@@ -134,8 +235,6 @@ class PetMonthlyCostForm(forms.ModelForm):
         labels = {
             'monthlyCost': 'What do you spend on average each month on essentials for your pet? Think food, vet bills, grooming, etc. £',
         }
-
-
 class PetPromptsForm(forms.ModelForm):
     class Meta:
         model = PetTable

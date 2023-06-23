@@ -80,6 +80,17 @@ class UserDetails(models.Model):
     phone = models.IntegerField()
     adopter = models.BooleanField(default=False)
 
+<<<<<<< HEAD
+=======
+#? ADOPTION PREFERENCES
+# activity levels, sociability, size, is_owner charfields
+class AdoptionPreferences(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activityLevel = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
+    sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='both')
+    size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
+    energyLevel = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
+>>>>>>> 25f72b08849b33038da047da605d9c6d66acfc89
 
 
 #? PET TABLE MODELz
@@ -88,12 +99,12 @@ class UserDetails(models.Model):
 class PetTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
+    gender = models.CharField(max_length=50, choices=GENDER_CHOICES, default='M')
     sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES, default='introvert')
     age = models.IntegerField()
     breed = models.TextField(max_length=100) 
     size = models.CharField(
-        max_length=1,
+        max_length=50,
         choices=SIZE_CHOICES, default='S'
     )
     weight = models.FloatField()
