@@ -31,7 +31,7 @@ class PetActivityForm(forms.ModelForm):
             'activity_level': 'How much does your dog like being walked?',
         }
         widgets = {
-            'activity_level': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
+            'activity_level': forms.RadioSelect(attrs={'id': 'pet-create-radio'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -62,10 +62,12 @@ class PetSociabilityForm(forms.ModelForm):
 
         # specific field
         self.fields['sociability'].widget.attrs['id'] = 'pet_name'
+        
 
         # all fields on form
         for field in self.fields:
-                self.fields[field].widget.attrs['class'] = 'name_q'
+            self.fields[field].widget.attrs['class'] = 'name_q'
+            self.fields[field].widget.attrs['id'] = 'sociability'
 
 class PetSizeForm(forms.ModelForm):
     class Meta:
@@ -77,6 +79,17 @@ class PetSizeForm(forms.ModelForm):
         widgets = {
             'size': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
+    def __init__(self, *args, **kwargs):
+        super(PetSizeForm, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['size'].widget.attrs['id'] = 'pet_name'
+        
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'name_q'
+            self.fields[field].widget.attrs['id'] = 'size'
 
 class PetAgeForm(forms.ModelForm):
     class Meta:
@@ -94,6 +107,16 @@ class PetWeightForm(forms.ModelForm):
         labels = {
             'wight': 'What weight is your pet?',
         }
+        
+    def __init__(self, *args, **kwargs):
+        super(PetWeightForm, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['weight'].widget.attrs['id'] = 'pet_name'
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'name_q'
 
 class PetHealthStatusForm(forms.ModelForm):
     class Meta:
@@ -105,6 +128,18 @@ class PetHealthStatusForm(forms.ModelForm):
         widgets = {
             'healthStatus': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super(PetHealthStatusForm, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['healthStatus'].widget.attrs['id'] = 'pet_name'
+        
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'name_q'
+            self.fields[field].widget.attrs['id'] = 'healthStatus'
 
 class PetEnergyLevelForm(forms.ModelForm):
     class Meta:
@@ -116,6 +151,17 @@ class PetEnergyLevelForm(forms.ModelForm):
         widgets = {
             'energy_level': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
+    def __init__(self, *args, **kwargs):
+        super(PetEnergyLevelForm, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['energy_level'].widget.attrs['id'] = 'pet_name'
+        
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'name_q'
+            self.fields[field].widget.attrs['id'] = 'energy_level'
 
 class PetVaccinationInformationForm(forms.ModelForm):
     class Meta:
@@ -127,6 +173,18 @@ class PetVaccinationInformationForm(forms.ModelForm):
         widgets = {
             'vaccinationInformation': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super(PetVaccinationInformationForm, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['vaccinationInformation'].widget.attrs['id'] = 'pet_name'
+        
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'name_q'
+            self.fields[field].widget.attrs['id'] = 'vaccinationInformation'
 
 class PetMonthlyCostForm(forms.ModelForm):
     class Meta:
@@ -135,6 +193,16 @@ class PetMonthlyCostForm(forms.ModelForm):
         labels = {
             'monthlyCost': 'What do you spend on average each month on essentials for your pet? Think food, vet bills, grooming, etc. £',
         }
+    def __init__(self, *args, **kwargs):
+        super(PetMonthlyCostForm, self).__init__(*args, **kwargs)
+
+        # specific field
+        self.fields['monthlyCost'].widget.attrs['id'] = 'pet_name'
+
+        # all fields on form
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'name_q'
+            self.fields[field].widget.attrs['id'] = 'cost_q'
 
 
 class PetPromptsForm(forms.ModelForm):
@@ -142,9 +210,12 @@ class PetPromptsForm(forms.ModelForm):
         model = PetTable
         fields = ['prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3']
         labels = {
-            'prompt1': 'Written Prompts',
-            'prompt2': 'Written Prompts',
-            'prompt3': 'Written Prompts',
+            'prompt1': 'First Prompt',
+            'prompt2': 'Second Prompt',
+            'prompt3': 'Third Prompt',
+            'a1': '',
+            'a2': '',
+            'a3': '',
         }
        
 
