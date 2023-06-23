@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from storages.backends.s3boto3 import S3Boto3Storage
+
 
 #! tuples here
 GENDER_CHOICES = (
@@ -43,26 +45,26 @@ SIZE_CHOICES = (
 )
 
 PROMPT_CHOICES = [
-    ('a', 'If your pet had a catchphrase, what would it be?'),
-    ('b', "What's the funniest thing your pet has ever done?"),
-    ('c', "If your pet was a character from a movie or book, who would they be and why?"),
-    ('d', "Can you describe a time when your pet was surprisingly clever?"),
-    ('e', "What's your pet's favorite 'toy' that isn't actually a toy?"),
-    ('f', "How does your pet act when they want your attention?"),
-    ('g', "How does your pet show they're happy?"),
-    ('h', "If your pet could talk for 60 seconds, what do you think they would say?"),
-    ('i', "How would your pet react to seeing their reflection in the mirror?"),
-    ('j', "What activity does your pet love so much that they'd do it for hours"),
-    ('k', "If your pet could have a superpower, based on their personality, what would it be?"),
-    ('l', "What's the most peculiar habit your pet has?"),
-    ('m', "How does your pet act when they meet new people or animals?"),
-    ('n', "If your pet had a job, based on their personality, what would it be?"),
-    ('o', "What song would be your pet's personal theme song?"),
-    ('p', "What human food does your pet beg for the most?"),
-    ('q', "Can you describe a situation in which your pet acted bravely?"),
-    ('r', "How would your pet react if they saw a squirrel in the backyard?"),
-    ('s', "What's the most unusual friendship your pet has struck up with another animal?"),
-    ('t', "If your pet could choose a vacation destination, where would it be?"),
+    ('a', 'My catchphrase is'),
+    ('b', "My most embarrassing moment"),
+    ('c', "If I was a character from a movie or a book, I would be"),
+    ('d', "A time when I was surprisingly clever "),
+    ('e', "My favorite 'toy' that isn't actually a toy"),
+    ('f', "When I want my human's attention I"),
+    ('g', "I show I'm happy by"),
+    ('h', "If I could talk for 60 seconds I would say"),
+    ('i', "When I see my reflection in the mirror I"),
+    ('j', "An activity I could do for hours is"),
+    ('k', "My superpower would be"),
+    ('l', "My weirdest habit is"),
+    ('m', "When I meet new people or dogs I"),
+    ('n', "If I had a human job it would be"),
+    ('o', "My theme song would be"),
+    ('p', "I salivate over"),
+    ('q', "I was really brave when"),
+    ('r', "When I see a squirrel I"),
+    ('s', "I had an unusual friendship with"),
+    ('t', "My dream day"),
     # Add more prompts here...
 ]
 
@@ -95,21 +97,21 @@ class AdoptionPreferences(models.Model):
 class PetTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
+    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES, default='introvert')
     age = models.IntegerField()
     breed = models.TextField(max_length=100) 
     size = models.CharField(
         max_length=1,
-        choices=SIZE_CHOICES
+        choices=SIZE_CHOICES, default='S'
     )
     weight = models.FloatField()
-    healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES)
-    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES)
+    healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES, default='good health')
+    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES, default='low')
     energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
     vaccinationInformation = models.CharField(
         max_length=1,
-        choices=VACCINATION_CHOICES,
+        choices=VACCINATION_CHOICES, default='N'
     )
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2)
     prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
@@ -128,7 +130,8 @@ class PetMatch(models.Model):
 
 # #? image model
 class PetImage(models.Model):
-    url = models.URLField(max_length=200)
+    photo = models.ImageField(upload_to='pets/', storage=S3Boto3Storage(), null=True)
+    url = models.CharField(max_length=200, null=True)
     pet_id = models.ForeignKey(PetTable, on_delete=models.CASCADE)
 
     def __str__(self):

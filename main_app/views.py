@@ -1,13 +1,18 @@
+
+import boto3
+import uuid
+import os
 from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import PetTable, AdoptionPreferences, UserDetails
+from .models import PetTable, AdoptionPreferences, UserDetails, PetImage
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
+from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, PetImageForm, PetPromptsForm, PetImageForm
 
 
 #! Forms
@@ -22,6 +27,8 @@ PETFORMS = [("name", PetNameForm),
          ("activity_level", PetEnergyLevelForm),
          ("vaccinationInformation", PetVaccinationInformationForm),
          ("monthlyCost", PetMonthlyCostForm),
+         ("prompts", PetPromptsForm),
+         ("image", PetImageForm)
 ]
 
 #! Functions
@@ -58,7 +65,7 @@ def signup(request): #! Sign up function, do not touch! - Lou
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('home')
+      return redirect('user_create')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
@@ -74,10 +81,11 @@ def gateway(request):
 
 
 #? Home, render request home.html
-def home(request, pet_id=None):
-    pet = PetTable.objects.get(id=pet_id)
+def home(request):
+    # pet = PetTable.objects.get(id=pet_id)
+    pets = PetTable.objects.all()
     return render(request, 'home.html', {
-      'pet': pet
+      'pets': pets
     })
 
 
@@ -150,19 +158,89 @@ class PetDelete(DeleteView):
 
 
 
+# class PetCreateWizard(SessionWizardView):
+#     form_list = PETFORMS
+#     template_name = 'main_app/pettable_form.html'
+
+#     def get_form(self, step=None, data=None, files=None):
+#         form = super(PetCreateWizard, self).get_form(step, data, files)
+
+#         # add form for photo upload if it's the last step
+#         if step == '3':
+#             form = PetImageForm(data, files)
+#         return form
+
+#     def done(self, form_list, **kwargs):
+#       instance = PetTable()
+#       instance.user = self.request.user
+#       for form in form_list:
+#         for field, value in form.cleaned_data.items():
+#             setattr(instance, field, value)
+#       instance.save()
+#       return HttpResponseRedirect(reverse('home'))
+    
+
 class PetCreateWizard(SessionWizardView):
     form_list = PETFORMS
     template_name = 'main_app/pettable_form.html'
 
+    def get_form(self, step=None, data=None, files=None):
+        form = super(PetCreateWizard, self).get_form(step, data, files)
+        print(f"Serving form: {type(form).__name__}")
+
+        print("Form fields: ", form.fields)
+
+        if form is None:
+          form = PetImageForm(data, files)  # if super call fails, at least return an empty PetImageForm
+        elif isinstance(form, PetImageForm):
+          form = PetImageForm(data, files)  # if it's a PetImageForm, create a new instance with the provided data and files
+
+        print(f"Serving form: {type(form).__name__}")
+        return form
+
     def done(self, form_list, **kwargs):
-      instance = PetTable()
-      instance.user = self.request.user
-      for form in form_list:
-        for field, value in form.cleaned_data.items():
-            setattr(instance, field, value)
-      instance.save()
-      return HttpResponseRedirect(reverse('home'))
+        instance = PetTable()
+        instance.user = self.request.user
+        for form in form_list:
+          if not isinstance(form, PetImageForm):
+            for field, value in form.cleaned_data.items():
+                setattr(instance, field, value)
+        instance.save()  # save the instance first before creating PetImage
+
+        for form in form_list:
+            if isinstance(form, PetImageForm):
+                for i in range(1, 4):  # iterate over the three photos
+                    photo_file = form.cleaned_data.get(f'photo{i}')
+
+                    if photo_file:
+                        s3 = boto3.client('s3')
+                        # need a unique "key" for S3 / needs image file extension too
+                        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+                        try:
+                            bucket = os.environ['S3_BUCKET']
+                            s3.upload_fileobj(photo_file, bucket, key)
+                            # build the full url string
+                            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+                            # create PetImage instance for each file
+                            PetImage.objects.create(photo=photo_file, url=url, pet_id=instance)
+                        except Exception as e:
+                            print('An error occurred uploading file to S3')
+                            print(e)
+            else:
+                for field, value in form.cleaned_data.items():
+                    setattr(instance, field, value)
+
+        instance.save()
+        return HttpResponseRedirect(reverse('home'))
+
     
+    def get_form_step_data(self, form):
+        data = super().get_form_step_data(form)
+
+        # If form is an instance of PetImageForm then append files data as well
+        if isinstance(form, PetImageForm):
+            data.update(self.get_form_step_files(form))
+        return data
 
 class PetNameCreate(CreateView):
   model = PetTable
