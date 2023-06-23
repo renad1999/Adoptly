@@ -1,12 +1,30 @@
 from django.urls import path
-from . import views
 from django.contrib.auth.views import LoginView
+from . import views 
+from .views import PetCreateWizard
+from .forms import (
+    PetNameForm, 
+    PetAgeForm,
+    PetActivityForm,
+    PetSociabilityForm, 
+    PetSizeForm,
+    PetWeightForm, 
+    PetHealthStatusForm,
+    PetEnergyLevelForm, 
+    PetVaccinationInformationForm, 
+    PetMonthlyCostForm, 
+    PetPromptsForm
+)
+
+
 
 
 #? URL patterns below
 urlpatterns = [
     path('', views.gateway, name='gateway'), 
     path('home/', views.home, name='home'),
+    path('about/', views.about, name="about"),
+    path('profile/settings/', views.user_settings, name="settings"),
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('matches/', views.matches, name="matches"),
@@ -14,11 +32,18 @@ urlpatterns = [
     path('user/create/', views.AdoptionPreferences.as_view(), name="user_create"),
     path('user/<int:user_id>/update/', views.AdoptionPreferencesUpdate.as_view(), name="user_update"),
     path('user/<int:user_id>/delete/', views.AdoptionPreferencesDelete.as_view(), name="user_delete"),
-    path('pet/create/', views.PetCreate.as_view(), name="pet_create"),
+    path('pet/create/', views.PetCreateWizard.as_view([PetNameForm, PetAgeForm,
+    PetActivityForm,
+    PetSociabilityForm, 
+    PetSizeForm,
+    PetWeightForm, 
+    PetHealthStatusForm,
+    PetEnergyLevelForm, 
+    PetVaccinationInformationForm, 
+    PetMonthlyCostForm, 
+    PetPromptsForm]), name="pet_create"),
     path('pet/<int:pet_id>/update/', views.PetUpdate.as_view(), name="pet_update"),
     path('pet/<int:pet_id>/delete/', views.PetDelete.as_view(), name="pet_delete"),
-    path('about/', views.about, name="about"),
-    path('profile/settings/', views.user_settings, name="settings"),
     path('user/<int:user_id>/assoc_pet/<int:pet_id>/', views.assoc_pet, name="match"),
     path('user/<int:user_id>/unassoc_pet/<int:pet_id>/', views.unassoc_pet, name="unmatch"),
 ]

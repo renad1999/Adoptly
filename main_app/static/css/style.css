@@ -1,0 +1,189 @@
+body.gateway {
+    background: url("/static/images/gateway-hero.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+button.signup {
+    height: 40px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 3vmin;
+    border: none;
+    border-radius: 3vmin;
+    background-color: #fab005;
+    margin-top: 170vmin;
+    font-family: 'Open Sans', sans-serif;
+    width: 60%;
+}
+
+a.login {
+    color: white;
+    text-decoration-line: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vmin;
+    font-size: 4vmin;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* .color-overlay {
+    background: linear-gradient(to top, 
+    rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    width: 100%;
+    height: 25%;
+    opacity: 0.5;
+    position: absolute;
+} */
+
+a.signup {
+    color: white;
+    text-decoration: none;
+    font-size: 4vmin;
+    font-family: 'Open Sans', sans-serif;
+}
+
+input.pet-pp-next {    
+    background-color: #fab005;
+    border: 0vmin;
+    border-radius: 5vmin;
+    padding: 3vmin;
+    margin-left: 3vmin;
+    color: white;
+    cursor: pointer;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container input[type="submit"] {
+    margin-top: 1rem;
+    padding: 3vmin 5vmin;
+    background-color: #fab005;
+    color: white;
+    border: none;
+    border-radius: 10vmin;
+    cursor: pointer;
+    font-size: 8vmin;
+    position: relative;
+    top: 70vmin;
+    left: 25vmin;
+}
+
+.container input[type="submit"]:hover {
+    background-color: #fab005;
+}
+
+.pet-pp-create {
+    text-align: center;
+    font-size: 1.25rem;
+    margin-top: 1rem;
+}
+
+/* shows which question you are on ie 1/11 */
+p.pet-pp-create {
+    font-weight: 100;
+    font-size: 2vmin;
+    position: relative;
+    top: 80vmin;
+}
+
+/* pet name question input field*/
+input#pet_name.name_q, input#id_1-age {
+    border: none;
+    cursor: text;
+    background-color: #f9f9f9;
+    font-size: 8vmin;
+    width: 80vmin;
+    margin-bottom: 5vmin;
+}
+
+.pet-create-radio li {
+    list-style-type: none;  /* Removes the bullet points */
+}
+
+.pet-create-radio input[type="radio"] {
+    display: none;  /* Hides the radio buttons */
+}
+
+.form-group ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.form-group ul li {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+/* Title questions on pet form */
+label[for=pet_name], label[for=id_1-age] {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10vmin;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    width: 80vmin;
+    margin-top: 30vmin;
+    margin-bottom: 15vmin;
+}
+
+div#pet_name.name_q {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #f9f9f9;
+    cursor: pointer;
+    margin-top: 5vmin;
+}
+
+label[for=pet_name_2], label[for=pet_name_1], label[for=pet_name_0] {
+    margin-top: 2vmin;
+}
+
+
+
+
+/* Hide the radio button */
+/* .your-form .pet-create-radio input[type="radio"], */input#pet_name_0.name_q, input#pet_name_1.name_q, input#pet_name_2.name_q { 
+    display: none;
+}
+
+input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name_2.name_q:checked {
+    color: red;
+} 
+
+/* Style the label to look like a button */
+.your-form .pet-create-radio label {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #ddd;
+    cursor: pointer;
+}
+
+/* Change appearance when a label is clicked (radio button selected) */
+.your-form .pet-create-radio input[type="radio"]:checked + label {
+    color: red;
+}

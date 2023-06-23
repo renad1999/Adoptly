@@ -1,4 +1,38 @@
+{% load static %}
 
-<!-- for the creation of pet's for adoption -->
-<!-- if object (edit) else (add) -->
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Create Pet</title>
+  </head>
+  <body class="pet-pp-create">
+    <div class="container">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} {{ wizard.management_form }}
+        <!-- Check if wizard.form has forms -->
+        {% if wizard.form.forms %} {{ wizard.form.management_form }}
+        <!-- Loop through the forms in the wizard -->
+        {% for form in wizard.form.forms %}
+        <!-- Loop through the fields in the form -->
+        {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field.errors }} {{ field.help_text }} {{ field }}
+        </div>
+        <!-- End of field loop -->
+        {% endfor %}
+        <!-- End of form loop -->
+        {% endfor %}
+        <!-- If there are no forms in the wizard -->
+        {% else %} {{ wizard.form }} {% endif %}
+        <input type="submit" value=">" class="pet-pp-next" />
+      </form>
+      <p class="pet-pp-create">
+        {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
+      </p>
+    </div>
+  </body>
+</html>
