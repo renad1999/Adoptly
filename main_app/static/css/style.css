@@ -167,7 +167,7 @@ label[for=pet_name_2], label[for=pet_name_1], label[for=pet_name_0] {
 
 
 /* Hide the radio button */
-/* .your-form .pet-create-radio input[type="radio"], */input#pet_name_0.name_q, input#pet_name_1.name_q, input#pet_name_2.name_q { 
+/* .your-form .pet-create-radio input[type="radio"], */input#activity_0.name_q, input#activity_1.name_q, input#activity_2.name_q { 
     display: none;
 }
 

@@ -43,6 +43,7 @@ class PetActivityForm(forms.ModelForm):
         # all fields on form
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'name_q'
+                self.fields[field].widget.attrs['id'] = 'activity'
 
 
 class PetSociabilityForm(forms.ModelForm):
