@@ -80,18 +80,9 @@ class UserDetails(models.Model):
     phone = models.IntegerField()
     adopter = models.BooleanField(default=False)
 
-#? ADOPTION PREFERENCES
-# activity levels, sociability, size, is_owner charfields
-class AdoptionPreferences(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    activityLevel = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES)
-    sociability = models.CharField(max_length=50, choices=SOCIABILITY_CHOICES)
-    size = models.CharField(
-        max_length=1, 
-        choices=SIZE_CHOICES)
 
 
-#? PET TABLE MODEL
+#? PET TABLE MODELz
 # name, species, breed, age, description charfields
 # user can only choose 3 prompts, once all 3 chosen user can't add anymore
 class PetTable(models.Model):
@@ -121,6 +112,17 @@ class PetTable(models.Model):
     prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
     a3 = models.TextField(max_length=250, null=True)
 
+#? ADOPTION PREFERENCES
+# activity levels, sociability, size, is_owner charfields
+class AdoptionPreferences(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activityLevel = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES)
+    sociability = models.CharField(max_length=50, choices=SOCIABILITY_CHOICES)
+    size = models.CharField(
+        max_length=1, 
+        choices=SIZE_CHOICES)
+    liked_pets = models.ManyToManyField(PetTable, related_name='liked_by_users')
+    
     #? PET MATCH
 # use perfect match scoring of 1 - 0 to help push perfect matches to the top of the matches list
 class PetMatch(models.Model):

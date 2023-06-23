@@ -114,7 +114,7 @@ def about(request):
 #? Matching func 
 def assoc_pet(request, user_id, pet_id):
   UserDetails.objects.get(id=user_id).PetTable.add(pet_id)
-  return redirect(home, user_id=user_id)
+  return redirect('home', user_id=user_id)
 
 #? Unmatching func
 def unassoc_pet(request, user_id, pet_id):
@@ -129,11 +129,11 @@ def unassoc_pet(request, user_id, pet_id):
 #creating an adopter account or pet account? - KB
 class AdoptionPreferences(CreateView):
   model = AdoptionPreferences
-  fields ='__all__'
+  fields =['activityLevel', 'sociability', 'size']
 
 class AdoptionPreferencesUpdate(UpdateView):
   model = AdoptionPreferences
-  fields ='__all__'
+  fields =['activityLevel', 'sociability', 'size']
 
 class AdoptionPreferencesDelete(DeleteView):
   model = AdoptionPreferences
