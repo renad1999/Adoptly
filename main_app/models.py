@@ -109,7 +109,7 @@ class PetTable(models.Model):
 
 #? PET PROMPTS
 class Prompt(models.Model):
-    prompt = models.CharField(max_length=100, choices=PROMPT_CHOICES)
+    prompt = models.CharField(max_length=100, choices=PROMPT_CHOICES, default='a')
     answer = models.TextField(max_length=250, null=True)
     pet = models.ForeignKey(PetTable, on_delete=models.CASCADE, related_name='prompts')
 

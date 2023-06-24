@@ -325,7 +325,8 @@ input[type=text] {
 /* IMAGE UPLOAD */
 
 body.pet-update {
-    width: 390px;
+    /* width: 390px; */
+    width: 100%;
     font-family: sans-serif;
 }
 /* back, <petname>, done */
@@ -365,6 +366,17 @@ h3.pet-update {
     margin-bottom: 1vmin;
 }
 
+/* Upload Photo Button */
+button#btn {
+    color: #fab005;
+    font-size: 4vmin;
+    border: none;
+    padding: 2vmin 2vmin;
+    background-color: white;
+    box-shadow: 0 0 1vmin #ccc;
+    border-radius: 2.5vmin;
+}
+
 /* The row of three images */
 .img-container {
     position: relative;
@@ -398,6 +410,24 @@ img#card-panel.responsive-img {
 
 button.img-delete-btn {
     transform: rotate(45deg);
+}
+
+button.add-btn, 
+button.img-delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 3vmin;
+    border: 4vmin;
+    box-shadow: 0 0 1vmin #ccc;
+    background-color: white;
+}
+
+/* button.add-btn, 
+button.img-delete-btn {
+    display: block;
+    width: 2em;
+    height: 2em;
     position: absolute;
     top: 0;
     right: 0;
@@ -406,6 +436,27 @@ button.img-delete-btn {
     box-shadow: 0 0 1vmin black;
     background-color: white;
 }
+
+.placeholder input[type=file] {
+    display: none; 
+}
+
+.placeholder label {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 3vmin;
+    border: 4vmin;
+    box-shadow: 0 0 1vmin black;
+    background-color: white;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    cursor: pointer;
+} */
+
 
 /* Pet prompts styling */
 
