@@ -366,3 +366,11 @@ option[value="a"]
 input[type=text] {
     font-size: 10vmin;
 }
+
+/* IMAGE UPLOAD */
+img#card-panel.responsive-img {
+    height: 25vmin;
+    width: 25vmin;
+    object-fit: cover;
+    overflow:hidden;
+}

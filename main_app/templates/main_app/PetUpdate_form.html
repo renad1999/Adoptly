@@ -1,17 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>Document</title>
   </head>
   <body>
     <h1>{{ form.instance.name }}</h1>
-
+<h3 class="pet-update">My Photos</h3>
 </div>
-<!-- Insert photo markup below this comment -->
-{% for petimage in pet.petimage_set.all %}
-  <img class="responsive-img card-panel" src="{{petimage.url}}">
+<!-- UPLOAD PHOTO -->
+{% for photo in pet.images.all %}
+  <img class="responsive-img" id="card-panel" src="{{photo.url}}">
 {% empty %}
   <div class="card-panel teal-text center-align">No Photos Uploaded</div>
 {% endfor %}
@@ -21,6 +23,16 @@
     <br><br>
     <button type="submit" class="btn">Upload Photo</button>
 </form>
+<!-- END UPLOAD PHOTO -->
+<h3 class="pet-update">Written Prompts</h3>
+<div class="col s6">
+   <!-- Prompt Answer Formset -->
+   <form method="POST" class="card-panel">
+    {% csrf_token %}
+    {{ prompt_form.as_p }}
+    <button type="submit" class="btn">Done</button>
+</form>
+<!-- End of Prompt Answer Formset -->
+
   </body>
 </html>
- 

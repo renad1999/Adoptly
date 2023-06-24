@@ -13,7 +13,7 @@ from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
-from .forms import AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, UserChoiceForm, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
+from .forms import PromptForm, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, UserChoiceForm, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
 
 #! Forms
 
@@ -97,12 +97,15 @@ def add_photo(request, pet_id):
             s3.upload_fileobj(photo_file, bucket, key)
             # build the full url string
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            print(url)
             # we can assign to cat_id or cat (if you have a cat object)
-            PetImage.objects.create(url=url, pet_id=pet_id)
+            PetImage.objects.create(url=url, pet=pet)
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('pet_update', pk=pet_id)
+
+
 
 #! Create your views here.
 
@@ -185,10 +188,20 @@ class PetUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['pet'] = self.object
+        context['prompt_form'] = PromptForm() # New
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        prompt_form = PromptForm(request.POST)
+        if prompt_form.is_valid():
+            new_prompt = prompt_form.save(commit=False)
+            new_prompt.pet = self.object
+            new_prompt.save()
+        return super().post(request, *args, **kwargs)
     
     def get_success_url(self):
-        return reverse('pet_update', args=[self.object.id])
+        return reverse('pet_details', args=[self.object.id])
     
 class PromptUpdate(UpdateView):
     model = Prompt

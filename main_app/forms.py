@@ -1,9 +1,13 @@
 from django import forms
-from .models import PetTable, PetImage
-
-from .models import AdoptionPreferences
-from .models import PetTable
+from django.forms import ModelForm
+from .models import PetTable, Prompt,AdoptionPreferences
    
+
+class PromptForm(forms.ModelForm):
+    class Meta:
+        model = Prompt
+        fields = ['prompt', 'answer']
+
 
 class AdoptionPreferencesActivity(forms.ModelForm):
     class Meta:

@@ -128,15 +128,14 @@ class AdoptionPreferences(models.Model):
     #? PET MATCH
 # use perfect match scoring of 1 - 0 to help push perfect matches to the top of the matches list
 class PetMatch(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    pet_id = models.ForeignKey(PetTable, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pet = models.ForeignKey(PetTable, on_delete=models.CASCADE)
     matchStatus = models.CharField(max_length=50)
 
 # #? image model
 class PetImage(models.Model):
-    photo = models.ImageField(upload_to='pets/', storage=S3Boto3Storage(), null=True)
     url = models.CharField(max_length=200, null=True)
-    pet_id = models.ForeignKey(PetTable, on_delete=models.CASCADE)
+    pet= models.ForeignKey(PetTable,related_name='images', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Photo for pet_id: {self.pet_id} @{self.url}"
