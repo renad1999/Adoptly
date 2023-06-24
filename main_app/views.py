@@ -2,6 +2,7 @@ import logging
 import boto3
 import uuid
 import os
+from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -86,6 +87,8 @@ def gateway(request):
 
 def add_photo(request, pet_id):
     pet = PetTable.objects.get(id=pet_id)    # photo-file will be the "name" attribute on the <input type="file">
+    if pet.images.count() >= 3:
+        return HttpResponse('You cannot upload more than 3 images')
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')
@@ -104,9 +107,32 @@ def add_photo(request, pet_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('pet_update', pk=pet_id)
+ 
+def delete_photo(request, pet_id, photo_id):
+    pet = PetTable.objects.get(id=pet_id)
+    try:
+        photo = PetImage.objects.get(id=photo_id)
+    except PetImage.DoesNotExist:
+        return redirect('pet_update', pk=pet_id)  # redirect if photo doesn't exist
+    photo.delete()
+    return redirect('pet_update', pk=pet_id)
 
+def pet_update(request, pet_id):
+    pet = PetTable.objects.get(id=pet_id)
 
+    # calculate the number of placeholders needed
+    num_images = pet.images.all().count()
+    num_placeholders = max(0, 3 - num_images)
 
+    print(f'Number of images: {num_images}')
+    print(f'Number of placeholders: {num_placeholders}')
+
+    context = {
+        'pet': pet,
+        'num_placeholders': range(num_placeholders),
+    }
+    return render(request, 'PetUpdate_form.html', context)
+   
 #! Create your views here.
 
 #? Home, render request home.html
@@ -201,10 +227,11 @@ class PetUpdate(UpdateView):
         if prompt_formset.is_valid():
             prompt_formset.instance = self.object
             prompt_formset.save()
-        return super().form_valid(form)
+        # returning HttpResponseRedirect to the success url directly
+        return HttpResponseRedirect(self.get_success_url())
     
     def get_success_url(self):
-        return reverse('pet_details', args=[self.object.id])
+        return reverse('home')
     
 class PromptUpdate(UpdateView):
     model = Prompt
@@ -212,7 +239,7 @@ class PromptUpdate(UpdateView):
     template_name = 'main_app/PromptUpdate_form.html'
     
     def get_success_url(self):
-        return reverse('prompt_details', args=[self.object.id])
+        return reverse('home')
 
   
 class PetDelete(DeleteView):

@@ -311,12 +311,108 @@ input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name
     color: red;
 }
 
+
+option[value="a"]
+{
+    font-size:10vmin;
+}
+input[type=text] {
+    font-size: 10vmin;
+}
+
+/*TODO PET UPDATE PAGE */
+
+/* IMAGE UPLOAD */
+
+body.pet-update {
+    width: 390px;
+    font-family: sans-serif;
+}
+/* back, <petname>, done */
+div.top-bar {
+    width: 95%;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 2vmin;
+    margin-right: 2vmin;
+}
+
+/* Pet Name */
+h1.pet-update {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10vmin;
+    font-weight: 400;
+}
+
+button.update-btn {
+    border: none;
+    background: transparent;
+    color: #fab005;
+    font-weight: 500;
+    font-size: 5vmin;
+    cursor: pointer;
+}
+
+h3.pet-update {
+    font-weight: 400;
+    color: #a4a3a3;
+    margin-left: 3vmin;
+    margin-bottom: 1vmin;
+}
+
+/* The row of three images */
+.img-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin-left: 2.5vmin;
+    margin-top: 3vmin;
+}
+
+/* Img placeholder boxes */
+.placeholder {
+    height: 28vmin;
+    width: 28vmin;
+    border: dashed 1px #ccc;
+    margin-right: 4vmin;
+}
+/* how the images look once uploaded */
+img#card-panel.responsive-img {
+    height: 28vmin;
+    width: 28vmin;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3vmin;
+    margin-right: 4vmin;
+}
+
+.img-delete-wrapper {
+    position: relative;
+}
+
+button.img-delete-btn {
+    transform: rotate(45deg);
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 3vmin;
+    border: 4vmin;
+    box-shadow: 0 0 1vmin black;
+    background-color: white;
+}
+
 /* Pet prompts styling */
 
 /* Answer boxes */
-textarea#id_10-a1,
-textarea#id_10-a2,
-textarea#id_10-a3
+textarea#id_prompt_formset-0-answer,
+textarea#id_prompt_formset-1-answer,
+textarea#id_prompt_formset-2-answer
  {
     border: none;
     cursor: text;
@@ -329,10 +425,9 @@ textarea#id_10-a3
 }
 
 /* Prompt selection */
-select#id_10-prompt1,
-select#id_10-prompt2,
-select#id_10-prompt3,
-select#activity.name_q
+select#id_prompt_formset-0-prompt,
+select#id_prompt_formset-1-prompt,
+select#id_prompt_formset-2-prompt
  {
     cursor: text;
     margin-bottom: 5vmin;
@@ -347,7 +442,13 @@ select#activity.name_q
     margin-top: 3vmin;
 }
 
-label[for=id_10-prompt1],
+  /*! TEMPORARY centering of prompts and a's*/
+  div.prompt-formset {
+    margin-right: 5vmin;
+  }
+
+
+/* label[for=id_10-prompt1],
 label[for=id_10-prompt2],
 label[for=id_10-prompt3] {
     display: flex;
@@ -357,20 +458,25 @@ label[for=id_10-prompt3] {
     width: 80vmin;
     font-size: 4vmin;
     color: #7c7c7c;
-}
+ } */
 
-option[value="a"]
-{
-    font-size:10vmin;
-}
-input[type=text] {
-    font-size: 10vmin;
-}
 
-/* IMAGE UPLOAD */
-img#card-panel.responsive-img {
-    height: 25vmin;
-    width: 25vmin;
-    object-fit: cover;
-    overflow:hidden;
-}
+
+/* Centering all the prompts and answers*/
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+
+/* border: none;
+background: transparent;
+color: #fab005;
+font-weight: 500;
+font-size: 5vmin;
+position: relative;
+top: -13vmin;
+left: 40px; */

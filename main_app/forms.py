@@ -8,6 +8,8 @@ class PromptForm(forms.ModelForm):
     class Meta:
         model = Prompt
         fields = ['prompt', 'answer']
+        labels = {'prompt': '', 'answer' : ''}
+        
 
 InlinePromptFormset = inlineformset_factory(PetTable, Prompt, form=PromptForm, extra=3, max_num=3, can_delete=False)
 

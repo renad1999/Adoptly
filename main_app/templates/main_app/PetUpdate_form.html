@@ -7,40 +7,57 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>Document</title>
   </head>
-  <body>
-    <h1>{{ form.instance.name }}</h1>
-<h3 class="pet-update">My Photos</h3>
+  <body class="pet-update">
+    <div class="top-bar">
+    <button class="update-btn">Back</button>
+    <h1 class="pet-update">{{ form.instance.name }}</h1>
+    <button type="submit" form="promptForm" class="done-btn update-btn">Done</button>
+    
 </div>
-<!-- UPLOAD PHOTO -->
-{% for photo in pet.images.all %}
-  <img class="responsive-img" id="card-panel" src="{{photo.url}}">
-{% empty %}
-  <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-{% endfor %}
-<form action="{% url 'add_photo' pet.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <button type="submit" class="btn">Upload Photo</button>
-</form>
-<!-- END UPLOAD PHOTO -->
-<h3 class="pet-update">Written Prompts</h3>
-<div class="col s6">
-   <!-- Prompt Answer Formset -->
-   <form method="post">
-    {% csrf_token %}
-    {{ prompt_formset.management_form }} <!-- required for formset management -->
-  
-    {% for form in prompt_formset %}
-    <div class="prompt-formset">
-        {{ form.errors }}
-        {{ form.prompt.label }}: {{ form.prompt }}<br>
-        {{ form.answer.label }}: {{ form.answer }}<br>
-    </div>
-{% endfor %}
-    <button type="submit" class="btn">Done</button>
-</form>
-<!-- End of Prompt Answer Formset -->
 
+    <h3 class="pet-update">My Photos</h3>
+    <!-- UPLOAD PHOTO -->
+    <div class="img-container">
+        {% for photo in pet.images.all %}
+        <div class="img-delete-wrapper"> 
+            <img class="responsive-img" id="card-panel" src="{{photo.url}}">
+            <div class="img-delete">
+                <form action="{% url 'delete_photo' pet.id photo.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="img-delete-btn">+</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in num_placeholders %}
+            <div class="placeholder">Placeholder</div>
+        {% endfor %}
+    </div>
+    <form action="{% url 'add_photo' pet.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        {% csrf_token %}
+        <input type="file" name="photo-file">
+        <br><br>
+        <button type="submit" class="btn">Upload Photo</button>
+    </form>
+    <!-- END UPLOAD PHOTO -->
+
+    <h3 class="pet-update">Written Prompts</h3>
+    <div class="form-container">
+    <!-- Prompt Answer Formset -->
+    <form method="post" id="promptForm">
+        {% csrf_token %}
+        {{ prompt_formset.management_form }} <!-- required for formset management -->
+    
+        {% for form in prompt_formset %}
+        <div class="prompt-formset">
+            {{ form.errors }}
+            {{ form.prompt.label }}: {{ form.prompt }}<br>
+            {{ form.answer.label }}: {{ form.answer }}<br>
+        </div>
+        {% endfor %}
+    </div>
+    </form>
+    <!-- End of Prompt Answer Formset -->
   </body>
 </html>
