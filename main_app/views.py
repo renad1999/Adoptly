@@ -9,20 +9,13 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import PetTable, AdoptionPreferences, UserDetails, PetImage
-from .models import PetTable, AdoptionPreferences, UserDetails
-from .forms import AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, UserChoiceForm
-FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
-    ("size", AdoptionPreferencesSize),
-    ("sociability", AdoptionPreferencesSociability),
-     ("energyLevel", AdoptionPreferencesEnergy),
-     ("Are you a pet owner?", UserChoiceForm)]
+from .models import PetTable, AdoptionPreferences, UserDetails, Prompt
+from .forms import AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, UserChoiceForm, AdoptionPreferencesEnergy
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
-from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, PetPromptsForm, PetImageForm
-
+from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
 
 #! Forms
 
@@ -32,14 +25,17 @@ PETFORMS = [
     ("activity", PetActivityForm),
     ("sociability", PetSociabilityForm),
     ("size", PetSizeForm),
-    ("weight", PetWeightForm),
     ("health", PetHealthStatusForm),
     ("energy", PetEnergyLevelForm),
     ("vaccination", PetVaccinationInformationForm),
-    ("cost", PetMonthlyCostForm),
-    ("prompts", PetPromptsForm),
-    ("image", PetImageForm),
+    ("cost", PetMonthlyCostForm)
 ]
+
+FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
+    ("size", AdoptionPreferencesSize),
+    ("sociability", AdoptionPreferencesSociability),
+     ("energyLevel", AdoptionPreferencesEnergy),
+     ("Are you a pet owner?", UserChoiceForm)]
 
 #! Functions
 #? Pawfect matches
@@ -156,12 +152,30 @@ class AdoptionPreferencesDelete(DeleteView):
 class PetCreate(CreateView):
   model = PetTable
   fields ='__all__'
+  template_name = 'main_app/PetTable_form.html' 
+  
+  def form_valid(self, form):
+    self.object = form.save(commit=False)  # Create the object but don't save to the database yet
+    self.object.user = self.request.user  # Set the user
+    self.object.save()  # Now save the object
+    return HttpResponseRedirect(reverse('pet_update', args=[self.object.id]))  # Redirect to PetUpdate view
 
 class PetUpdate(UpdateView):
-  model = PetTable
-  # Chosen these as the only editable options to update a pet - KB
-  fields =['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost', 
-           'prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3']
+    model = PetTable
+    fields = ['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost']
+    template_name = 'main_app/PetUpdate_form.html'
+    
+    def get_success_url(self):
+        return reverse('pet_details', args=[self.object.id])
+    
+class PromptUpdate(UpdateView):
+    model = Prompt
+    fields = ['prompt', 'response']
+    template_name = 'main_app/PromptUpdate_form.html'
+    
+    def get_success_url(self):
+        return reverse('prompt_details', args=[self.object.id])
+
   
 class PetDelete(DeleteView):
   model = PetTable
@@ -188,10 +202,8 @@ class AdoptionPreferencesWizard(SessionWizardView):
 class PetCreateWizard(SessionWizardView):
     form_list = PETFORMS
     template_name = 'main_app/PetTable_form.html'
-    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'photos'))
 
     def get_form(self, step=None, data=None, files=None):
-        # form = super(PetCreateWizard, self).self.logger.info(f"Serving form: {type(form).__name__}")
         form = super().get_form(step, data, files)
         print(f"Serving form: {type(form).__name__}")
         print(f"Form fields:  {form.fields}")
@@ -201,88 +213,42 @@ class PetCreateWizard(SessionWizardView):
         print(f"Current Step: {self.steps.current}")
         return form
 
-        # if form is None:
-        #   form = PetImageForm(data, files)  # if super call fails, at least return an empty PetImageForm
-        # elif isinstance(form, PetImageForm):
-        #   form = PetImageForm(data, files)  # if it's a PetImageForm, create a new instance with the provided data and files
-
-
     def done(self, form_list, **kwargs):
-      instance = PetTable()
+        instance = PetTable()
 
-    # Check if user is authenticated
-      if self.request.user.is_authenticated:
-          instance.user = self.request.user
-          for form in form_list:
-            if not isinstance(form, PetImageForm):
-              for field, value in form.cleaned_data.items():
-                setattr(instance, field, value)
-          instance.save()  # save the instance first before creating PetImage
-
-          for form in form_list:
-            if isinstance(form, PetImageForm):
-                for i in range(1, 4):  # iterate over the three photos
-                    photo_file = form.cleaned_data.get(f'photo{i}')
-
-                    if photo_file:
-                        s3 = boto3.client('s3')
-                        # need a unique "key" for S3 / needs image file extension too
-                        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-                        try:
-                            bucket = os.environ['S3_BUCKET']
-                            s3.upload_fileobj(photo_file, bucket, key)
-                            # build the full url string
-                            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-                            # create PetImage instance for each file
-                            PetImage.objects.create(photo=photo_file, url=url, pet_id=instance)
-                        except Exception as e:
-                            print('An error occurred uploading file to S3')
-                            print(e)
-            else:
+        # Check if user is authenticated
+        if self.request.user.is_authenticated:
+            instance.user = self.request.user
+            for form in form_list:
                 for field, value in form.cleaned_data.items():
                     setattr(instance, field, value)
-
-          instance.save()
-          return HttpResponseRedirect(reverse('home'))
-      else:
-        # redirect to login page, or some other response, if user is not authenticated
-        return HttpResponseRedirect(reverse('login'))
-
-
-
-    
-    def get_form_step_data(self, form):
-      data = super().get_form_step_data(form)
-      if isinstance(form, PetImageForm):
-        data = data.copy()  # Create a mutable copy
-        instance.save()
-        return HttpResponseRedirect(reverse('home'))
-
-  
+            
+            instance.save()
+            return HttpResponseRedirect(reverse('pet_update', kwargs={'pk': instance.id}))
+        else:
+            # redirect to login page, or some other response, if user is not authenticated
+            return HttpResponseRedirect(reverse('login'))
 
     def get_form_step_data(self, form):
-      data = super().get_form_step_data(form)
+        data = super().get_form_step_data(form)
+        return data
 
-
-    # If form is an instance of PetImageForm then append files data as well
-      if isinstance(form, PetImageForm):
-        data.update(self.get_form_step_files(form))
-      return data
 
 class PetNameCreate(CreateView):
     model = PetTable
     form_class = PetNameForm
     template_name = 'pets/PetTable_form.html'
 
-def form_valid(self, form):
-    self.object = form.save(commit=False)  # Create the object but don't save to the database yet
-    self.object.user = self.request.user  # Set the user
-    self.object.save()  # Now you can save the object
-    self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
-    return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
+    def form_valid(self, form):
+        self.object = form.save(commit=False)  # Create the object but don't save to the database yet
+        self.object.user = self.request.user  # Set the user
+        self.object.save()  # Now save the object
+        self.request.session['new_pet_id'] = self.object.id  # Save the id to the session
+        return HttpResponseRedirect(self.get_success_url())  # Redirect to the next part of the form
 
-def get_success_url(self):
-    return reverse('home')
+    def get_success_url(self):
+        return reverse('pet_update')
+
 
   
   
