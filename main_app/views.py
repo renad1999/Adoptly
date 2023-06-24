@@ -3,19 +3,17 @@ import boto3
 import uuid
 import os
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import PetTable, AdoptionPreferences, UserDetails, Prompt
-from .forms import AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, UserChoiceForm, AdoptionPreferencesEnergy
+from .models import PetTable, AdoptionPreferences, UserDetails, Prompt, PetImage
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
-from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
+from .forms import AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, UserChoiceForm, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
 
 #! Forms
 
@@ -83,11 +81,30 @@ def signup(request): #! Sign up function
   return render(request, 'registration/signup.html', context)
 
 
-
 def gateway(request):
   return render(request, 'gateway.html')
-#! Create your views here.
 
+def add_photo(request, pet_id):
+    pet = PetTable.objects.get(id=pet_id)    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url string
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            PetImage.objects.create(url=url, pet_id=pet_id)
+        except Exception as e:
+            print('An error occurred uploading file to S3')
+            print(e)
+    return redirect('pet_update', pk=pet_id)
+
+#! Create your views here.
 
 #? Home, render request home.html
 def home(request):
@@ -164,9 +181,14 @@ class PetUpdate(UpdateView):
     model = PetTable
     fields = ['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost']
     template_name = 'main_app/PetUpdate_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pet'] = self.object
+        return context
     
     def get_success_url(self):
-        return reverse('pet_details', args=[self.object.id])
+        return reverse('pet_update', args=[self.object.id])
     
 class PromptUpdate(UpdateView):
     model = Prompt
