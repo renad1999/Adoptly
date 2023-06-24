@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import inlineformset_factory
 from django.forms import ModelForm
 from .models import PetTable, Prompt,AdoptionPreferences
    
@@ -7,6 +8,8 @@ class PromptForm(forms.ModelForm):
     class Meta:
         model = Prompt
         fields = ['prompt', 'answer']
+
+InlinePromptFormset = inlineformset_factory(PetTable, Prompt, form=PromptForm, extra=3, max_num=3, can_delete=False)
 
 
 class AdoptionPreferencesActivity(forms.ModelForm):

@@ -13,7 +13,7 @@ from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
-from .forms import PromptForm, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, UserChoiceForm, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
+from .forms import PromptForm, InlinePromptFormset, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, UserChoiceForm, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
 
 #! Forms
 
@@ -188,17 +188,20 @@ class PetUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['pet'] = self.object
-        context['prompt_form'] = PromptForm() # New
+        if self.request.POST:
+            context['prompt_formset'] = InlinePromptFormset(self.request.POST, instance=self.object)
+        else:
+            context['prompt_formset'] = InlinePromptFormset(instance=self.object, prefix='prompt_formset')
         return context
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        prompt_form = PromptForm(request.POST)
-        if prompt_form.is_valid():
-            new_prompt = prompt_form.save(commit=False)
-            new_prompt.pet = self.object
-            new_prompt.save()
-        return super().post(request, *args, **kwargs)
+    def form_valid(self, form):
+        context = self.get_context_data()
+        prompt_formset = context['prompt_formset']
+
+        if prompt_formset.is_valid():
+            prompt_formset.instance = self.object
+            prompt_formset.save()
+        return super().form_valid(form)
     
     def get_success_url(self):
         return reverse('pet_details', args=[self.object.id])

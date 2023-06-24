@@ -27,9 +27,17 @@
 <h3 class="pet-update">Written Prompts</h3>
 <div class="col s6">
    <!-- Prompt Answer Formset -->
-   <form method="POST" class="card-panel">
+   <form method="post">
     {% csrf_token %}
-    {{ prompt_form.as_p }}
+    {{ prompt_formset.management_form }} <!-- required for formset management -->
+  
+    {% for form in prompt_formset %}
+    <div class="prompt-formset">
+        {{ form.errors }}
+        {{ form.prompt.label }}: {{ form.prompt }}<br>
+        {{ form.answer.label }}: {{ form.answer }}<br>
+    </div>
+{% endfor %}
     <button type="submit" class="btn">Done</button>
 </form>
 <!-- End of Prompt Answer Formset -->
