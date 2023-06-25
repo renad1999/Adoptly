@@ -80,38 +80,28 @@ class UserDetails(models.Model):
     adopter = models.BooleanField(default=False)
 
 
-
-
 #? PET TABLE MODELz
 # name, species, breed, age, description charfields
 # user can only choose 3 prompts, once all 3 chosen user can't add anymore
 class PetTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    gender = models.CharField(max_length=255, choices=GENDER_CHOICES, default='M')
-    sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='introvert')
+    name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=50, choices=GENDER_CHOICES, default='M')
+    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES, default='introvert')
     age = models.IntegerField()
     breed = models.TextField(max_length=100) 
     size = models.CharField(
-        max_length=255,
+        max_length=50,
         choices=SIZE_CHOICES, default='S'
     )
     weight = models.FloatField(null=True)
     healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES, default='good health')
-    activity_level = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
-    energy_level = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
+    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES, default='low')
+    energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
     vaccinationInformation = models.CharField(
         max_length=1,
         choices=VACCINATION_CHOICES, default='N'
     )
-    monthlyCost = models.DecimalField(max_digits=8, decimal_places=2)
-    prompt1 = models.CharField(max_length=255, choices=PROMPT_CHOICES, null=True)
-    prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='a')
-    a1 = models.TextField(max_length=250, null=True)
-    prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='b')
-    a2 = models.TextField(max_length=250, null=True)
-    prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='c')
-    a3 = models.TextField(max_length=250, null=True)
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2, null=True)
 
     
@@ -123,10 +113,7 @@ class Prompt(models.Model):
     pet = models.ForeignKey(PetTable, on_delete=models.CASCADE, related_name='prompts')
 
 
-
-
-
-    #? ADOPTION PREFERENCES
+#? ADOPTION PREFERENCES
 # activity levels, sociability, size, is_owner charfields
 class AdoptionPreferences(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -140,9 +127,6 @@ class AdoptionPreferences(models.Model):
     #? PET MATCH
 # use perfect match scoring of 1 - 0 to help push perfect matches to the top of the matches list
 class PetMatch(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    pet_id = models.ForeignKey(PetTable, on_delete=models.CASCADE)
-    matchStatus = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pet = models.ForeignKey(PetTable, on_delete=models.CASCADE)
     matchStatus = models.CharField(max_length=50)
