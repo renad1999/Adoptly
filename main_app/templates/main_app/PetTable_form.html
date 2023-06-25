@@ -42,7 +42,7 @@
 
 <script>
   window.onload = function () {
-    var labels = document.querySelectorAll("label");
+    const labels = document.querySelectorAll("label");
     for (let label of labels) {
       let input = document.getElementById(label.getAttribute("for"));
       if (input && input.type === "radio") {
