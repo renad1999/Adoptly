@@ -1,8 +1,38 @@
-<h1>Sign Up</h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Document</title>
+  </head>
+  <body class="signup">
+    <div class="signup-background"></div>
+    <div class="signup-container">
+      <label class="title-icon-signup">
+        <h1 class="signup">Adoptly</h1>
+        <img
+          src="{% static 'images/paw-icon.png' %}"
+          alt="Paw Icon"
+          class="paw-icon"
+      /></label>
+      <h2 class="signup">Find your pawfect match.</h2>
+      <div class="signup-icon"></div>
+      <div class="signup-input">
+        <p class="red-text">{{ error_message }}</p>
 
-<p class="red-text">{{ error_message }}</p>
-
-<form method="POST" action="{% url 'signup' %}">
-  {% csrf_token %} {{ form.as_p }}
-  <input type="submit" class="btn" value="Sign Up" />
-</form>
+        <form method="POST" action="{% url 'signup' %}">
+          {% csrf_token %} {{ form.as_p }}
+          <input type="submit" class="signup-btn" value="Sign Up" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

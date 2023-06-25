@@ -1,3 +1,4 @@
+# kyle please install 'pip install python-dotenv'
 from dotenv import load_dotenv
 import os
 """
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'formtools',
+
    
 ]
 
