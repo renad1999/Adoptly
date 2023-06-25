@@ -1,6 +1,8 @@
+import logging
 import boto3
 import uuid
 import os
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -18,23 +20,25 @@ FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, PetImageForm, PetPromptsForm, PetImageForm
+from django.conf import settings
+from .forms import PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm, PetWeightForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, PetPromptsForm, PetImageForm
 
 
 #! Forms
 
-PETFORMS = [("name", PetNameForm), 
-         ("Age", PetAgeForm),
-         ("activity", PetActivityForm),
-         ("sociability", PetSociabilityForm),
-         ("size", PetSizeForm),
-         ("weight", PetWeightForm),
-         ("healthStatus", PetHealthStatusForm),
-         ("activity_level", PetEnergyLevelForm),
-         ("vaccinationInformation", PetVaccinationInformationForm),
-         ("monthlyCost", PetMonthlyCostForm),
-         ("prompts", PetPromptsForm),
-         ("image", PetImageForm)
+PETFORMS = [
+    ("name", PetNameForm),
+    ("age", PetAgeForm),
+    ("activity", PetActivityForm),
+    ("sociability", PetSociabilityForm),
+    ("size", PetSizeForm),
+    ("weight", PetWeightForm),
+    ("health", PetHealthStatusForm),
+    ("energy", PetEnergyLevelForm),
+    ("vaccination", PetVaccinationInformationForm),
+    ("cost", PetMonthlyCostForm),
+    ("prompts", PetPromptsForm),
+    ("image", PetImageForm),
 ]
 
 #! Functions
@@ -183,32 +187,39 @@ class AdoptionPreferencesWizard(SessionWizardView):
 
 class PetCreateWizard(SessionWizardView):
     form_list = PETFORMS
-    template_name = 'main_app/pettable_form.html'
+    template_name = 'main_app/PetTable_form.html'
+    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'photos'))
 
     def get_form(self, step=None, data=None, files=None):
-        form = super(PetCreateWizard, self).get_form(step, data, files)
+        # form = super(PetCreateWizard, self).self.logger.info(f"Serving form: {type(form).__name__}")
+        form = super().get_form(step, data, files)
         print(f"Serving form: {type(form).__name__}")
-
-        print("Form fields: ", form.fields)
-
-        if form is None:
-          form = PetImageForm(data, files)  # if super call fails, at least return an empty PetImageForm
-        elif isinstance(form, PetImageForm):
-          form = PetImageForm(data, files)  # if it's a PetImageForm, create a new instance with the provided data and files
-
-        print(f"Serving form: {type(form).__name__}")
+        print(f"Form fields:  {form.fields}")
+        print(f"Form is valid: {form.is_valid()}")
+        print(f"Form errors: {form.errors}")
+        print(f"Form cleaned data: {form.cleaned_data if form.is_valid() else None}")
+        print(f"Current Step: {self.steps.current}")
         return form
 
-    def done(self, form_list, **kwargs):
-        instance = PetTable()
-        instance.user = self.request.user
-        for form in form_list:
-          if not isinstance(form, PetImageForm):
-            for field, value in form.cleaned_data.items():
-                setattr(instance, field, value)
-        instance.save()  # save the instance first before creating PetImage
+        # if form is None:
+        #   form = PetImageForm(data, files)  # if super call fails, at least return an empty PetImageForm
+        # elif isinstance(form, PetImageForm):
+        #   form = PetImageForm(data, files)  # if it's a PetImageForm, create a new instance with the provided data and files
 
-        for form in form_list:
+
+    def done(self, form_list, **kwargs):
+      instance = PetTable()
+
+    # Check if user is authenticated
+      if self.request.user.is_authenticated:
+          instance.user = self.request.user
+          for form in form_list:
+            if not isinstance(form, PetImageForm):
+              for field, value in form.cleaned_data.items():
+                setattr(instance, field, value)
+          instance.save()  # save the instance first before creating PetImage
+
+          for form in form_list:
             if isinstance(form, PetImageForm):
                 for i in range(1, 4):  # iterate over the three photos
                     photo_file = form.cleaned_data.get(f'photo{i}')
@@ -230,6 +241,20 @@ class PetCreateWizard(SessionWizardView):
             else:
                 for field, value in form.cleaned_data.items():
                     setattr(instance, field, value)
+
+          instance.save()
+          return HttpResponseRedirect(reverse('home'))
+      else:
+        # redirect to login page, or some other response, if user is not authenticated
+        return HttpResponseRedirect(reverse('login'))
+
+
+
+    
+    def get_form_step_data(self, form):
+      data = super().get_form_step_data(form)
+      if isinstance(form, PetImageForm):
+        data = data.copy()  # Create a mutable copy
         instance.save()
         return HttpResponseRedirect(reverse('home'))
 

@@ -105,11 +105,11 @@ class PetTable(models.Model):
         choices=VACCINATION_CHOICES, default='N'
     )
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2)
-    prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='a')
     a1 = models.TextField(max_length=250, null=True)
-    prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='b')
     a2 = models.TextField(max_length=250, null=True)
-    prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
+    prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='c')
     a3 = models.TextField(max_length=250, null=True)
 
 #? ADOPTION PREFERENCES
