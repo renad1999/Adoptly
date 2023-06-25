@@ -367,7 +367,7 @@ h3.pet-update {
 }
 
 /* Upload Photo Button */
-button#btn {
+button#add-photo-btn, button#choose-file-btn {
     color: #fab005;
     font-size: 4vmin;
     border: none;
@@ -375,6 +375,10 @@ button#btn {
     background-color: white;
     box-shadow: 0 0 1vmin #ccc;
     border-radius: 2.5vmin;
+}
+
+#btn {
+    display: none;
 }
 
 /* The row of three images */

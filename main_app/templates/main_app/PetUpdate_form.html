@@ -36,9 +36,10 @@
     </div>
     <form action="{% url 'add_photo' pet.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
         {% csrf_token %}
-        <input type="file" name="photo-file">
+        <button type="button" id="choose-file-btn" onclick="document.getElementById('photo-file').click();">Add photo</button>
+        <input type="file" name="photo-file" id="photo-file" style="display: none;" onchange="handleFileSelect();">
         <br><br>
-        <button type="submit" id="btn">add photo</button>
+        <button type="submit" id="addphoto-btn" style="display: none;">Show my photo!</button>
     </form>
     <!-- END UPLOAD PHOTO -->
 
@@ -61,3 +62,19 @@
     <!-- End of Prompt Answer Formset -->
   </body>
 </html>
+
+<script type="text/javascript">
+    function handleFileSelect() {
+        let btn = document.getElementById('addphoto-btn');
+        let chooseFileBtn = document.querySelector('#choose-file-btn');
+
+        if (document.getElementById('photo-file').value) {  // if a file has been selected
+            console.log('File selected!');
+            btn.style.display = "block";  // show the submit button
+            chooseFileBtn.style.display = "none";  // hide the choose file button
+        } else {
+            btn.style.display = "none";  // otherwise, hide the submit button
+            chooseFileBtn.style.display = "block";  // and show the choose file button
+        }
+    }
+</script>
