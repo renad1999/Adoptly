@@ -300,3 +300,22 @@ class AdoptionPreferencesCreateView(CreateView):
 
 def preferences_complete(request):
     return render(request, '')
+
+
+
+
+def pet_guidance(request):
+    return render(request, 'pet_guidance.html')
+
+
+def success_stories(request):
+    return render(request, 'success_stories.html')
+
+def help_center(request):
+    return render(request, 'help_center.html')
+
+def messages(request):
+    return render(request, 'messages.html')
+
+
+

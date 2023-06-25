@@ -2,10 +2,48 @@
 
 {% block content %}
 
+<div class="settings-section">
+    <h2>Settings</h2>
+
+    <form>
+        <!-- Form fields and settings options go here -->
+    </form>
+
+    <p>For more information, visit the <a href="{% url 'about' %}">About</a> page.</p>
+</div>
 
 
 
-<!-- about page sits inside -->
-<!-- edit profile -->
+
+<div class="settings-section">
+    <!-- Existing settings content... -->
+</div>
+
+<div class="settings-section">
+
+
+    <form>
+        <!-- Form fields and settings options go here -->
+    </form>
+
+    <h2>Adoption Guidance</h2>
+
+    <p>Need guidance for adopting a pet? <a href="{% url 'pet_guidance' %}">Click here</a>.</p>
+</div>
+
+<div class="settings-section">
+
+
+    <form>
+        <!-- Existing form fields and settings options -->
+    </form>
+
+    <h2>Success Stories</h2>
+
+    <p>Want to read some success stories? <a href="{% url 'success_stories' %}">Click here</a>.</p>
+</div>
+
+<a href="{% url 'help_center' %}">Help Center</a>
+
 
 {% endblock %}

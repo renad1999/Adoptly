@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        /* CSS for the help center page */
+        /* Mobile styles for iPhone XR */
+        @media (max-width: 414px) {
+            body {
+                font-size: 14px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Tablet and desktop styles */
+        @media (min-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+
+    <h1>Help Center</h1>
+    <a href="{% url 'settings' %}" class="btn btn-secondary" style="background-color: orange;">Back</a>
+
+    <p>
+        Adoption is a meaningful and fulfilling experience that allows you to welcome a new furry companion into your life while providing a loving home for an animal in need. Begin by researching different pet breeds or species that suit your lifestyle, considering factors like size, activity level, and compatibility. Visit local animal shelters or rescue organizations, interact with the animals, and learn about their backgrounds and care requirements. Take the time to bond with potential pets, observing their behavior and temperament to find the one that resonates with you. Keep in mind that pet ownership is a long-term commitment involving daily care, attention, and financial responsibilities. Prepare your home by ensuring its safety and gathering essential supplies. After adoption, give your new pet time to adjust and provide a consistent routine and training as needed. Schedule veterinary visits and prioritize their health. Embrace the journey of pet ownership, enjoying the love, companionship, and joy it brings to your life.
+    </p>
+
+    <p>
+        In summary:
+        <ul>
+            <li>Research suitable pet breeds or species for your lifestyle.</li>
+            <li>Visit local animal shelters or rescue organizations to meet potential pets.</li>
+            <li>Understand the responsibilities and long-term commitment of pet ownership.</li>
+            <li>Prepare your home and gather essential supplies.</li>
+            <li>Provide a post-adoption adjustment period and necessary training.</li>
+            <li>Schedule veterinary visits for regular check-ups and care.</li>
+            <li>Enjoy the love, companionship, and joy of pet ownership.</li>
+        </ul>
+    </p>
+{% endblock %}
