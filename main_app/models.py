@@ -79,14 +79,7 @@ class UserDetails(models.Model):
     phone = models.IntegerField()
     adopter = models.BooleanField(default=False)
 
-#? ADOPTION PREFERENCES
-# activity levels, sociability, size, is_owner charfields
-class AdoptionPreferences(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    activityLevel = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
-    sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='both')
-    size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
-    energyLevel = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
+
 
 
 #? PET TABLE MODELz
@@ -120,17 +113,19 @@ class PetTable(models.Model):
     prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='c')
     a3 = models.TextField(max_length=250, null=True)
 
-#? ADOPTION PREFERENCES
+
+
+
+    #? ADOPTION PREFERENCES
 # activity levels, sociability, size, is_owner charfields
 class AdoptionPreferences(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    activityLevel = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES)
-    sociability = models.CharField(max_length=50, choices=SOCIABILITY_CHOICES)
-    size = models.CharField(
-        max_length=1, 
-        choices=SIZE_CHOICES)
+    activityLevel = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
+    sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='both')
+    size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
+    energyLevel = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
     liked_pets = models.ManyToManyField(PetTable, related_name='liked_by_users')
-    
+
     #? PET MATCH
 # use perfect match scoring of 1 - 0 to help push perfect matches to the top of the matches list
 class PetMatch(models.Model):

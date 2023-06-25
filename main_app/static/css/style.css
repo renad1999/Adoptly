@@ -296,3 +296,32 @@ input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name
 .your-form .pet-create-radio input[type="radio"]:checked + label {
     color: red;
 }
+
+.fa fa-aw fa-heart
+{
+    background-color:red;
+}
+
+#red-heart {
+    color: red;
+  }
+  
+
+  .stylish-a {
+    font-family: 'Your Stylish Font', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000; /* Adjust the color as desired */
+    /* Add any other custom styles for the stylish look */
+  }
+
+  .stylish-a {
+    font-family: 'Kavivanar', cursive, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000; /* Adjust the color as desired */
+    /* Add any other custom styles for the stylish look */
+  }
+

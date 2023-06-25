@@ -210,7 +210,7 @@ class PetWeightForm(forms.ModelForm):
         model = PetTable
         fields = ['weight']
         labels = {
-            'wight': 'What weight is your pet?',
+            'weight': 'What weight is your pet?',
         }
 
 class PetHealthStatusForm(forms.ModelForm):

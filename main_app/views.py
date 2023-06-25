@@ -87,7 +87,6 @@ def signup(request): #! Sign up function
   return render(request, 'registration/signup.html', context)
 
 
-
 def gateway(request):
   return render(request, 'gateway.html')
 #! Create your views here.
@@ -283,10 +282,7 @@ def form_valid(self, form):
 
 def get_success_url(self):
     return reverse('home')
-
-  
-  
-
+   
 class AdoptionPreferencesCreateView(CreateView):
     model = AdoptionPreferences
     form_class = AdoptionPreferencesForm
