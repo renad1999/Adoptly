@@ -14,16 +14,11 @@ from .forms import (
     PetActivityForm,
     PetSociabilityForm, 
     PetSizeForm,
-    # PetWeightForm, 
     PetHealthStatusForm,
     PetEnergyLevelForm, 
     PetVaccinationInformationForm, 
     # PetMonthlyCostForm, 
-    PetPromptsForm, 
-    PetImageForm
 )
-
-
 
 
 #? URL patterns below
@@ -44,18 +39,16 @@ urlpatterns = [
     PetActivityForm,
     PetSociabilityForm, 
     PetSizeForm,
-    # PetWeightForm, 
     PetHealthStatusForm,
     PetEnergyLevelForm, 
-    PetVaccinationInformationForm, 
-    # PetMonthlyCostForm, 
-    PetPromptsForm, PetImageForm]), name="pet_create"),
-    path('pet/<int:pet_id>/update/', views.PetUpdate.as_view(), name="pet_update"),
+    PetVaccinationInformationForm]), name="pet_create"),
+    path('pet/<int:pk>/update/', views.PetUpdate.as_view(), name="pet_update"),
+    path('prompt/<int:pk>/update/', views.PromptUpdate.as_view(), name="prompt_update"),
     path('pet/<int:pet_id>/delete/', views.PetDelete.as_view(), name="pet_delete"),
+    path('pet/<int:pet_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('pet/<int:pet_id>/delete_photo/<int:photo_id>/', views.delete_photo, name='delete_photo'),
     path('user/<int:user_id>/assoc_pet/<int:pet_id>/', views.assoc_pet, name="match"),
     path('user/<int:user_id>/unassoc_pet/<int:pet_id>/', views.unassoc_pet, name="unmatch")
-
-
 ]
 
 
