@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from storages.backends.s3boto3 import S3Boto3Storage
 
-
 #! tuples here
 GENDER_CHOICES = (
     ('M', 'Male'),

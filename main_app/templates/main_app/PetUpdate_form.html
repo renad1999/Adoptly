@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Document</title>
+  </head>
+  <body class="pet-update">
+    <div class="top-bar">
+    <button class="update-btn">Back</button>
+    <h1 class="pet-update">{{ form.instance.name }}</h1>
+    <button type="submit" form="promptForm" class="done-btn update-btn">Done</button>
+    
+</div>
+
+    <h3 class="pet-update">My Photos</h3>
+    <!-- UPLOAD PHOTO -->
+    <div class="img-container">
+        {% for photo in pet.images.all %}
+        <div class="img-delete-wrapper"> 
+            <img class="responsive-img" id="card-panel" src="{{photo.url}}">
+            <div class="img-delete">
+                <form action="{% url 'delete_photo' pet.id photo.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="img-delete-btn">+</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in num_placeholders %}
+            <div class="placeholder">Placeholder</div>
+        {% endfor %}
+    </div>
+    <form action="{% url 'add_photo' pet.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        {% csrf_token %}
+        <button type="button" id="choose-file-btn" onclick="document.getElementById('photo-file').click();">Add photo</button>
+        <input type="file" name="photo-file" id="photo-file" style="display: none;" onchange="handleFileSelect();">
+        <br><br>
+        <button type="submit" id="addphoto-btn" style="display: none;">Show my photo!</button>
+    </form>
+    <!-- END UPLOAD PHOTO -->
+
+    <h3 class="pet-update">Written Prompts</h3>
+    <div class="form-container">
+    <!-- Prompt Answer Formset -->
+    <form method="post" id="promptForm">
+        {% csrf_token %}
+        {{ prompt_formset.management_form }} <!-- required for formset management -->
+    
+        {% for form in prompt_formset %}
+        <div class="prompt-formset">
+            {{ form.errors }}
+            {{ form.prompt.label }}: {{ form.prompt }}<br>
+            {{ form.answer.label }}: {{ form.answer }}<br>
+        </div>
+        {% endfor %}
+    </div>
+    </form>
+    <!-- End of Prompt Answer Formset -->
+  </body>
+</html>
+
+<script type="text/javascript">
+    function handleFileSelect() {
+        let btn = document.getElementById('addphoto-btn');
+        let chooseFileBtn = document.querySelector('#choose-file-btn');
+
+        if (document.getElementById('photo-file').value) {  // if a file has been selected
+            console.log('File selected!');
+            btn.style.display = "block";  // show the submit button
+            chooseFileBtn.style.display = "none";  // hide the choose file button
+        } else {
+            btn.style.display = "none";  // otherwise, hide the submit button
+            chooseFileBtn.style.display = "block";  // and show the choose file button
+        }
+    }
+</script>

@@ -36,15 +36,6 @@ a.login {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* .color-overlay {
-    background: linear-gradient(to top, 
-    rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-    width: 100%;
-    height: 25%;
-    opacity: 0.5;
-    position: absolute;
-} */
-
 a.signup {
     color: white;
     text-decoration: none;
@@ -190,22 +181,6 @@ label[for=cost_q] {
     margin-bottom: 15vmin;
 }
 
-/* div#pet_name.name_q {
-    display: flex;
-    padding: 10px 20px;
-    background: white;
-    cursor: pointer;
-    margin-top: 5vmin;
-    display: block;
-} */
-
-/* label[for=pet_name_2], 
-label[for=pet_name_1], 
-label[for=pet_name_0] {
-    margin-top: 2vmin;
-} */
-
-
 /* multiple choice answers on activity form */
 div#activity.name_q, 
 div#pet_name.name_q,
@@ -311,6 +286,34 @@ input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name
     color: red;
 }
 
+.fa fa-aw fa-heart
+{
+    background-color:red;
+}
+
+#red-heart {
+    color: red;
+  }
+  
+
+  .stylish-a {
+    font-family: 'Your Stylish Font', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000; /* Adjust the color as desired */
+    /* Add any other custom styles for the stylish look */
+  }
+
+  .stylish-a {
+    font-family: 'Kavivanar', cursive, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000; /* Adjust the color as desired */
+    /* Add any other custom styles for the stylish look */
+  }
+
 
 option[value="a"]
 {
@@ -367,7 +370,8 @@ h3.pet-update {
 }
 
 /* Upload Photo Buttons */
-#addphoto-btn, #choose-file-btn {
+#addphoto-btn, 
+#choose-file-btn {
     color: #fab005;
     font-size: 4vmin;
     border: none;

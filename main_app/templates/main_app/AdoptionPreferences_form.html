@@ -9,16 +9,23 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>Questionnaire</title>
   </head>
-  <body>
-
-    <form method="post" id="wizard-form">
-      {% csrf_token %} {{ wizard.management_form }} {% if wizard.form.forms %}
-      {{ wizard.form.management_form }} {% for form in wizard.form.forms %} {{
-      form }} {% endfor %} {% else %} {{ wizard.form }} {% endif %}
+  <body class="pet-pp-create">
+<div class="container">
+    <form method="post" id="wizard-form" enctype="multipart/form-data">
+      {% csrf_token %} {{ wizard.management_form }} 
+      <!-- Check if wizard.form has forms -->
+      {% if wizard.form.forms %} {{ wizard.form.management_form }} 
+      <!-- Loop through the forms in the wizard -->
+      {% for form in wizard.form.forms %} 
+             <!-- Loop through the fields in the form -->
+      {{form }} 
+      
+      {% endfor %} {% else %} {{ wizard.form }} {% endif %}
       <input type="submit" value=">" class="petpref-pp-next" />
     </form>
     <p class="petpref-pp-create">
       {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
+    </div>
     </p>
   </body>
 </html>
