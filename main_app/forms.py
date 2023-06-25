@@ -1,9 +1,17 @@
 from django import forms
-from .models import PetTable, PetImage
-
-from .models import AdoptionPreferences
-from .models import PetTable
+from django.forms import inlineformset_factory
+from .models import PetTable, Prompt,AdoptionPreferences
    
+
+class PromptForm(forms.ModelForm):
+    class Meta:
+        model = Prompt
+        fields = ['prompt', 'answer']
+        labels = {'prompt': '', 'answer' : ''}
+        
+
+InlinePromptFormset = inlineformset_factory(PetTable, Prompt, form=PromptForm, extra=3, max_num=3, can_delete=False)
+
 
 class AdoptionPreferencesActivity(forms.ModelForm):
     class Meta:
@@ -54,6 +62,7 @@ class AdoptionPreferencesSociability(forms.ModelForm):
 class AdoptionPreferencesEnergy(forms.ModelForm):
     class Meta:
         model = AdoptionPreferences
+        fields = ['field1', 'field2']
         fields = ['energyLevel']
         labels = {
             'energyLevel': 'Preferred energy level for your desired pet',
@@ -111,8 +120,8 @@ class PetNameForm(forms.ModelForm):
     class Meta:
         model = PetTable
         fields = ['name']
-        label = {
-            'name': 'What is your pet\'s name?',
+        labels = {
+            'name': 'What is your pet\'s name?'
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'my-input-class'}), 
@@ -134,7 +143,7 @@ class PetActivityForm(forms.ModelForm):
     class Meta:
         model = PetTable
         fields = ['activity_level']
-        label = {
+        labels = {
             'activity_level': 'How much does your dog like being walked?',
         }
         widgets = {
@@ -151,7 +160,6 @@ class PetActivityForm(forms.ModelForm):
         # all fields on form
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'name_q'
-                self.fields[field].widget.attrs['id'] = 'activity'
 
 class PetSociabilityForm(forms.ModelForm):
     class Meta:
@@ -204,13 +212,6 @@ class PetAgeForm(forms.ModelForm):
         fields = ['age']
         labels = {
             'age': 'How old is your pet?',
-        }
-class PetWeightForm(forms.ModelForm):
-    class Meta:
-        model = PetTable
-        fields = ['weight']
-        labels = {
-            'weight': 'What weight is your pet?',
         }
 
 class PetHealthStatusForm(forms.ModelForm):
@@ -275,33 +276,4 @@ class PetMonthlyCostForm(forms.ModelForm):
         fields = ['monthlyCost']
         labels = {
             'monthlyCost': 'What do you spend on average each month on essentials for your pet? Think food, vet bills, grooming, etc. £',
-        }
-
-
-class PetPromptsForm(forms.ModelForm):
-    class Meta:
-        model = PetTable
-        fields = ['prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3']
-        labels = {
-            'prompt1': 'First Prompt',
-            'prompt2': 'Second Prompt',
-            'prompt3': 'Third Prompt',
-            'a1': '',
-            'a2': '',
-            'a3': '',
-        }
-       
-
-class PetImageForm(forms.ModelForm):
-    photo1 = forms.ImageField(label='+')
-    photo2 = forms.ImageField(label='+', required=False)
-    photo3 = forms.ImageField(label='+', required=False)
-
-    class Meta:
-        model = PetImage
-        fields = ['photo1', 'photo2', 'photo3']
-        labels = {
-            'photo1':'+', 
-            'photo2':'+',
-            'photo3':'+',
         }

@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>Create Pet</title>
   </head>
   <body class="pet-pp-create">
@@ -39,3 +39,28 @@
     </div>
   </body>
 </html>
+
+<script>
+  window.onload = function () {
+    var labels = document.querySelectorAll("label");
+    for (let label of labels) {
+      let input = document.getElementById(label.getAttribute("for"));
+      if (input && input.type === "radio") {
+        label.style.cursor = "pointer";
+        label.addEventListener("click", function () {
+          for (let otherLabel of labels) {
+            let otherInput = document.getElementById(
+              otherLabel.getAttribute("for")
+            );
+            if (otherInput && otherInput.type === "radio") {
+              otherLabel.style.backgroundColor = "";
+              otherInput.checked = false;
+            }
+          }
+          label.style.backgroundColor = "#fab005";
+          input.checked = true;
+        });
+      }
+    }
+  };
+</script>

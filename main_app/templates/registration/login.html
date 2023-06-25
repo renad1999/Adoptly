@@ -1,7 +1,39 @@
-<h1>Log In</h1>
-
-<form method="POST">
-  {% csrf_token %} {{ form.as_p }}
-  <input type="hidden" name="next" value="{{ next }}" />
-  <button type="submit" class="btn">Log In</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Document</title>
+  </head>
+  <body class="login">
+    <div class="login-background"></div>
+    <div class="login-container">
+      <label class="title-icon">
+        <h1 class="login">Adoptly</h1>
+        <img
+          src="{% static 'images/paw-icon.png' %}"
+          alt="Paw Icon"
+          class="paw-icon"
+      /></label>
+      <h2 class="login">Find your pawfect match.</h2>
+      <div class="login-icon"></div>
+      <div class="login-input">
+        <form method="POST">
+          {% csrf_token %} {{ form.as_p }}
+          <input type="hidden" name="next" value="{{ next }}" />
+          <div class="login-btn-container">
+            <button type="submit" id="login-btn">Log In</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
