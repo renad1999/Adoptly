@@ -1,9 +1,5 @@
 from django import forms
 from django.forms import inlineformset_factory
-<<<<<<< HEAD
-from django.forms import ModelForm
-=======
->>>>>>> development
 from .models import PetTable, Prompt,AdoptionPreferences
    
 
@@ -280,8 +276,4 @@ class PetMonthlyCostForm(forms.ModelForm):
         fields = ['monthlyCost']
         labels = {
             'monthlyCost': 'What do you spend on average each month on essentials for your pet? Think food, vet bills, grooming, etc. £',
-<<<<<<< HEAD
         }
-=======
-        }
->>>>>>> development

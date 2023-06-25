@@ -36,15 +36,6 @@ a.login {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* .color-overlay {
-    background: linear-gradient(to top, 
-    rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-    width: 100%;
-    height: 25%;
-    opacity: 0.5;
-    position: absolute;
-} */
-
 a.signup {
     color: white;
     text-decoration: none;
@@ -189,22 +180,6 @@ label[for=cost_q] {
     margin-top: 30vmin;
     margin-bottom: 15vmin;
 }
-
-/* div#pet_name.name_q {
-    display: flex;
-    padding: 10px 20px;
-    background: white;
-    cursor: pointer;
-    margin-top: 5vmin;
-    display: block;
-} */
-
-/* label[for=pet_name_2], 
-label[for=pet_name_1], 
-label[for=pet_name_0] {
-    margin-top: 2vmin;
-} */
-
 
 /* multiple choice answers on activity form */
 div#activity.name_q, 
@@ -366,13 +341,9 @@ h3.pet-update {
     margin-bottom: 1vmin;
 }
 
-<<<<<<< HEAD
-/* Upload Photo Button */
-button#add-photo-btn, button#choose-file-btn {
-=======
 /* Upload Photo Buttons */
-#addphoto-btn, #choose-file-btn {
->>>>>>> development
+#addphoto-btn, 
+#choose-file-btn {
     color: #fab005;
     font-size: 4vmin;
     border: none;
@@ -382,12 +353,6 @@ button#add-photo-btn, button#choose-file-btn {
     border-radius: 2.5vmin;
 }
 
-<<<<<<< HEAD
-#btn {
-    display: none;
-}
-=======
->>>>>>> development
 
 /* The row of three images */
 .img-container {

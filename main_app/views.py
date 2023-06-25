@@ -221,17 +221,22 @@ class PetUpdate(UpdateView):
         return context
 
     def form_valid(self, form):
-        context = self.get_context_data()
-        prompt_formset = context['prompt_formset']
+      print(self.request.POST)
+      context = self.get_context_data()
+      prompt_formset = context['prompt_formset']
+      self.object = form.save()
+      print(form.errors)
 
-        if prompt_formset.is_valid():
-            prompt_formset.instance = self.object
-            prompt_formset.save()
-        # returning HttpResponseRedirect to the success url directly
-        return HttpResponseRedirect(self.get_success_url())
-    
+      if prompt_formset.is_valid():
+          prompt_formset.instance = self.object
+          prompt_formset.save()
+      else:
+          print(prompt_formset.errors)
+
+      return HttpResponseRedirect(self.get_success_url())
+        # returning HttpResponseRedirect to the success url directly    
     def get_success_url(self):
-        return reverse('home')
+        return reverse('pet_details', args=[self.object.id])
     
 class PromptUpdate(UpdateView):
     model = Prompt
@@ -239,7 +244,7 @@ class PromptUpdate(UpdateView):
     template_name = 'main_app/PromptUpdate_form.html'
     
     def get_success_url(self):
-        return reverse('home')
+        return reverse('pet_details', args=[self.object.id])
 
   
 class PetDelete(DeleteView):
