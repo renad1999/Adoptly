@@ -627,7 +627,8 @@ textarea#id_prompt_formset-2-answer
     border: none;
     cursor: text;
     background-color: #f9f9f9;
-    font-size: 8vmin;
+    font-size: 2vmin;
+    font-family: sans-serif;
     margin-bottom: 5vmin;
     width: 80vmin;
     height: 15vmin;
