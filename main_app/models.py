@@ -121,7 +121,7 @@ class AdoptionPreferences(models.Model):
     size = models.CharField(
         max_length=1, 
         choices=SIZE_CHOICES)
-    energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
+    energylevel = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
     liked_pets = models.ManyToManyField(PetTable, related_name='liked_by_users')
     
     #? PET MATCH
