@@ -1,3 +1,4 @@
+/* TODO GATEWAY PAGE */
 body.gateway {
     background: url("/static/images/gateway-hero.jpg");
     background-repeat: no-repeat;
@@ -43,6 +44,155 @@ a.signup {
     font-family: 'Open Sans', sans-serif;
 }
 
+/*TODO LOGIN & SIGNUP PAGE */
+
+body.login, 
+body.signup
+ {
+    font-family: 'PT Serif', serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+/* wraps around all elements */
+div.login-container, 
+div.signup-container {
+    margin-left: 10vmin;
+}
+/* wraps around login, username and button */
+div.login-input,
+div.signup-input
+ {
+    margin-top: 10vmin;
+}
+
+h1.login,
+h1.signup
+{
+    font-weight: 500;
+    margin-top: 40vmin;
+    font-size: 10vmin;
+    margin-bottom: 3.5vmin;
+}
+
+h2.login, 
+h2.signup 
+{
+    margin-top: 0;
+    font-weight: 200;
+    font-size: 5vmin;
+    font-family: sans-serif;
+}
+/* username and password input field */
+input#id_username, 
+input#id_password,
+input#id_password1,
+input#id_password2
+ {
+    width: 85%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #e9e9e9 0.7vmin;
+    background-color: white;
+    height: 10vmin;
+}
+
+/* username and password subtitles */
+label[for=id_username],
+label[for=id_password], 
+label[for=id_password1], 
+label[for=id_password2] 
+{
+    font-size: 3vmin;
+    color: #b4b3b3;
+    font-weight: 200;
+}
+
+/* login button */
+button#login-btn,
+button#signup-btn
+ {
+    color: white;
+    font-size: 4vmin;
+    border: none;
+    padding: 2vmin 2vmin;
+    background-color: #fab005;
+    box-shadow: 0 0 1vmin #ccc;
+    border-radius: 4vmin;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20vmin;
+    padding-right: 20vmin;
+    margin-top: 5vmin;
+}
+
+/* paw icon */
+img.paw-icon {
+    height: 8vmin;
+    width: 8vmin;
+    margin-top: 40vmin;
+    margin-left: 1vmin;
+}
+
+label.title-icon {
+    display: flex;
+    align-items: center;
+    margin-top: -15vmin;
+}
+
+label.title-icon-signup {
+    display: flex;
+    align-items: center;
+    margin-top: -20vmin;
+  }
+
+/* centers login button */
+  div.login-btn-container, 
+  div.signup-btn-container 
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 7vmin;
+  }
+
+  /* remove bullet points from password instructions */
+form ul {
+    list-style-type: none;
+    padding: 3vmin;
+    background-color: #f8f8f6;
+    font-size: 2vmin;
+    color: #bababa;
+    font-family: sans-serif;
+    margin-right: 7.5vmin;
+    border-radius: 4vmin;
+    margin-top: -15vmin;
+    margin-bottom: 10vmin;
+}
+
+span.helptext {
+    display: inline-block;
+    padding: 3vmin;
+    background-color: #f8f8f6;
+    font-size: 2vmin;
+    color: #bababa;
+    font-family: sans-serif;
+    margin-right: 7.5vmin;
+    border-radius: 4vmin;
+    white-space: pre-wrap;
+    margin-top: 5vmin;
+    margin-bottom: 4vmin;
+}
+
+li {
+    margin-bottom: 1vmin;
+}
+
+/* TODO PET PROFILE CREATE */
 /* NEXT button */
 input#pet-pp-next {    
     margin-top: 1rem;
