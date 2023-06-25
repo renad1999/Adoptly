@@ -154,10 +154,10 @@ class PetCreate(CreateView):
   fields ='__all__'
 
 class PetUpdate(UpdateView):
-  model = PetTable
+  model = PetTable, PetImage
   # Chosen these as the only editable options to update a pet - KB
   fields =['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost', 
-           'prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3']
+           'prompt1', 'a1', 'prompt2', 'a2', 'prompt3', 'a3', 'url']
   
 class PetDelete(DeleteView):
   model = PetTable
