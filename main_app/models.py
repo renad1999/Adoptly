@@ -105,11 +105,11 @@ class PetTable(models.Model):
         choices=VACCINATION_CHOICES, default='N'
     )
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2)
-    prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='a')
+    prompt1 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
     a1 = models.TextField(max_length=250, null=True)
-    prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='b')
+    prompt2 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
     a2 = models.TextField(max_length=250, null=True)
-    prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True, default='c')
+    prompt3 = models.CharField(max_length=100, choices=PROMPT_CHOICES, null=True)
     a3 = models.TextField(max_length=250, null=True)
 
 #? ADOPTION PREFERENCES
@@ -121,6 +121,7 @@ class AdoptionPreferences(models.Model):
     size = models.CharField(
         max_length=1, 
         choices=SIZE_CHOICES)
+    energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
     liked_pets = models.ManyToManyField(PetTable, related_name='liked_by_users')
     
     #? PET MATCH
