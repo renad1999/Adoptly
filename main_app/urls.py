@@ -1,7 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView
 from .views import AdoptionPreferencesWizard
-
 from . import views 
 from .views import PetCreateWizard
 from .forms import (
@@ -25,8 +24,12 @@ from .forms import (
 urlpatterns = [
     path('', views.gateway, name='gateway'), 
     path('home/', views.home, name='home'),
-    path('about/', views.about, name="about"),
+    path('profile/settings/about/', views.about, name="about"),
     path('profile/settings/', views.user_settings, name="settings"),
+    path('profile/settings/pet-guidance/', views.pet_guidance, name='pet_guidance'),
+    path('profile/settings/success-stories/', views.success_stories, name='success_stories'),
+    path('profile/settings/help/', views.help_center, name='help_center'),
+    path('messages/', views.messages, name='messages'),
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('matches/', views.matches, name="matches"),
