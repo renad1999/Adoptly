@@ -112,7 +112,7 @@ label[for=id_password2]
 
 /* login button */
 button#login-btn,
-button#signup-btn
+input.signup-btn
  {
     color: white;
     font-size: 4vmin;
@@ -128,6 +128,10 @@ button#signup-btn
     padding-left: 20vmin;
     padding-right: 20vmin;
     margin-top: 5vmin;
+    margin-bottom: 20vmin;
+}
+input.signup-btn {
+    margin-left: 10vmin;
 }
 
 /* paw icon */
