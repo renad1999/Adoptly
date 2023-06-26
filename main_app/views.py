@@ -361,7 +361,7 @@ def redirect_form(request):
             user_details.save()
             if user_details.adopter == True:
                 return redirect('user_create')
-            else:
+            elif user_details.owner == True:
                 return redirect('pet_create')
     else:
         form = UserForm()
