@@ -430,12 +430,15 @@ label[for=size_0],
 label[for=size_1],
 label[for=size_2],
 label[for=size_3],
+label[for=size_4],
 label[for=id_5-healthStatus_0],
 label[for=id_5-healthStatus_1],
 label[for=id_5-healthStatus_2],
+label[for=id_5-healthStatus_3],
 label[for=energy_level_0],
 label[for=energy_level_1],
 label[for=energy_level_2],
+label[for=energy_level_3],
 label[for=vaccinationInformation_0],
 label[for=vaccinationInformation_1],
 label[for=vaccinationInformation_2],
@@ -496,12 +499,15 @@ input#size_0.name_q,
 input#size_1.name_q,
 input#size_2.name_q, 
 input#size_3.name_q, 
+input#size_4.name_q, 
 input#healthStatus_0.name_q, 
 input#healthStatus_1.name_q, 
 input#healthStatus_2.name_q,
+input#healthStatus_3.name_q,
 input#energy_level_0.name_q,
 input#energy_level_1.name_q,
 input#energy_level_2.name_q,
+input#energy_level_3.name_q,
 input#vaccinationInformation_0.name_q,
 input#vaccinationInformation_1.name_q,
 input#vaccinationInformation_2.name_q,
@@ -994,7 +1000,7 @@ body {
     font-weight: bold;
   }
   
-  button {
+  /* button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -1002,7 +1008,7 @@ body {
     border-radius: 5px;
     background-color: #fff;
     cursor: pointer;
-  }
+  } */
   
   button:hover {
     background-color: #f5f5f5;
