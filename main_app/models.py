@@ -80,6 +80,7 @@ class UserDetails(models.Model):
     lastName = models.CharField(max_length=255,blank=True)
     phone = models.IntegerField(null=True)
     adopter = models.BooleanField(default=False,blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
 
 
 #? PET TABLE MODELz
@@ -104,7 +105,7 @@ class PetTable(models.Model):
         max_length=1,
         choices=VACCINATION_CHOICES, default='N', blank=True
     )
-    monthlyCost = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
+    monthlyCost = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=1.5)
 
     
 
@@ -120,7 +121,7 @@ class Prompt(models.Model):
 #? ADOPTION PREFERENCES
 # activity levels, sociability, size, is_owner charfields
 class AdoptionPreferences(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     activityLevel = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
     sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='both')
     size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
