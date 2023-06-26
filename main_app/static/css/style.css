@@ -770,4 +770,85 @@ button.img-delete-btn {
     line-height: 2em;
     text-align: center;
     cursor: pointer;
+<<<<<<< HEAD
 } */
+
+
+/* Pet prompts styling */
+
+/* Answer boxes */
+textarea#id_prompt_formset-0-answer,
+textarea#id_prompt_formset-1-answer,
+textarea#id_prompt_formset-2-answer
+ {
+    border: none;
+    cursor: text;
+    background-color: #f9f9f9;
+    font-size: 2vmin;
+    font-family: sans-serif;
+    margin-bottom: 5vmin;
+    width: 80vmin;
+    height: 15vmin;
+    border-radius: 2vmin;
+}
+
+/* Prompt selection */
+select#id_prompt_formset-0-prompt,
+select#id_prompt_formset-1-prompt,
+select#id_prompt_formset-2-prompt
+ {
+    cursor: text;
+    margin-bottom: 5vmin;
+    width: 80vmin;
+    height: 10vmin;
+    font-size: 13px;
+    padding: 10px 8px 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2vmin;
+    position: relative;
+    margin-top: 3vmin;
+}
+
+  /*! TEMPORARY centering of prompts and a's*/
+  div.prompt-formset {
+    margin-right: 5vmin;
+  }
+
+
+/* label[for=id_10-prompt1],
+label[for=id_10-prompt2],
+label[for=id_10-prompt3] {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    width: 80vmin;
+    font-size: 4vmin;
+    color: #7c7c7c;
+ } */
+
+
+
+/* Centering all the prompts and answers*/
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+
+/* border: none;
+background: transparent;
+color: #fab005;
+font-weight: 500;
+font-size: 5vmin;
+position: relative;
+top: -13vmin;
+left: 40px; */
+
+=======
+} */
+>>>>>>> development
