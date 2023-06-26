@@ -9,7 +9,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import PetTable, AdoptionPreferences, UserDetails, Prompt, PetImage
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import PetTable, AdoptionPreferences, UserDetails, Prompt, PetImage, PetMatch
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -85,6 +87,7 @@ def signup(request): #! Sign up function
 def gateway(request):
   return render(request, 'gateway.html')
 
+@login_required
 def add_photo(request, pet_id):
     pet = PetTable.objects.get(id=pet_id)    # photo-file will be the "name" attribute on the <input type="file">
     if pet.images.count() >= 3:
@@ -107,7 +110,8 @@ def add_photo(request, pet_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('pet_update', pk=pet_id)
- 
+
+@login_required
 def delete_photo(request, pet_id, photo_id):
     pet = PetTable.objects.get(id=pet_id)
     try:
@@ -117,6 +121,7 @@ def delete_photo(request, pet_id, photo_id):
     photo.delete()
     return redirect('pet_update', pk=pet_id)
 
+@login_required
 def pet_update(request, pet_id):
     pet = PetTable.objects.get(id=pet_id)
 
@@ -135,7 +140,9 @@ def pet_update(request, pet_id):
    
 #! Create your views here.
 
+
 #? Home, render request home.html
+@login_required
 def home(request):
     # pet = PetTable.objects.get(id=pet_id)
     pets = PetTable.objects.all()
@@ -145,6 +152,7 @@ def home(request):
 
 
 #? pet details, render request pets/details.html
+@login_required
 def pet_detail(request, pet_id):
   pet = PetTable.objects.get(id=pet_id)
   return render(request, 'pets/details.html', {
@@ -153,25 +161,32 @@ def pet_detail(request, pet_id):
 
 
 #? Profile settings
+@login_required
 def user_settings(request):
   return render(request, 'profile_settings.html')
 
 
 #? Pet matches (list of pets already matched with)
+@login_required
 def matches(request):
-  return render(request, 'matches.html')
+  pet_matches = PetMatch.objects.filter(user=request.user, matchStatus="True") 
+  pets = [match.pet for match in pet_matches]
+  return render(request, 'matches.html', {'pets': pets})
 
 #? About page
+@login_required
 def about(request):
   return render(request, 'about.html')
 
 
 #? Matching func 
+@login_required
 def assoc_pet(request, user_id, pet_id):
   UserDetails.objects.get(id=user_id).PetTable.add(pet_id)
   return redirect('home', user_id=user_id)
 
 #? Unmatching func
+@login_required
 def unassoc_pet(request, user_id, pet_id):
   UserDetails.objects.get(id=user_id).PetTable.remove(pet_id)
   return redirect('home', user_id=user_id)
@@ -182,20 +197,21 @@ def unassoc_pet(request, user_id, pet_id):
 #? adoption preference forms
 #will we need an if statement for the boolean value of if the user is
 #creating an adopter account or pet account? - KB
-class AdoptionPreferencesForm(CreateView):
+class AdoptionPreferencesForm(LoginRequiredMixin, CreateView):
+  model = AdoptionPreferences
+  fields =['activityLevel', 'sociability', 'size']
+  
+
+class AdoptionPreferencesUpdate(LoginRequiredMixin, UpdateView):
   model = AdoptionPreferences
   fields =['activityLevel', 'sociability', 'size']
 
-class AdoptionPreferencesUpdate(UpdateView):
-  model = AdoptionPreferences
-  fields =['activityLevel', 'sociability', 'size']
-
-class AdoptionPreferencesDelete(DeleteView):
+class AdoptionPreferencesDelete(LoginRequiredMixin, DeleteView):
   model = AdoptionPreferences
   success_url ='/'
 
 #? pet forms
-class PetCreate(CreateView):
+class PetCreate(LoginRequiredMixin, CreateView):
   model = PetTable
   fields ='__all__'
   template_name = 'main_app/PetTable_form.html' 
@@ -206,48 +222,88 @@ class PetCreate(CreateView):
     self.object.save()  # Now save the object
     return HttpResponseRedirect(reverse('pet_update', args=[self.object.id]))  # Redirect to PetUpdate view
 
-class PetUpdate(UpdateView):
-    model = PetTable
-    fields = ['sociability', 'size', 'healthStatus', 'activity_level', 'vaccinationInformation', 'monthlyCost']
-    template_name = 'main_app/PetUpdate_form.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['pet'] = self.object
-        if self.request.POST:
-            context['prompt_formset'] = InlinePromptFormset(self.request.POST, instance=self.object)
-        else:
-            context['prompt_formset'] = InlinePromptFormset(instance=self.object, prefix='prompt_formset')
-        return context
-
-    def form_valid(self, form):
-      print(self.request.POST)
-      context = self.get_context_data()
-      prompt_formset = context['prompt_formset']
-      self.object = form.save()
-      print(form.errors)
-
-      if prompt_formset.is_valid():
-          prompt_formset.instance = self.object
-          prompt_formset.save()
-      else:
-          print(prompt_formset.errors)
-
-      return HttpResponseRedirect(self.get_success_url())
-        # returning HttpResponseRedirect to the success url directly    
-    def get_success_url(self):
-        return reverse('pet_details', args=[self.object.id])
     
-class PromptUpdate(UpdateView):
+class PromptUpdate(LoginRequiredMixin, UpdateView):
     model = Prompt
     fields = ['prompt', 'response']
     template_name = 'main_app/PromptUpdate_form.html'
     
     def get_success_url(self):
-        return reverse('pet_details', args=[self.object.id])
+        return reverse('home')
+    
+class PetUpdate(LoginRequiredMixin, UpdateView):
+    model = PetTable
+    fields = []
+    template_name = 'main_app/PetUpdate_form.html'
+
+    # def post(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     form = self.get_form()
+    #     print("Form is valid: ", form.is_valid())  # print if the main form is valid
+    #     print("Form errors: ", form.errors)  # print the main form errors
+
+    #     formset = InlinePromptFormset(self.request.POST, instance=self.object, prefix='prompts')  
+    #     print("Formset is valid: ", formset.is_valid())  # print if the formset is valid
+    #     print("Formset errors: ", formset.errors)  # print the formset errors
+    #     print("Formset non-form errors: ", formset.non_form_errors())
+
+    #     if (form.is_valid() and formset.is_valid()):
+    #         return self.form_valid(form)
+    #     else:
+    #         return self.form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pet'] = self.object
+        if self.request.POST:
+            context['prompts'] = InlinePromptFormset(self.request.POST, instance=self.object, prefix='prompts')
+        else:
+            context['prompts'] = InlinePromptFormset(instance=self.object, prefix='prompts')
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        self.object = self.get_object()
+        form = self.get_form()
+        print("Form is valid: ", form.is_valid())  # print if the main form is valid
+        print("Form errors: ", form.errors)  # print the main form errors
+
+        prompts = InlinePromptFormset(self.request.POST, instance=self.object, prefix='prompts')
+
+        print("Formset is valid: ", prompts.is_valid())  # print if the formset is valid
+        print("Formset errors: ", prompts.errors)  # print the formset errors
+        print("Formset non-form errors: ", prompts.non_form_errors())
+
+        if prompts.is_valid():
+            prompts.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
+
+
+    # def form_valid(self, form):
+    #     context = self.get_context_data()
+    #     prompts = context['prompts']
+
+    #     print("Main form valid: ", form.is_valid())  # Check if main form is valid
+    #     print("Main form errors: ", form.errors)  # Print main form errors
+
+    #     if form.is_valid() and prompts.is_valid():  # Check if both main form and formset are valid
+    #         self.object = form.save()
+    #         prompts.instance = self.object
+    #         prompts.save()
+    #     else:
+    #         print("Formset errors: ", prompts.errors)  # Print formset errors
+
+    #     return HttpResponseRedirect(self.get_success_url())
+    #     # returning HttpResponseRedirect to the success url directly
+
+    def get_success_url(self):
+        return reverse('home')
 
   
-class PetDelete(DeleteView):
+class PetDelete(LoginRequiredMixin, DeleteView):
   model = PetTable
   # maybe need a 'are you sure you wish to delete' or a form option
   # 'why are you deleting, has  {% pet.name %}  found a new home?' - KB
@@ -337,16 +393,26 @@ class AdoptionPreferencesCreateView(CreateView):
 def preferences_complete(request):
     return render(request, '')
 
+
+@login_required
+def preferences_complete(request):
+    return render(request, '')
+
+
+
+@login_required
 def pet_guidance(request):
     return render(request, 'pet_guidance.html')
 
-
+@login_required
 def success_stories(request):
     return render(request, 'success_stories.html')
 
+@login_required
 def help_center(request):
     return render(request, 'help_center.html')
 
+@login_required
 def messages(request):
     return render(request, 'messages.html')
 

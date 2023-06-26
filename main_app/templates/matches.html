@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-  {% for match in matches %}
-  <a href="{% url 'pet_details' %}">
-    <div class="match-container">
-      <div class="match-image"></div>
-      <h2>{{ match.name }}</h2>
-      <p>{{ match.description }}</p>
-      <p>{{ match.age }}</p>
-      <!-- Other pet details here -->
-    </div>
-  </a>
-  {% endfor %}
-
+  {% if UserDetails.adopeter == True %}
+    {% for pet in UserDetails.liked_pets.all %}
+    <a href="{% url 'pet_details' %}">
+      <div class="match-container">
+        <div class="match-image"></div>
+        <h2>{{ match.name }}</h2>
+        <p>{{ match.description }}</p>
+        <p>{{ match.age }}</p>
+        <!-- Other pet details here -->
+      </div>
+    </a>
+    {% endfor %}
+  {% endif %}
+  
 {% endblock %}

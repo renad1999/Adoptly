@@ -198,7 +198,8 @@ li {
 
 /* TODO PET PROFILE CREATE */
 /* NEXT button */
-input#pet-pp-next {    
+input#pet-pp-next,
+input.petpref-pp-next {    
     margin-top: 1rem;
     padding: 3vmin 5vmin;
     background-color: #fab005;
@@ -208,7 +209,7 @@ input#pet-pp-next {
     cursor: pointer;
     font-size: 8vmin;
     position: fixed;
-    top: 165vmin;
+    top: 175vmin;
     left: 70vmin;
 }
 
@@ -228,7 +229,7 @@ input#pet-pp-next {
     align-items: center;
 }
 
-.container input[type="submit"] {
+/* .container input[type="submit"] {
     margin-top: 1rem;
     padding: 3vmin 5vmin;
     background-color: #fab005;
@@ -244,7 +245,7 @@ input#pet-pp-next {
 
 .container input[type="submit"]:hover {
     background-color: #fab005;
-}
+} */
 
 .pet-pp-create {
     text-align: center;
@@ -253,7 +254,8 @@ input#pet-pp-next {
 }
 
 /* shows which question you are on ie 1/11 */
-p.pet-pp-create {
+p.pet-pp-create,
+p.petpref-pp-create {
     font-weight: 100;
     font-size: 2vmin;
     position: fixed;
@@ -342,7 +344,11 @@ div#sociability.name_q,
 div#size.name_q,
 div#id_5-healthStatus.pet-create-radio,
 div#energy_level.name_q,
-div#vaccinationInformation.name_q
+div#vaccinationInformation.name_q,
+div#desired_pet_size.size_q,
+div#desired_sociability.sociability_q,
+div#desired_energy_level.energy_level_q,
+div#desired_activity_level.activity_level_q
  {
     display: flex;
     flex-direction: column;
@@ -354,15 +360,12 @@ div#vaccinationInformation.name_q
 }
 
 
-label[for=pet_name_0], 
+/* label[for=pet_name_0], 
 label[for=pet_name_1], 
 label[for=pet_name_2], 
 label[for=activity_1], 
 label[for=activity_0],
 label[for=activity_2],
-label[for=sociability_0],
-label[for=sociability_1],
-label[for=sociability_2],
 label[for=size_0],
 label[for=size_1],
 label[for=size_2],
@@ -391,8 +394,61 @@ label[for=pet_name_0]
     cursor: pointer;
     display: inline-block;
     width: 35vmin;
-}
+} */
 
+label[for=sociability_0],
+label[for=sociability_1],
+label[for=sociability_2],
+label[for=sociability_3],
+label[for=pet_name_0], 
+label[for=pet_name_1], 
+label[for=pet_name_2], 
+label[for=activity_1], 
+label[for=activity_0],
+label[for=activity_2],
+label[for=size_0],
+label[for=size_1],
+label[for=size_2],
+label[for=size_3],
+label[for=id_5-healthStatus_0],
+label[for=id_5-healthStatus_1],
+label[for=id_5-healthStatus_2],
+label[for=energy_level_0],
+label[for=energy_level_1],
+label[for=energy_level_2],
+label[for=vaccinationInformation_0],
+label[for=vaccinationInformation_1],
+label[for=vaccinationInformation_2],
+label[for=pet_name_2], 
+label[for=pet_name_1], 
+label[for=pet_name_0], 
+label[for=desired_pet_size_0],
+label[for=desired_pet_size_1],
+label[for=desired_pet_size_2],
+label[for=desired_pet_size_3],
+label[for=desired_sociability_0],
+label[for=desired_sociability_1],
+label[for=desired_sociability_2],
+label[for=desired_sociability_3],
+label[for=desired_energy_level_0],
+label[for=desired_energy_level_1],
+label[for=desired_activity_level_0],
+label[for=desired_activity_level_1],
+label[for=desired_activity_level_2]
+{
+    color: black;
+    border: 0.5vmin solid #ddd;
+    padding-top: 5vmin;
+    padding-bottom: 5vmin;
+    padding-left: 5vmin;
+    padding-right: 5vmin;
+    border-radius: 5vmin;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    display: inline-block;
+    width: 60vmin;
+}
 
 
 
@@ -407,9 +463,11 @@ input#activity_2.name_q,
 input#sociability_0.name_q, 
 input#sociability_1.name_q, 
 input#sociability_2.name_q,
+input#sociability_3.name_q,
 input#size_0.name_q,
 input#size_1.name_q,
 input#size_2.name_q, 
+input#size_3.name_q, 
 input#healthStatus_0.name_q, 
 input#healthStatus_1.name_q, 
 input#healthStatus_2.name_q,
@@ -418,14 +476,25 @@ input#energy_level_1.name_q,
 input#energy_level_2.name_q,
 input#vaccinationInformation_0.name_q,
 input#vaccinationInformation_1.name_q,
-input#vaccinationInformation_2.name_q
+input#vaccinationInformation_2.name_q,
+input#desired_pet_size_0.size_q,
+input#desired_pet_size_1.size_q,
+input#desired_pet_size_2.size_q,
+input#desired_pet_size_3.size_q,
+input#desired_sociability_0.sociability_q,
+input#desired_sociability_1.sociability_q,
+input#desired_sociability_2.sociability_q,
+input#desired_sociability_3.sociability_q,
+input#desired_energy_level_0.energy_level_q,
+input#desired_energy_level_1.energy_level_q,
+input#desired_energy_level_2.energy_level_q,
+input#desired_activity_level_0.activity_level_q,
+input#desired_activity_level_1.activity_level_q,
+input#desired_activity_level_2.activity_level_q
 { 
     display: none;
 }
 
-input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name_2.name_q:checked {
-    color: red;
-} 
 
 /* Style the label to look like a button */
 .your-form .pet-create-radio label {
@@ -439,6 +508,15 @@ input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name
 .your-form .pet-create-radio input[type="radio"]:checked + label {
     color: red;
 }
+  .stylish-a {
+    font-family: 'Kavivanar', cursive, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000; /* Adjust the color as desired */
+    /* Add any other custom styles for the stylish look */
+  }
+
 
 option[value="a"]
 {
@@ -466,6 +544,7 @@ div.top-bar {
     align-items: center;
     margin-left: 2vmin;
     margin-right: 2vmin;
+    margin-bottom: -2vmin;
 }
 
 /* Pet Name */
@@ -483,29 +562,59 @@ button.update-btn {
     background: transparent;
     color: #fab005;
     font-weight: 500;
-    font-size: 5vmin;
     cursor: pointer;
+    font-size: 2vmin;
+}
+
+h3.pet-update1 {
+    margin-top: -6vmin;
 }
 
 h3.pet-update {
+    margin-top: 5vmin;
+}
+
+h3.pet-update,
+h3.pet-update1 {
     font-weight: 400;
     color: #a4a3a3;
     margin-left: 3vmin;
     margin-bottom: 1vmin;
+    font-size: 2vmin;
+}
+
+hr.petupdate-line {
+    border: none;
+    border-top: 0.5vmin solid #e7e7e7;
+    width: 80vmin;
 }
 
 /* Upload Photo Buttons */
 #addphoto-btn, 
 #choose-file-btn {
     color: #fab005;
-    font-size: 4vmin;
+    /* font-size: 4vmin; */
     border: none;
     padding: 2vmin 2vmin;
     background-color: white;
     box-shadow: 0 0 1vmin #ccc;
     border-radius: 2.5vmin;
+    font-size: 2vmin;
+    padding-right: 5vmin;
+    padding-left: 5vmin;
+}
+#addphoto-btn {
+    margin-bottom: 10vmin;
 }
 
+/* Centers above ^ buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5vmin;
+}
 
 /* The row of three images */
 .img-container {
@@ -514,7 +623,7 @@ h3.pet-update {
     justify-content: flex-start;
     flex-wrap: nowrap;
     margin-left: 2.5vmin;
-    margin-top: 3vmin;
+    margin-top: 4vmin;
 }
 
 /* Img placeholder boxes */
@@ -553,6 +662,86 @@ button.img-delete-btn {
     background-color: white;
 }
 
+/* Pet prompts styling */
+
+/* Centering all the prompts and answers*/
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 2vmin;
+    margin-top: 2vmin;
+  }
+
+/* Answer boxes */
+textarea#id_prompts-0-answer,
+textarea#id_prompts-1-answer,
+textarea#id_prompts-2-answer
+ {
+    border: none;
+    cursor: text;
+    background-color: #f9f9f9;
+    font-size: 2vmin;
+    font-family: sans-serif;
+    margin-bottom: 5vmin;
+    width: 80vmin;
+    height: 15vmin;
+    border-radius: 2vmin;
+}
+
+/* Prompt selection */
+select#id_prompts-0-prompt,
+select#id_prompts-1-prompt,
+select#id_prompts-2-prompt
+ {
+    cursor: text;
+    margin-bottom: 5vmin;
+    width: 80vmin;
+    height: 10vmin;
+    font-size: 2vmin;
+    padding: 10px 8px 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2vmin;
+    position: relative;
+    margin-top: 3vmin;
+}
+
+  /*! TEMPORARY centering of prompts and a's*/
+  div.prompt-formset {
+    margin-right: 5vmin;
+  }
+
+
+/* label[for=id_10-prompt1],
+label[for=id_10-prompt2],
+label[for=id_10-prompt3] {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    width: 80vmin;
+    font-size: 4vmin;
+    color: #7c7c7c;
+ } */
+
+
+
+
+
+
+
+/* border: none;
+background: transparent;
+color: #fab005;
+font-weight: 500;
+font-size: 5vmin;
+position: relative;
+top: -13vmin;
+left: 40px; */
+
+
 /* button.add-btn, 
 button.img-delete-btn {
     display: block;
@@ -585,6 +774,7 @@ button.img-delete-btn {
     line-height: 2em;
     text-align: center;
     cursor: pointer;
+<<<<<<< HEAD
 } */
 
 
@@ -663,6 +853,7 @@ position: relative;
 top: -13vmin;
 left: 40px; */
 
+<<<<<<< HEAD
 
 .centered-text {
     text-align: center;
@@ -808,3 +999,8 @@ body {
   /* Add any other necessary styles for the questionnaire form */
   
 
+=======
+=======
+} */
+>>>>>>> development
+>>>>>>> development

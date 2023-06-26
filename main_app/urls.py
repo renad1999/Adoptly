@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth.views import LoginView
 from .views import AdoptionPreferencesWizard
 from . import views 
@@ -53,7 +53,8 @@ urlpatterns = [
     path('pet/<int:pet_id>/add_photo/', views.add_photo, name='add_photo'),
     path('pet/<int:pet_id>/delete_photo/<int:photo_id>/', views.delete_photo, name='delete_photo'),
     path('user/<int:user_id>/assoc_pet/<int:pet_id>/', views.assoc_pet, name="match"),
-    path('user/<int:user_id>/unassoc_pet/<int:pet_id>/', views.unassoc_pet, name="unmatch")
+    path('user/<int:user_id>/unassoc_pet/<int:pet_id>/', views.unassoc_pet, name="unmatch"),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 
