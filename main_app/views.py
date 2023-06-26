@@ -58,7 +58,7 @@ def find_matches(request):
       matches.append((pet)) #Append the pet and its score as a tuple
     # sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
     # sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
-  return render(request, 'home.html', {'pets': pets})
+  return matches
 
 #? Home, render request home.html
 @login_required

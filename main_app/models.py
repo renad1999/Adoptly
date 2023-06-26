@@ -80,7 +80,9 @@ class UserDetails(models.Model):
     lastName = models.CharField(max_length=255,blank=True)
     phone = models.IntegerField(null=True)
     adopter = models.BooleanField(default=False,blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__ (self):
+        return f'{self.username}'
 
 
 #? PET TABLE MODELz
@@ -121,12 +123,13 @@ class Prompt(models.Model):
 #? ADOPTION PREFERENCES
 # activity levels, sociability, size, is_owner charfields
 class AdoptionPreferences(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(UserDetails, on_delete=models.CASCADE)
     activityLevel = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
     sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='both')
     size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
     energyLevel = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
     liked_pets = models.ManyToManyField(PetTable, related_name='liked_by_users', blank=True)
+
 
 
     #? PET MATCH
