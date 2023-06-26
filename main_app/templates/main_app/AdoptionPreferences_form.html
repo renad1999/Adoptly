@@ -21,7 +21,9 @@
         {% for field in form %}
         <div class="form-group">
           <label for="{{ field.id_for_label }}" class="new-class">
-            <button type="button" class="option-button">{{ field.label }}</button>
+            <button type="button" class="option-button">
+              {{ field.label }}
+            </button>
           </label>
           {{ field.errors }} {{ field.help_text }} {{ field }}
         </div>
@@ -33,13 +35,12 @@
         {% else %} {{ wizard.form }} {% endif %}
         <input type="submit" value=">" id="pet-pp" />
       </form>
-      <p class="pet-pp-create">
+      <!-- <p class="pet-pp-create">
         {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
-      </p>
+      </p> -->
     </div>
   </body>
 </html>
-
 
 <script>
   window.onload = function () {
