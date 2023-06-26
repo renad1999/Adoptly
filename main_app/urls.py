@@ -16,6 +16,7 @@ from .forms import (
     PetHealthStatusForm,
     PetEnergyLevelForm, 
     PetVaccinationInformationForm, 
+    UserDetails,
     # PetMonthlyCostForm, 
 )
 
@@ -28,6 +29,7 @@ urlpatterns = [
     path('profile/settings/', views.user_settings, name="settings"),
     path('profile/settings/pet-guidance/', views.pet_guidance, name='pet_guidance'),
     path('profile/settings/success-stories/', views.success_stories, name='success_stories'),
+    path('accounts/signup/redirect/', views.redirect_form, name='redirect_form'),
     path('profile/settings/help/', views.help_center, name='help_center'),
     path('messages/', views.messages, name='messages'),
     path('accounts/signup/', views.signup, name='signup'),

@@ -73,13 +73,13 @@ PROMPT_CHOICES = [
 #? user model
 # login info
 class UserDetails(models.Model):
-    email = models.CharField(max_length=255)
-    username = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-    firstName = models.CharField(max_length=255)
-    lastName = models.CharField(max_length=255)
-    phone = models.IntegerField()
-    adopter = models.BooleanField(default=False)
+    email = models.CharField(max_length=255,blank=True)
+    username = models.CharField(max_length=255,blank=True)
+    password = models.CharField(max_length=255,blank=True)
+    firstName = models.CharField(max_length=255,blank=True)
+    lastName = models.CharField(max_length=255,blank=True)
+    phone = models.IntegerField(null=True)
+    adopter = models.BooleanField(default=False,blank=True)
 
 
 #? PET TABLE MODELz
@@ -142,3 +142,5 @@ class PetImage(models.Model):
 
     def __str__(self):
         return f"Photo for pet_id: {self.pet_id} @{self.url}"
+    
+    

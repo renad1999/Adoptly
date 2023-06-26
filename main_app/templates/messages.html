@@ -2,10 +2,12 @@
 
 {% block content %}
 
-<a href="{% url 'settings' %}" class="btn btn-secondary" style="background-color: orange;">Back</a>
+<div class="centered-text">
+  <p>No messages yet</p>
+</div>
 
-<p>
-No messages yet
-</p>
+<div class="button-container">
+  <a href="{% url 'settings' %}" class="btn btn-secondary" style="background-color: orange;">Back</a>
+</div>
 
 {% endblock %}
