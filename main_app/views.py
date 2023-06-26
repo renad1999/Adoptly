@@ -425,10 +425,14 @@ def redirect_form(request):
             user_details = form.save(commit=False)
             user_details.user = request.user
             user_details.save()
-            if user_details.adopter == True:
-                return redirect('user_create')
-            elif user_details.owner == True:
-                return redirect('pet_create')
+
+            user_type = request.POST.get('user_type')
+            if user_type == 'adopter':
+              user_details.adopter = True
+              return redirect('user_create')
+            elif user_type == 'owner':
+              user_details.adopter = False
+              return redirect('pet_create')
     else:
         form = UserForm()
     
