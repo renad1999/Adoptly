@@ -63,12 +63,20 @@ def find_matches(request):
 #? Home, render request home.html
 @login_required
 def home(request):
-  matches = find_matches(request)
-  user_details = UserDetails.objects.get(user=request.user)
-  return render(request, 'home.html', {
-      'pets': matches,
-      'UserDetails': user_details
-    })
+    matches = find_matches(request)
+    try:
+        user_details = UserDetails.objects.get(user=request.user)
+        try:
+           adoption_preferences = AdoptionPreferences.objects.get()
+        except AdoptionPreferences.DoesNotExist:
+           adoption_preferences = None
+    except UserDetails.DoesNotExist:
+        user_details = None
+    return render(request, 'home.html', {
+      'pets': matches, 
+      'user': user_details,
+      'pref': adoption_preferences
+      })
 
 #? Login and signup, render request gateway.html
 def signup(request): #! Sign up function

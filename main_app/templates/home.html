@@ -3,7 +3,7 @@
 {% block content %}
 <!-- for match in pawfect matches -->
 
-    {% if UserDetails.adopter == True %}
+    {% if user and UserDetails.adopter == True %}
         <div id="pet-container">
             {% for pet in pets %}
                 <h1> {{ pet.name }} </h1>
@@ -67,7 +67,7 @@
 
         </script>
     <!-- If not a pet adopter you won't see the list of potential matches - KB -->
-    {% elif UserDetails.adopter == False %}
+    {% else %}
         <h1>When we have someone interested in your pet we will let you know </h1>
     {% endif %}
 
