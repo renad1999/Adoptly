@@ -198,7 +198,8 @@ li {
 
 /* TODO PET PROFILE CREATE */
 /* NEXT button */
-input#pet-pp-next {    
+input#pet-pp-next,
+input.petpref-pp-next {    
     margin-top: 1rem;
     padding: 3vmin 5vmin;
     background-color: #fab005;
@@ -228,7 +229,7 @@ input#pet-pp-next {
     align-items: center;
 }
 
-.container input[type="submit"] {
+/* .container input[type="submit"] {
     margin-top: 1rem;
     padding: 3vmin 5vmin;
     background-color: #fab005;
@@ -244,7 +245,7 @@ input#pet-pp-next {
 
 .container input[type="submit"]:hover {
     background-color: #fab005;
-}
+} */
 
 .pet-pp-create {
     text-align: center;
@@ -253,7 +254,8 @@ input#pet-pp-next {
 }
 
 /* shows which question you are on ie 1/11 */
-p.pet-pp-create {
+p.pet-pp-create,
+p.petpref-pp-create {
     font-weight: 100;
     font-size: 2vmin;
     position: fixed;
@@ -342,7 +344,11 @@ div#sociability.name_q,
 div#size.name_q,
 div#id_5-healthStatus.pet-create-radio,
 div#energy_level.name_q,
-div#vaccinationInformation.name_q
+div#vaccinationInformation.name_q,
+div#desired_pet_size.size_q,
+div#desired_sociability.sociability_q,
+div#desired_energy_level.energy_level_q,
+div#desired_activity_level.activity_level_q
  {
     display: flex;
     flex-direction: column;
@@ -415,7 +421,21 @@ label[for=vaccinationInformation_1],
 label[for=vaccinationInformation_2],
 label[for=pet_name_2], 
 label[for=pet_name_1], 
-label[for=pet_name_0] {
+label[for=pet_name_0], 
+label[for=desired_pet_size_0],
+label[for=desired_pet_size_1],
+label[for=desired_pet_size_2],
+label[for=desired_pet_size_3],
+label[for=desired_sociability_0],
+label[for=desired_sociability_1],
+label[for=desired_sociability_2],
+label[for=desired_sociability_3],
+label[for=desired_energy_level_0],
+label[for=desired_energy_level_1],
+label[for=desired_activity_level_0],
+label[for=desired_activity_level_1],
+label[for=desired_activity_level_2]
+{
     color: black;
     border: 0.5vmin solid #ddd;
     padding-top: 5vmin;
@@ -456,7 +476,21 @@ input#energy_level_1.name_q,
 input#energy_level_2.name_q,
 input#vaccinationInformation_0.name_q,
 input#vaccinationInformation_1.name_q,
-input#vaccinationInformation_2.name_q
+input#vaccinationInformation_2.name_q,
+input#desired_pet_size_0.size_q,
+input#desired_pet_size_1.size_q,
+input#desired_pet_size_2.size_q,
+input#desired_pet_size_3.size_q,
+input#desired_sociability_0.sociability_q,
+input#desired_sociability_1.sociability_q,
+input#desired_sociability_2.sociability_q,
+input#desired_sociability_3.sociability_q,
+input#desired_energy_level_0.energy_level_q,
+input#desired_energy_level_1.energy_level_q,
+input#desired_energy_level_2.energy_level_q,
+input#desired_activity_level_0.activity_level_q,
+input#desired_activity_level_1.activity_level_q,
+input#desired_activity_level_2.activity_level_q
 { 
     display: none;
 }
@@ -470,6 +504,10 @@ input#vaccinationInformation_2.name_q
     cursor: pointer;
 }
 
+/* Change appearance when a label is clicked (radio button selected) */
+.your-form .pet-create-radio input[type="radio"]:checked + label {
+    color: red;
+}
   .stylish-a {
     font-family: 'Kavivanar', cursive, sans-serif;
     font-size: 36px;
@@ -815,6 +853,154 @@ position: relative;
 top: -13vmin;
 left: 40px; */
 
+<<<<<<< HEAD
+
+.centered-text {
+    text-align: center;
+    padding-top: 20px;
+    margin-left: 20px;
+  }
+  
+  .button-container {
+    text-align: left;
+    padding-top: 20px;
+    margin-left: 20px;
+  }
+  
+  .nav-wrapper {
+    padding-left: 20px;
+  }
+
+
+  .content {
+    flex: 1;
+    padding: 20px;
+}
+
+footer {
+    background-color: #f8f8f8;
+    padding: 10px;
+    text-align: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.button-link:hover {
+    background-color: #f57c00;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  input[type="submit"] {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: orange;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #ff8800;
+  }
+  
+  .petpref-pp-create {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .petpref-pp-next {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* Add additional styles as needed */
+  
+
+
+  /* Add the CSS styles for the questionnaire form */
+.container {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  button.active {
+    background-color: orange;
+    color: #fff;
+  }
+  
+  input[type="submit"] {
+    background-color: orange;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .pet-pp-create {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Add any other necessary styles for the questionnaire form */
+  
+
+=======
 =======
 } */
+>>>>>>> development
 >>>>>>> development

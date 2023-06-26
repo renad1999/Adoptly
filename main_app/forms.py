@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from .models import PetTable, Prompt,AdoptionPreferences
+from .models import PetTable, Prompt,AdoptionPreferences, UserDetails
    
 
 class PromptForm(forms.ModelForm):
@@ -18,7 +18,7 @@ class AdoptionPreferencesActivity(forms.ModelForm):
         model = AdoptionPreferences
         fields = ['activityLevel']
         labels = {
-            'activityLevel': 'How much outdoors time would you like with your pet per day?',
+            'activityLevel': 'How much outdoors time would you like with your pet, per day?',
         }
         widgets = {
             'activityLevel': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
@@ -105,16 +105,6 @@ class AdoptionPreferencesSize(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'size_q'
 
         
-
-class UserChoiceForm(forms.ModelForm):
-    BOOL_CHOICES = [(True, 'Yes'), (False, 'No')]  
-    is_owner = forms.BooleanField(
-        widget = forms.RadioSelect (choices=BOOL_CHOICES),
-        required= False
-    )     
-
-
-
 
 class PetNameForm(forms.ModelForm):
     class Meta:
@@ -277,3 +267,23 @@ class PetMonthlyCostForm(forms.ModelForm):
         labels = {
             'monthlyCost': 'What do you spend on average each month on essentials for your pet? Think food, vet bills, grooming, etc. £',
         }
+
+class UserForm(forms.ModelForm):
+    adopter = forms.BooleanField(widget=forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]), required=False)
+    class Meta:
+        model = UserDetails # Specify the model
+        fields = ['adopter']  # Specify the field(s) to include in the form
+       
+
+# class UserForm(forms.ModelForm):
+#     ADOPTER_CHOICES = [
+#         (True, 'Yes'),
+#         (False, 'No'),
+#     ]
+    
+#     adopter = forms.ChoiceField(choices=ADOPTER_CHOICES, widget=forms.RadioSelect, initial=False)
+
+#     class Meta:
+#         model = UserDetails
+#         fields = ['adopter']       
+
