@@ -68,17 +68,20 @@
     <div class="form-container">
       <!-- Prompt Answer Formset -->
       <form method="post" id="promptForm">
-        {% csrf_token %}
+        {% csrf_token %} {{ prompts.management_form }}
         <!-- required for formset management -->
 
         {% for form in prompts %}
         <div class="prompt-formset">
+          {{ form.id }}
           {{ form.errors }} {{ form.prompt }}<br />
           {{ form.answer }}<br />
         </div>
         {% endfor %}
+
+      </div>
       </form>
-    </div>
+
     <!-- End of Prompt Answer Formset -->
   </body>
 </html>

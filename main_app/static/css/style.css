@@ -637,9 +637,9 @@ button.img-delete-btn {
   }
 
 /* Answer boxes */
-textarea#id_prompt_formset-0-answer,
-textarea#id_prompt_formset-1-answer,
-textarea#id_prompt_formset-2-answer
+textarea#id_prompts-0-answer,
+textarea#id_prompts-1-answer,
+textarea#id_prompts-2-answer
  {
     border: none;
     cursor: text;
@@ -653,9 +653,9 @@ textarea#id_prompt_formset-2-answer
 }
 
 /* Prompt selection */
-select#id_prompt_formset-0-prompt,
-select#id_prompt_formset-1-prompt,
-select#id_prompt_formset-2-prompt
+select#id_prompts-0-prompt,
+select#id_prompts-1-prompt,
+select#id_prompts-2-prompt
  {
     cursor: text;
     margin-bottom: 5vmin;
