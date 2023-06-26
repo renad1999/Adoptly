@@ -108,8 +108,6 @@ class PetTable(models.Model):
 
     
 
-    
-
 #? PET PROMPTS
 class Prompt(models.Model):
     prompt = models.CharField(max_length=100, choices=PROMPT_CHOICES, default='a')

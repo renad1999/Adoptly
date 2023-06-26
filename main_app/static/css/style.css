@@ -892,15 +892,17 @@ body {
 .button-link {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #ff9800;
+    background-color: #fab005;
     color: #ffffff;
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.3s;
+    text-align: center;
+    border: 1px solid #fab005;
 }
 
 .button-link:hover {
-    background-color: #f57c00;
+    background-color: #ff8800;
 }
 
 .container {
@@ -917,7 +919,7 @@ body {
     display: block;
     margin: 0 auto;
     padding: 10px 20px;
-    background-color: orange;
+    background-color: #fab005;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
@@ -978,12 +980,12 @@ body {
   }
   
   button.active {
-    background-color: orange;
+    background-color: #fab005;
     color: #fff;
   }
   
   input[type="submit"] {
-    background-color: orange;
+    background-color: #fab005;
     color: #fff;
     padding: 10px 20px;
     border: none;

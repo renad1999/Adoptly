@@ -431,3 +431,25 @@ def redirect_form(request):
     else:
         form = UserForm()
     return render(request, 'redirect_form.html')
+
+
+# def profile_settings(request):
+#     return render(request, 'profile_settings.html', {'pet': pets, 'user': user_details})
+#     user = request.user
+#     matches = find_matches(request)
+#     try:
+#         user_details = UserDetails.objects.get(user=user)
+#     except UserDetails.DoesNotExist:
+#         user_details = None
+
+def profile_settings(request):
+    user = request.user
+    pets = PetTable.object.all()
+    try:
+        user_details = UserDetails.objects.get(user=user)
+    except UserDetails.DoesNotExist:
+        user_details = None
+    return render(request, 'home.html', {
+      'pets': pets, 
+      'user': user_details,
+    })
