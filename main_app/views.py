@@ -15,8 +15,9 @@ from .models import PetTable, AdoptionPreferences, UserDetails, Prompt, PetImage
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views import View
 from django.conf import settings
-from .forms import PromptForm, InlinePromptFormset, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, UserForm
+from .forms import PromptForm, InlinePromptFormset, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, UserDetailsForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, UserForm
 
 #! Forms
 
@@ -39,13 +40,30 @@ FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
     #  ("Are you a pet owner?", )]
 
 #! Functions
+
+class UserDetailsView(View):
+    form_class = UserDetailsForm
+    template_name = 'redirect_form.html'  
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            userdetails = form.save(commit=False)
+            userdetails.user = request.user
+            userdetails.save()
+            return redirect('home')
+        return render(request, self.template_name, {'form': form})
+    
 #? Pawfect matches
     # if score = 3 show pet.name else append
 def find_matches(request):
-    try:
-        user = AdoptionPreferences.objects.get(user=request.user)
-    except AdoptionPreferences.DoesNotExist:
-        return None 
+    user, created = AdoptionPreferences.objects.get_or_create(user=request.user)
+    pets = PetTable.objects.all()
+    matches = []
     print(user)
     pets = PetTable.objects.all()
     matches = []
@@ -68,19 +86,25 @@ def find_matches(request):
 @login_required
 def home(request):
     matches = find_matches(request)
-    print(matches)
     try:
         user_details = UserDetails.objects.get(user=request.user)
-        # try:
-        #    adoption_preferences = AdoptionPreferences.objects.get(user=request.user)
-        # except AdoptionPreferences.DoesNotExist:
-        #    adoption_preferences = None
     except UserDetails.DoesNotExist:
         user_details = None
+
+    try:
+        adoption_preferences = AdoptionPreferences.objects.get(user=request.user)
+        # Check if the user has set any preferences
+        if (adoption_preferences.activityLevel is None or
+            adoption_preferences.sociability is None or
+            adoption_preferences.size is None):
+            messages.warning(request, 'Please set your adoption preferences to get better matches.')
+    except AdoptionPreferences.DoesNotExist:
+        adoption_preferences = None
+
     return render(request, 'home.html', {
       'pets': matches, 
       'user': user_details,
-      # 'pref': adoption_preferences
+      'pref': adoption_preferences
       })
 
 #? Login and signup, render request gateway.html
@@ -441,11 +465,15 @@ def redirect_form(request):
 
             user_type = request.POST.get('user_type')
             if user_type == 'adopter':
-              user_details.adopter = True
-              return redirect('user_create')
+                user_details.adopter = True
+                user_details.save() 
+                return redirect('user_create')
             elif user_type == 'owner':
-              user_details.adopter = False
-              return redirect('pet_create')
+                user_details.adopter = False
+                user_details.save() 
+                return redirect('pet_create')
+        else:
+            print(form.errors)
     else:
         form = UserForm()
     
