@@ -80,6 +80,7 @@ class UserDetails(models.Model):
     lastName = models.CharField(max_length=255,blank=True)
     phone = models.IntegerField(null=True)
     adopter = models.BooleanField(default=False,blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 #? PET TABLE MODELz
