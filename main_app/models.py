@@ -80,7 +80,7 @@ class UserDetails(models.Model):
     lastName = models.CharField(max_length=255,blank=True)
     phone = models.IntegerField(null=True)
     adopter = models.BooleanField(default=False,blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
 
 
 #? PET TABLE MODELz
@@ -105,7 +105,7 @@ class PetTable(models.Model):
         max_length=1,
         choices=VACCINATION_CHOICES, default='N', blank=True
     )
-    monthlyCost = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
+    monthlyCost = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=1.5)
 
     
 
