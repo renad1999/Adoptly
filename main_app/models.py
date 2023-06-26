@@ -32,10 +32,10 @@ VACCINATION_CHOICES = (
 )
 
 SOCIABILITY_CHOICES = (
-    ('very', 'Very sociable, loves interacting with both dogs and people'),
+    ('very', 'Very sociable, loves both dogs and people'),
     ('somewhat', 'Somewhat sociable, selectively interacts'),
     ('hardly', 'Not very sociable, prefers to keep a distance'),
-    ('not', 'Not sociable at all, avoids interaction when possible'),
+    ('not', 'Not sociable, avoids interaction when possible'),
 )
 
 SIZE_CHOICES = (

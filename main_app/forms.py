@@ -18,7 +18,7 @@ class AdoptionPreferencesActivity(forms.ModelForm):
         model = AdoptionPreferences
         fields = ['activityLevel']
         labels = {
-            'activityLevel': 'How much outdoors time would you like with your pet per day?',
+            'activityLevel': 'How much outdoors time would you like with your pet, per day?',
         }
         widgets = {
             'activityLevel': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
