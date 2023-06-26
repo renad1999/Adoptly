@@ -35,6 +35,7 @@ a.login {
     margin-top: 2vmin;
     font-size: 4vmin;
     font-family: 'Open Sans', sans-serif;
+    margin-bottom: 25vmin;
 }
 
 a.signup {
@@ -912,11 +913,11 @@ body {
     background-color: #f57c00;
 }
 
-.container {
+/* .container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-  }
+  } */
   
   form {
     margin-bottom: 20px;
@@ -954,14 +955,14 @@ body {
 
 
   /* Add the CSS styles for the questionnaire form */
-.container {
+/* .container {
     margin: 20px auto;
     max-width: 600px;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
-  }
+  } */
   
   .form-group {
     margin-bottom: 20px;
@@ -1008,8 +1009,4 @@ body {
   /* Add any other necessary styles for the questionnaire form */
   
 
-=======
-=======
-} */
->>>>>>> development
->>>>>>> development
+
