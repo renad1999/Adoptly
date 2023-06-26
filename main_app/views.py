@@ -42,8 +42,7 @@ FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
 #? Pawfect matches
     # if score = 3 show pet.name else append
 def find_matches(request):
-  user_id = request.session['user_id']
-  user = AdoptionPreferences.objects.get(id=user_id)
+  user = AdoptionPreferences.objects.get(user=request.user)
   pets = PetTable.objects.all()
   matches = []
   for pet in pets:
@@ -56,11 +55,20 @@ def find_matches(request):
        score += 1
        
     if score >= 2:
-       matches.append((pet, score)) #Append the pet and its score as a tuple
-    sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
-    sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
-  return render(request, 'home.html', {'pets': sorted_pets})
+      matches.append((pet)) #Append the pet and its score as a tuple
+    # sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
+    # sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
+  return render(request, 'home.html', {'pets': pets})
 
+#? Home, render request home.html
+@login_required
+def home(request):
+  matches = find_matches(request)
+  user_details = UserDetails.objects.get(user=request.user)
+  return render(request, 'home.html', {
+      'pets': matches,
+      'UserDetails': user_details
+    })
 
 #? Login and signup, render request gateway.html
 def signup(request): #! Sign up function
@@ -141,14 +149,6 @@ def pet_update(request, pet_id):
 #! Create your views here.
 
 
-#? Home, render request home.html
-@login_required
-def home(request):
-    # pet = PetTable.objects.get(id=pet_id)
-    pets = PetTable.objects.all()
-    return render(request, 'home.html', {
-      'pets': pets
-    })
 
 
 #? pet details, render request pets/details.html
