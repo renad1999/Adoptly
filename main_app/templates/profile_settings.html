@@ -9,41 +9,36 @@
         <!-- Form fields and settings options go here -->
     </form>
 
-    <p>For more information, visit the <a href="{% url 'about' %}">About</a> page.</p>
+    <p> <a href="{% url 'about' %}" class="button-link">About</a> </p>
 </div>
-
-
-
 
 <div class="settings-section">
     <!-- Existing settings content... -->
 </div>
 
 <div class="settings-section">
-
-
     <form>
         <!-- Form fields and settings options go here -->
     </form>
 
     <h2>Adoption Guidance</h2>
 
-    <p>Need guidance for adopting a pet? <a href="{% url 'pet_guidance' %}">Click here</a>.</p>
+     <a href="{% url 'pet_guidance' %}" class="button-link">Adoption Guidance</a></p>
 </div>
 
 <div class="settings-section">
-
-
     <form>
         <!-- Existing form fields and settings options -->
     </form>
 
     <h2>Success Stories</h2>
 
-    <p>Want to read some success stories? <a href="{% url 'success_stories' %}">Click here</a>.</p>
+    <p> <a href="{% url 'success_stories' %}" class="button-link">Success Stories</a></p>
 </div>
 
-<a href="{% url 'help_center' %}">Help Center</a>
+<a href="{% url 'help_center' %}" class="button-link">Help Center</a>
 
-
+<footer class="footer">
+    <p>All Rights Reserved, &copy; 2023 Adoptly</p>
+</footer>
 {% endblock %}

@@ -14,7 +14,7 @@ from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
-from .forms import PromptForm, InlinePromptFormset, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, UserChoiceForm, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm
+from .forms import PromptForm, InlinePromptFormset, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, UserForm
 
 #! Forms
 
@@ -33,8 +33,8 @@ PETFORMS = [
 FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
     ("size", AdoptionPreferencesSize),
     ("sociability", AdoptionPreferencesSociability),
-     ("energyLevel", AdoptionPreferencesEnergy),
-     ("Are you a pet owner?", UserChoiceForm)]
+     ("energyLevel", AdoptionPreferencesEnergy), ]
+    #  ("Are you a pet owner?", )]
 
 #! Functions
 #? Pawfect matches
@@ -72,7 +72,7 @@ def signup(request): #! Sign up function
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('user_create')
+      return redirect('redirect_form')
     
     else:
       error_message = 'Invalid sign up - try again'
@@ -320,9 +320,6 @@ class PetNameCreate(CreateView):
         return reverse('pet_update')
 
 
-  
-  
-
 class AdoptionPreferencesCreateView(CreateView):
     model = AdoptionPreferences
     form_class = AdoptionPreferencesForm
@@ -337,12 +334,8 @@ class AdoptionPreferencesCreateView(CreateView):
     def get_success_url(self):
         return reverse('')
     
-
 def preferences_complete(request):
     return render(request, '')
-
-
-
 
 def pet_guidance(request):
     return render(request, 'pet_guidance.html')
@@ -359,3 +352,18 @@ def messages(request):
 
 
 
+def redirect_form(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user_details = form.save(commit=False)
+            user_details.user = request.user
+            user_details.save()
+            if user_details.adopter == True:
+                return redirect('user_create')
+            else:
+                return redirect('pet_create')
+    else:
+        form = UserForm()
+    
+    return render(request, 'redirect_form.html')
