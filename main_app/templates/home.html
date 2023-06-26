@@ -1,7 +1,4 @@
-{% extends 'base.html' %} {% block content %}
-<!-- for match in pawfect matches -->
-
-{% if user and UserDetails.adopter == True %}
+{% extends 'base.html' %} {% block content %} {% if user %}
 <div id="pet-container">
   {% for pet in pets %}
   <h1>{{ pet.name }}</h1>
@@ -27,10 +24,10 @@
   <!-- like and dislike buttons sit here - KB -->
   <!-- should float as the user scrolls - KB -->
   <div class="like-btn">
-    <a href="{% url 'match' %}"></a>
+    <a href="{% url 'match' user.id pet.id %}"></a>
   </div>
   <div class="no-like-btn">
-    <a href="{% url 'unmatch' %}"></a>
+    <a href="{% url 'unmatch' user.id pet.id %}"></a>
   </div>
   {% endfor %}
 </div>
@@ -64,6 +61,6 @@
   // }
 </script>
 <!-- If not a pet adopter you won't see the list of potential matches - KB -->
-{% elif UserDetails.adopter == false %}
+{% else %}
 <h1>When we have someone interested in your pet we will let you know</h1>
 {% endif %} {% endblock %}

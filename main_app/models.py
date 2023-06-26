@@ -121,7 +121,11 @@ class Prompt(models.Model):
 #? ADOPTION PREFERENCES
 # activity levels, sociability, size, is_owner charfields
 class AdoptionPreferences(models.Model):
+<<<<<<< HEAD
     user = models.OneToOneField(UserDetails, on_delete=models.CASCADE)
+=======
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+>>>>>>> development
     activityLevel = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
     sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='both')
     size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
