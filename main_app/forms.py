@@ -7,6 +7,7 @@ class UserDetailsForm(forms.ModelForm):
         model = UserDetails
         fields = ['email', 'username', 'password', 'firstName', 'lastName', 'phone', 'adopter']
         
+
 class PromptForm(forms.ModelForm):
     class Meta:
         model = Prompt
@@ -150,6 +151,7 @@ class PetActivityForm(forms.ModelForm):
 
         # specific field
         self.fields['activity_level'].widget.attrs['id'] = 'pet_name'
+        
 
         # all fields on form
         for field in self.fields:
