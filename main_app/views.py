@@ -57,25 +57,12 @@ def find_matches(request):
           score += 1
       if user.size == pet.size:
         score += 1
-<<<<<<< HEAD
-    if user.sociability == pet.sociability:
-        score += 1
-    if user.size == pet.size:
-       score += 1
-       
-    if score >= 2:
-      matches.append((pet)) #Append the pet and its score as a tuple
-    # sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
-    # sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
-  return matches
-=======
         
       if score >= 2:
         matches.append((pet)) #Append the pet and its score as a tuple
         # sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
         # sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
     return matches
->>>>>>> development
 
 #? Home, render request home.html
 @login_required
@@ -450,15 +437,16 @@ def redirect_form(request):
         if form.is_valid():
             user_details = form.save(commit=False)
             user_details.user = request.user
-            user_details.save()
 
             user_type = request.POST.get('user_type')
             if user_type == 'adopter':
-              user_details.adopter = True
-              return redirect('user_create')
+                user_details.adopter = True
+                return redirect('user_create')
             elif user_type == 'owner':
               user_details.adopter = False
               return redirect('pet_create')
+        user_details.save()
+        print(user_details)
     else:
         form = UserForm()
     
