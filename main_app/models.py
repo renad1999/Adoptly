@@ -15,15 +15,15 @@ HEALTH_STATUS_CHOICES = (
 )
 
 ACTIVITY_LEVEL_CHOICES = (
-    ('low', 'Low'),
-    ('moderate', 'Moderate'),
-    ('high', 'High'),
+    ('low', 'Less than an hour'),
+    ('moderate', 'One to two hours'),
+    ('high', 'Two hours minimum'),
 )
 
 ENERGY_LEVEL_CHOICES = (
-    ('low', 'Very Energetic'),
-    ('moderate', 'Medium'),
-    ('high', 'Chill'),
+    ('low', 'Very calm'),
+    ('moderate', 'Moderate energy level'),
+    ('high', 'High energy'),
 )
 
 VACCINATION_CHOICES = (
@@ -32,15 +32,17 @@ VACCINATION_CHOICES = (
 )
 
 SOCIABILITY_CHOICES = (
-    ('introvert', 'Introvert'),
-    ('extrovert', 'Extrovert'),
-    ('both', 'Both'),
+    ('very', 'Very sociable, loves interacting with both dogs and people'),
+    ('somewhat', 'Somewhat sociable, selectively interacts'),
+    ('hardly', 'Not very sociable, prefers to keep a distance'),
+    ('not', 'Not sociable at all, avoids interaction when possible'),
 )
 
 SIZE_CHOICES = (
-    ('S', 'Small'),
-    ('M', 'Medium'),
-    ('L', 'Large'),
+    ('S', 'Small, up to 9kg'),
+    ('M', 'Medium, up to 27kg'),
+    ('L', 'Large, up to 45kg'),
+    ('XL', 'Large, over 45kg'),
 )
 
 PROMPT_CHOICES = [
@@ -87,22 +89,24 @@ class PetTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=50, choices=GENDER_CHOICES, default='M')
-    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES, default='introvert')
+    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES, default='introvert', blank=True)
     age = models.IntegerField()
     breed = models.TextField(max_length=100) 
     size = models.CharField(
         max_length=50,
-        choices=SIZE_CHOICES, default='S'
+        choices=SIZE_CHOICES, default='S', blank=True
     )
     weight = models.FloatField(null=True)
-    healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES, default='good health')
-    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES, default='low')
-    energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low')
+    healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES, default='good health', blank=True)
+    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES, default='low', blank=True)
+    energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='low', blank=True)
     vaccinationInformation = models.CharField(
         max_length=1,
-        choices=VACCINATION_CHOICES, default='N'
+        choices=VACCINATION_CHOICES, default='N', blank=True
     )
-    monthlyCost = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    monthlyCost = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
+
+    
 
     
 
@@ -129,7 +133,7 @@ class AdoptionPreferences(models.Model):
 class PetMatch(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pet = models.ForeignKey(PetTable, on_delete=models.CASCADE)
-    matchStatus = models.CharField(max_length=50)
+    matchStatus = models.BooleanField 
 
 # #? image model
 class PetImage(models.Model):

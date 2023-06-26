@@ -208,7 +208,7 @@ input#pet-pp-next {
     cursor: pointer;
     font-size: 8vmin;
     position: fixed;
-    top: 165vmin;
+    top: 175vmin;
     left: 70vmin;
 }
 
@@ -354,15 +354,12 @@ div#vaccinationInformation.name_q
 }
 
 
-label[for=pet_name_0], 
+/* label[for=pet_name_0], 
 label[for=pet_name_1], 
 label[for=pet_name_2], 
 label[for=activity_1], 
 label[for=activity_0],
 label[for=activity_2],
-label[for=sociability_0],
-label[for=sociability_1],
-label[for=sociability_2],
 label[for=size_0],
 label[for=size_1],
 label[for=size_2],
@@ -391,8 +388,47 @@ label[for=pet_name_0]
     cursor: pointer;
     display: inline-block;
     width: 35vmin;
-}
+} */
 
+label[for=sociability_0],
+label[for=sociability_1],
+label[for=sociability_2],
+label[for=sociability_3],
+label[for=pet_name_0], 
+label[for=pet_name_1], 
+label[for=pet_name_2], 
+label[for=activity_1], 
+label[for=activity_0],
+label[for=activity_2],
+label[for=size_0],
+label[for=size_1],
+label[for=size_2],
+label[for=size_3],
+label[for=id_5-healthStatus_0],
+label[for=id_5-healthStatus_1],
+label[for=id_5-healthStatus_2],
+label[for=energy_level_0],
+label[for=energy_level_1],
+label[for=energy_level_2],
+label[for=vaccinationInformation_0],
+label[for=vaccinationInformation_1],
+label[for=vaccinationInformation_2],
+label[for=pet_name_2], 
+label[for=pet_name_1], 
+label[for=pet_name_0] {
+    color: black;
+    border: 0.5vmin solid #ddd;
+    padding-top: 5vmin;
+    padding-bottom: 5vmin;
+    padding-left: 5vmin;
+    padding-right: 5vmin;
+    border-radius: 5vmin;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    display: inline-block;
+    width: 60vmin;
+}
 
 
 
@@ -407,9 +443,11 @@ input#activity_2.name_q,
 input#sociability_0.name_q, 
 input#sociability_1.name_q, 
 input#sociability_2.name_q,
+input#sociability_3.name_q,
 input#size_0.name_q,
 input#size_1.name_q,
 input#size_2.name_q, 
+input#size_3.name_q, 
 input#healthStatus_0.name_q, 
 input#healthStatus_1.name_q, 
 input#healthStatus_2.name_q,
@@ -423,9 +461,6 @@ input#vaccinationInformation_2.name_q
     display: none;
 }
 
-input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name_2.name_q:checked {
-    color: red;
-} 
 
 /* Style the label to look like a button */
 .your-form .pet-create-radio label {
@@ -433,11 +468,6 @@ input#pet_name_0.name_q:checked, input#pet_name_1.name_q:checked, input#pet_name
     padding: 10px 20px;
     background: #ddd;
     cursor: pointer;
-}
-
-/* Change appearance when a label is clicked (radio button selected) */
-.your-form .pet-create-radio input[type="radio"]:checked + label {
-    color: red;
 }
 
   .stylish-a {
@@ -476,6 +506,7 @@ div.top-bar {
     align-items: center;
     margin-left: 2vmin;
     margin-right: 2vmin;
+    margin-bottom: -2vmin;
 }
 
 /* Pet Name */
@@ -493,29 +524,59 @@ button.update-btn {
     background: transparent;
     color: #fab005;
     font-weight: 500;
-    font-size: 5vmin;
     cursor: pointer;
+    font-size: 2vmin;
+}
+
+h3.pet-update1 {
+    margin-top: -6vmin;
 }
 
 h3.pet-update {
+    margin-top: 5vmin;
+}
+
+h3.pet-update,
+h3.pet-update1 {
     font-weight: 400;
     color: #a4a3a3;
     margin-left: 3vmin;
     margin-bottom: 1vmin;
+    font-size: 2vmin;
+}
+
+hr.petupdate-line {
+    border: none;
+    border-top: 0.5vmin solid #e7e7e7;
+    width: 80vmin;
 }
 
 /* Upload Photo Buttons */
 #addphoto-btn, 
 #choose-file-btn {
     color: #fab005;
-    font-size: 4vmin;
+    /* font-size: 4vmin; */
     border: none;
     padding: 2vmin 2vmin;
     background-color: white;
     box-shadow: 0 0 1vmin #ccc;
     border-radius: 2.5vmin;
+    font-size: 2vmin;
+    padding-right: 5vmin;
+    padding-left: 5vmin;
+}
+#addphoto-btn {
+    margin-bottom: 10vmin;
 }
 
+/* Centers above ^ buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5vmin;
+}
 
 /* The row of three images */
 .img-container {
@@ -524,7 +585,7 @@ h3.pet-update {
     justify-content: flex-start;
     flex-wrap: nowrap;
     margin-left: 2.5vmin;
-    margin-top: 3vmin;
+    margin-top: 4vmin;
 }
 
 /* Img placeholder boxes */
@@ -563,6 +624,86 @@ button.img-delete-btn {
     background-color: white;
 }
 
+/* Pet prompts styling */
+
+/* Centering all the prompts and answers*/
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 2vmin;
+    margin-top: 2vmin;
+  }
+
+/* Answer boxes */
+textarea#id_prompt_formset-0-answer,
+textarea#id_prompt_formset-1-answer,
+textarea#id_prompt_formset-2-answer
+ {
+    border: none;
+    cursor: text;
+    background-color: #f9f9f9;
+    font-size: 2vmin;
+    font-family: sans-serif;
+    margin-bottom: 5vmin;
+    width: 80vmin;
+    height: 15vmin;
+    border-radius: 2vmin;
+}
+
+/* Prompt selection */
+select#id_prompt_formset-0-prompt,
+select#id_prompt_formset-1-prompt,
+select#id_prompt_formset-2-prompt
+ {
+    cursor: text;
+    margin-bottom: 5vmin;
+    width: 80vmin;
+    height: 10vmin;
+    font-size: 2vmin;
+    padding: 10px 8px 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2vmin;
+    position: relative;
+    margin-top: 3vmin;
+}
+
+  /*! TEMPORARY centering of prompts and a's*/
+  div.prompt-formset {
+    margin-right: 5vmin;
+  }
+
+
+/* label[for=id_10-prompt1],
+label[for=id_10-prompt2],
+label[for=id_10-prompt3] {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    width: 80vmin;
+    font-size: 4vmin;
+    color: #7c7c7c;
+ } */
+
+
+
+
+
+
+
+/* border: none;
+background: transparent;
+color: #fab005;
+font-weight: 500;
+font-size: 5vmin;
+position: relative;
+top: -13vmin;
+left: 40px; */
+
+
 /* button.add-btn, 
 button.img-delete-btn {
     display: block;
@@ -596,79 +737,3 @@ button.img-delete-btn {
     text-align: center;
     cursor: pointer;
 } */
-
-
-/* Pet prompts styling */
-
-/* Answer boxes */
-textarea#id_prompt_formset-0-answer,
-textarea#id_prompt_formset-1-answer,
-textarea#id_prompt_formset-2-answer
- {
-    border: none;
-    cursor: text;
-    background-color: #f9f9f9;
-    font-size: 2vmin;
-    font-family: sans-serif;
-    margin-bottom: 5vmin;
-    width: 80vmin;
-    height: 15vmin;
-    border-radius: 2vmin;
-}
-
-/* Prompt selection */
-select#id_prompt_formset-0-prompt,
-select#id_prompt_formset-1-prompt,
-select#id_prompt_formset-2-prompt
- {
-    cursor: text;
-    margin-bottom: 5vmin;
-    width: 80vmin;
-    height: 10vmin;
-    font-size: 13px;
-    padding: 10px 8px 10px 14px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 2vmin;
-    position: relative;
-    margin-top: 3vmin;
-}
-
-  /*! TEMPORARY centering of prompts and a's*/
-  div.prompt-formset {
-    margin-right: 5vmin;
-  }
-
-
-/* label[for=id_10-prompt1],
-label[for=id_10-prompt2],
-label[for=id_10-prompt3] {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    text-align: start;
-    width: 80vmin;
-    font-size: 4vmin;
-    color: #7c7c7c;
- } */
-
-
-
-/* Centering all the prompts and answers*/
-.form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-
-
-/* border: none;
-background: transparent;
-color: #fab005;
-font-weight: 500;
-font-size: 5vmin;
-position: relative;
-top: -13vmin;
-left: 40px; */

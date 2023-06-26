@@ -7,7 +7,7 @@ class PromptForm(forms.ModelForm):
     class Meta:
         model = Prompt
         fields = ['prompt', 'answer']
-        labels = {'prompt': '', 'answer' : ''}
+        labels = {'prompt': "", 'answer' : ""}
         
 
 InlinePromptFormset = inlineformset_factory(PetTable, Prompt, form=PromptForm, extra=3, max_num=3, can_delete=False)
@@ -18,7 +18,7 @@ class AdoptionPreferencesActivity(forms.ModelForm):
         model = AdoptionPreferences
         fields = ['activityLevel']
         labels = {
-            'activityLevel': 'Preferred activity level for your desired pet',
+            'activityLevel': 'How much outdoors time would you like with your pet per day?',
         }
         widgets = {
             'activityLevel': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
@@ -41,7 +41,7 @@ class AdoptionPreferencesSociability(forms.ModelForm):
         model = AdoptionPreferences
         fields = ['sociability']
         labels = {
-            'sociability': 'Preferred sociability for your desired pet',
+            'sociability': 'How sociable would you like your pet to be?',
         }
         widgets = {
             'sociability': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
@@ -65,7 +65,7 @@ class AdoptionPreferencesEnergy(forms.ModelForm):
         fields = ['field1', 'field2']
         fields = ['energyLevel']
         labels = {
-            'energyLevel': 'Preferred energy level for your desired pet',
+            'energyLevel': 'How would you describe your energy levels?',
         }
         widgets = {
             'energyLevel': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
@@ -88,7 +88,7 @@ class AdoptionPreferencesSize(forms.ModelForm):
         model = AdoptionPreferences
         fields = ['size']
         labels = {
-            'size': 'Preferred pet size',
+            'size': 'What size would you like your pet to be?',
         }
         widgets = {
             'size': forms.RadioSelect(attrs={'class': 'pet-create-radio'}),
@@ -144,7 +144,7 @@ class PetActivityForm(forms.ModelForm):
         model = PetTable
         fields = ['activity_level']
         labels = {
-            'activity_level': 'How much does your dog like being walked?',
+            'activity_level': 'How much exercise does your pet need per day?',
         }
         widgets = {
             'activity_level': forms.RadioSelect(attrs={'class': 'my-input-class'}), 
