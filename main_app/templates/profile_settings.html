@@ -1,11 +1,19 @@
 {% extends 'base.html' %} {% block content %}
 
-  <a href="{% url 'about' %}" class="button-link">About</a> 
-  <a href="{% url 'user_create' %}" class="button-link">Update your pet preferences</a>
-  <a href="{% url 'pet_guidance' %}" class="button-link">Adoption Guidance</a>
-  <a href="{% url 'success_stories' %}" class="button-link">Success Stories</a>
-  <a href="{% url 'help_center' %}" class="button-link">Help Center</a>
-  <a href="{% url 'gateway' %}" class="button-link">Sign out</a>
+<a href="{% url 'about' %}" class="button-link">About</a>
+<a href="{% url 'user_create' %}" class="button-link"
+  >Update your pet preferences</a
+>
+<a href="{% url 'pet_guidance' %}" class="button-link">Adoption Guidance</a>
+{% for pet in pets %}
+<p>{{ pet.name }} <a href="{% url 'pet_update' pet.pk %}">Update</a></p>
+{% empty %}
+<p>You do not have any pets yet.</p>
+{% endfor %}
+
+<a href="{% url 'success_stories' %}" class="button-link">Success Stories</a>
+<a href="{% url 'help_center' %}" class="button-link">Help Center</a>
+<a href="{% url 'gateway' %}" class="button-link">Sign out</a>
 
 <form method="POST" action="{% url 'delete_account' %}">
   {% csrf_token %}
