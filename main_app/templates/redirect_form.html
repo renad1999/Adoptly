@@ -3,20 +3,21 @@
 
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 <body class="redirect">
-  <div class="form-group"></div>
-  <div class="container"></div>
-  <h1 class="redirect">I am a...</h1>
+  <div class="form-group">
+  <div class="container lou">
+  <h1 class="redirect">I am a pet...</h1>
   <form method="POST" action="{% url 'redirect_form' %}">
     {% csrf_token %}
     <div class="redirect">
-      <label class="owner">
-        <input type="radio" name="user_type" value="owner" required /> Owner
+      <label for="owner" class="owner">
+        <input id="owner" type="radio" name="user_type" value="owner" required /> Owner
       </label>
-      <label class="adopter">
-        <input type="radio" name="user_type" value="adopter" required /> Adopter
+      <label for="adopter" class="adopter">
+        <input id="adopter" type="radio" name="user_type" value="adopter" required /> Adopter
       </label>
-      <button type="submit" class="redirect-btn">></button>
+      <input type="submit" value=">" id="pet-pp-next" />
     </div>
+</div>
   </form>
 
   {% endblock %}

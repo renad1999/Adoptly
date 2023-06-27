@@ -9,7 +9,7 @@
     <title>Create Pet</title>
   </head>
   <body class="pet-pp-create">
-    <div class="container">
+    <div class="container lou">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %} {{ wizard.management_form }}
         <!-- Check if wizard.form has forms -->
@@ -33,9 +33,9 @@
         {% else %} {{ wizard.form }} {% endif %}
         <input type="submit" value=">" id="pet-pp-next" />
       </form>
-      <p class="pet-pp-create">
+      <!-- <p class="pet-pp-create">
         {{ wizard.steps.step1 }} / {{ wizard.steps.count }}
-      </p>
+      </p> -->
     </div>
   </body>
 </html>
