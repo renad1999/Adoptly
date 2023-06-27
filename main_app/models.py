@@ -4,44 +4,44 @@ from storages.backends.s3boto3 import S3Boto3Storage
 
 #! tuples here
 GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female')
+    ('Male', 'Male'),
+    ('Female', 'Female')
 )
 
 HEALTH_STATUS_CHOICES = (
-    ('good health', 'Good Health'),
-    ('needs medication', 'Needs Medication'),
-    ('disabled', 'Disabled'),
+    ('Good health', 'Good Health'),
+    ('Needs medication', 'Needs Medication'),
+    ('Disabled', 'Disabled'),
 )
 
 ACTIVITY_LEVEL_CHOICES = (
-    ('low', 'Less than an hour'),
-    ('moderate', 'One to two hours'),
-    ('high', 'Two hours minimum'),
+    ('Low', 'Less than an hour'),
+    ('Moderate', 'One to two hours'),
+    ('High', 'Two hours minimum'),
 )
 
 ENERGY_LEVEL_CHOICES = (
-    ('low', 'Very calm'),
-    ('moderate', 'Moderate energy level'),
-    ('high', 'High energy'),
+    ('Low', 'Very calm'),
+    ('Moderate', 'Moderate energy level'),
+    ('High', 'High energy'),
 )
 
 VACCINATION_CHOICES = (
-    ('N', 'No'),
-    ('Y', 'Fully Vaccinated'),
+    ('Not vaccinated', 'No'),
+    ('Vaccinated', 'Fully Vaccinated'),
 )
 
 SOCIABILITY_CHOICES = (
-    ('very', 'Very sociable, loves both dogs and people'),
-    ('somewhat', 'Somewhat sociable, selectively interacts'),
-    ('hardly', 'Not very sociable, prefers to keep a distance'),
-    ('not', 'Not sociable, avoids interaction when possible'),
+    ('Very sociable', 'Very sociable, loves both dogs and people'),
+    ('Somewhat sociable', 'Somewhat sociable, selectively interacts'),
+    ('Hardly sociable', 'Not very sociable, prefers to keep a distance'),
+    ('Not sociable', 'Not sociable, avoids interaction when possible'),
 )
 
 SIZE_CHOICES = (
-    ('S', 'Small, up to 9kg'),
-    ('M', 'Medium, up to 27kg'),
-    ('L', 'Large, up to 45kg'),
+    ('Small', 'Small, up to 9kg'),
+    ('Medium', 'Medium, up to 27kg'),
+    ('Large', 'Large, up to 45kg'),
     ('XL', 'Large, over 45kg'),
 )
 
@@ -89,22 +89,23 @@ class UserDetails(models.Model):
 class PetTable(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=50, choices=GENDER_CHOICES, default='M')
-    sociability = models.CharField(max_length=255, choices=SOCIABILITY_CHOICES, default='very')
+    gender = models.CharField(max_length=50, choices=GENDER_CHOICES, default='Male')
+    sociability = models.CharField(max_length=40, choices=SOCIABILITY_CHOICES, default='Not sociable', blank=True)
     age = models.IntegerField()
     breed = models.TextField(max_length=100) 
-    size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
+    size = models.CharField(
+        max_length=50,
+        choices=SIZE_CHOICES, default='Small', blank=True
+    )
     weight = models.FloatField(null=True)
-    healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES, default='disabled')
-    activity_level = models.CharField(max_length=255, choices=ACTIVITY_LEVEL_CHOICES, default='low')
-    energy_level = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
+    healthStatus = models.CharField(max_length=250, choices=HEALTH_STATUS_CHOICES, default='Good health', blank=True)
+    activity_level = models.CharField(max_length=50, choices=ACTIVITY_LEVEL_CHOICES, default='Low', blank=True)
+    energy_level = models.CharField(max_length=50, choices=ENERGY_LEVEL_CHOICES, default='Low', blank=True)
     vaccinationInformation = models.CharField(
-        max_length=1,
-        choices=VACCINATION_CHOICES, default='Y'
+        max_length=20,
+        choices=VACCINATION_CHOICES, default='Not vaccinated', blank=True
     )
     monthlyCost = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=1.5)
-
-    
 
     
 
@@ -124,6 +125,7 @@ class AdoptionPreferences(models.Model):
     size = models.CharField( max_length=255, choices=SIZE_CHOICES, default='small')
     energyLevel = models.CharField(max_length=255, choices=ENERGY_LEVEL_CHOICES, default='low')
     liked_pets = models.ManyToManyField(PetTable, related_name='liked_by_users', blank=True)
+
 
 
     #? PET MATCH

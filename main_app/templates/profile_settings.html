@@ -2,49 +2,20 @@
 
 {% block content %}
 
-<div class="settings-section">
-    <h2>Settings</h2>
+  <a href="{% url 'about' %}" class="button-link">About</a> 
+  <a href="{% url 'user_create' %}" class="button-link">Update your pet preferences</a>
+  <a href="{% url 'pet_guidance' %}" class="button-link">Adoption Guidance</a>
+  <a href="{% url 'success_stories' %}" class="button-link">Success Stories</a>
+  <a href="{% url 'help_center' %}" class="button-link">Help Center</a>
+  <a href="{% url 'gateway' %}" class="button-link">Sign out</a>
 
-    <form>
-        <!-- Form fields and settings options go here -->
-    </form>
-
-    <p> <a href="{% url 'about' %}" class="button-link">About</a> </p>
-</div>
-
-<div class="settings-section">
-    <!-- Existing settings content... -->
-</div>
-
-<div class="settings-section">
-    <form>
-        <!-- Form fields and settings options go here -->
-    </form>
-
-    <h2>Adoption Guidance</h2>
-
-     <a href="{% url 'pet_guidance' %}" class="button-link">Adoption Guidance</a></p>
-</div>
-
-<div class="settings-section">
-    <form>
-        <!-- Existing form fields and settings options -->
-    </form>
-
-    <h2>Success Stories</h2>
-
-    <p> <a href="{% url 'success_stories' %}" class="button-link">Success Stories</a></p>
-</div>
-
-<<<<<<< HEAD
-<a href="{% url 'help_center' %}" class="button-link">Help Center</a>
-=======
-<a href="{% url 'help_center' %}">Help Center</a></br>
-<a href="{% url 'gateway' %}">Sign out</a>
-
->>>>>>> development
-
-<footer class="footer">
-    <p>All Rights Reserved, &copy; 2023 Adoptly</p>
-</footer>
 {% endblock %}
+
+
+
+<!-- {% for pet in pets %} 
+<p> {{pet.name}} </p>
+
+{% endfor %}
+
+
