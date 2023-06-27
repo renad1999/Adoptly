@@ -1007,4 +1007,54 @@ body {
   }
   
   /* Add any other necessary styles for the questionnaire form */
+
   
+
+
+.pet-container {
+    display: flex;
+    justify-content: center;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.pet-info-container {
+    border: 2px solid #000000;
+    border-radius: 10px;
+    width: 380px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.top-row {
+    display: inline-flex;
+    padding: 5px;
+    justify-content: center;
+}
+
+
+.img-container {
+
+}
+
+.like-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ff8800;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.no-like-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ff8800;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
