@@ -1,5 +1,5 @@
-{% extends 'base.html' %} {% block content %} {% if user.adopter %}
-{% for pet in pets %}
+{% extends 'base.html' %} {% block content %} {% if user.adopter %} {% for pet
+in pets %}
 <div id="pet-container">
   <h1>{{ pet.name }}</h1>
   <div class="img-container" id="img1-container">{{ PetImage.url }}</div>
@@ -24,85 +24,83 @@
   <!-- like and dislike buttons sit here - KB -->
   <!-- should float as the user scrolls - KB -->
   <div class="like-btn">
-    <a href="{% url 'match' user.id pet.id %}"></a>
+    <a href="{% url 'match' user.id pet.id %}">Like</a>
   </div>
   <div class="no-like-btn">
-    <a href="{% url 'unmatch' user.id pet.id %}"></a>
+    <a href="{% url 'unmatch' user.id pet.id %}">Dislike</a>
   </div>
   {% endfor %}
 </div>
 <script>
   // function to show the pet at the given index
-    document.addEventListener("DOMContentLoaded", function () {
-        let pets = document.getElementsByClassName("pet-container");
-        let index = 0;
-    
-        function showPet(index) {
-            for (let i = 0; i < pets.length; i++) {
-                if (i === index) {
-                    pets[i].style.display = "block";
-                } else {
-                    pets[i].style.display = "none";
-                }
-            }
+  document.addEventListener("DOMContentLoaded", function () {
+    let pets = document.getElementsByClassName("pet-container");
+    let index = 0;
+
+    function showPet(index) {
+      for (let i = 0; i < pets.length; i++) {
+        if (i === index) {
+          pets[i].style.display = "block";
+        } else {
+          pets[i].style.display = "none";
         }
+      }
+    }
 
-        function handleAction(liked) {
-            let pet = pets[index]
-            let petId = pets[index].getAttribute("data-pet-id");
-            let userId = pets[index].getAttribute("data-user-id");
+    function handleAction(liked) {
+      let pet = pets[index];
+      let petId = pets[index].getAttribute("data-pet-id");
+      let userId = pets[index].getAttribute("data-user-id");
 
-            if (liked) {
-                // Request to assoc pet to user
-                fetch(`/${userId}/assoc_pet/${petId}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data); 
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-            } else {
-                // Request to unassociate pet from user
-                fetch(`/${userId}/unassoc_pet/${petId}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data); 
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-            }
+      if (liked) {
+        // Request to assoc pet to user
+        fetch(`/${userId}/assoc_pet/${petId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } else {
+        // Request to unassociate pet from user
+        fetch(`/${userId}/unassoc_pet/${petId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
 
-            // Move to the next pet
-            index++;
-            if (index >= pets.length){
-                index = 0
-            }
+      // Move to the next pet
+      index++;
+      if (index >= pets.length) {
+        index = 0;
+      }
 
-            showPet(index);
-        }
+      showPet(index);
+    }
 
-        
-        showPet(index)
-            // handle like and dislike actions
-            let likeBtns = document.getElementsByClassName("like-btn");
-            let dislikeBtns = document.getElementsByClassName("no-like-btn");
+    showPet(index);
+    // handle like and dislike actions
+    let likeBtns = document.getElementsByClassName("like-btn");
+    let dislikeBtns = document.getElementsByClassName("no-like-btn");
 
-            for (let i = 0; i < likeBtns.length; i++) {
-                likeBtns[i].addEventListener("click", function () {
-                    handleAction(true);
-                });
-            }
+    for (let i = 0; i < likeBtns.length; i++) {
+      likeBtns[i].addEventListener("click", function () {
+        handleAction(true);
+      });
+    }
 
-            for (let i = 0; i < dislikeBtns.length; i++) {
-                dislikeBtns[i].addEventListener("click", function () {
-                    handleAction(false);
-                });
-            }
-        showPet(index)
-    });
-
+    for (let i = 0; i < dislikeBtns.length; i++) {
+      dislikeBtns[i].addEventListener("click", function () {
+        handleAction(false);
+      });
+    }
+    showPet(index);
+  });
 </script>
 <!-- If not a pet adopter you won't see the list of potential matches - KB -->
 {% else %}

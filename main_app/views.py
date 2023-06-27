@@ -11,12 +11,13 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import PetTable, AdoptionPreferences, UserDetails, Prompt, PetImage, PetMatch
+from .models import PetTable, AdoptionPreferences, UserDetails, Prompt, PetImage, PetMatch, User
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import View
 from django.conf import settings
+from django.contrib import messages
 from .forms import PromptForm, InlinePromptFormset, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, UserDetailsForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, UserForm
 
 #! Forms
@@ -40,6 +41,17 @@ FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
      ("Are you a pet owner?" , ) ]
 
 #! Functions
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        user = User.objects.get(username=request.user.username)
+        user.delete()
+        messages.success(request, 'Your account has been deleted.')
+        return redirect('gateway')  
+    else:
+        messages.error(request, 'Failed to delete your account. Please try again.')
+        return redirect('settings')  
 
 class UserDetailsView(View):
     form_class = UserDetailsForm
@@ -66,25 +78,35 @@ def find_matches(request):
     matches = []
     print(user)
     pets = PetTable.objects.all()
+    print(f"Total pets: {len(pets)}")
     matches = []
     for pet in pets:
       score = 0
       if user.activityLevel == pet.activity_level:
           score += 1
+          print(f"{pet.name} matches activity level")
       if user.sociability == pet.sociability:
           score += 1
+          print(f"{pet.name} matches sociability")
       if user.size == pet.size:
-        score += 1
+            score += 1
+            print(f"{pet.name} matches size")
+      else:
+            print(f"{pet.name} does not match size. User's size preference: {user.size}, Pet size: {pet.size}")
         
-      if score >= 2:
+      if score >= 1:
         matches.append((pet)) #Append the pet and its score as a tuple
+        print(f"Added {pet.name} to matches")
         # sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
         # sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
+        print(f"Score for pet {pet.id} ({pet.name}): {score}")
+    print(f"Total matches: {len(matches)}")
     return matches
 
 #? Home, render request home.html
 @login_required
 def home(request):
+    print(f"Current user: {request.user}")
     matches = find_matches(request)
     try:
         user_details = UserDetails.objects.get(user=request.user)
@@ -93,6 +115,7 @@ def home(request):
 
     try:
         adoption_preferences = AdoptionPreferences.objects.get(user=request.user)
+        print(f"User's adoption preferences: {adoption_preferences.__dict__}")
         # Check if the user has set any preferences
         if (adoption_preferences.activityLevel is None or
             adoption_preferences.sociability is None or
@@ -186,8 +209,6 @@ def pet_update(request, pet_id):
 #! Create your views here.
 
 
-
-
 #? pet details, render request pets/details.html
 @login_required
 def pet_detail(request, pet_id):
@@ -200,15 +221,17 @@ def pet_detail(request, pet_id):
 #? Profile settings
 @login_required
 def user_settings(request):
-  return render(request, 'profile_settings.html')
+  pets = PetTable.objects.filter(user=request.user)
+  return render(request, 'profile_settings.html', {'pets': pets})
 
 
 #? Pet matches (list of pets already matched with)
 @login_required
 def matches(request):
-  pet_matches = PetMatch.objects.filter(user=request.user, matchStatus="True") 
-  pets = [match.pet for match in pet_matches]
-  return render(request, 'matches.html', {'pets': pets})
+    pet_matches = PetMatch.objects.filter(user=request.user, matchStatus=True)
+    pets = [match.pet for match in pet_matches]
+    return render(request, 'matches.html', {'pets': pets})
+
 
 #? About page
 @login_required
@@ -219,14 +242,13 @@ def about(request):
 #? Matching func 
 @login_required
 def assoc_pet(request, user_id, pet_id):
-  UserDetails.objects.get(id=user_id).PetTable.add(pet_id)
-  return redirect('home', user_id=user_id)
+  UserDetails.objects.get(user_id=user_id).liked_pets.add(PetTable.objects.get(id=pet_id))
+  return redirect('home')
 
-#? Unmatching func
 @login_required
 def unassoc_pet(request, user_id, pet_id):
-  UserDetails.objects.get(id=user_id).PetTable.remove(pet_id)
-  return redirect('home', user_id=user_id)
+  UserDetails.objects.get(user_id=user_id).liked_pets.remove(PetTable.objects.get(id=pet_id))
+  return redirect('home')
 
 #! Class based views
 #? below for create, update & delete views for both pet and user
