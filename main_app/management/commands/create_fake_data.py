@@ -3,12 +3,10 @@
 import requests
 from faker import Faker
 from random import choice
-from django.core.files.base import ContentFile
-from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 
-from ...models import UserDetails, PetTable, Prompt, AdoptionPreferences, PetMatch, PetImage
+from ...models import PetTable, Prompt, PetImage
 from ...models import GENDER_CHOICES, HEALTH_STATUS_CHOICES, ACTIVITY_LEVEL_CHOICES, ENERGY_LEVEL_CHOICES, VACCINATION_CHOICES, SOCIABILITY_CHOICES, SIZE_CHOICES, PROMPT_CHOICES
 
 class Command(BaseCommand):
