@@ -435,8 +435,6 @@ class AdoptionPreferencesCreateView(CreateView):
 def preferences_complete(request):
     return render(request, '')
 
-
-
 @login_required
 def pet_guidance(request):
     return render(request, 'pet_guidance.html')
@@ -452,6 +450,11 @@ def help_center(request):
 @login_required
 def messages(request):
     return render(request, 'messages.html')
+
+@login_required
+def user_settings(request):
+  pets = PetTable.objects.filter(user=request.user)
+  return render(request, 'profile_settings.html', {'pets': pets})
 
 
 def redirect_form(request):
@@ -476,3 +479,5 @@ def redirect_form(request):
         form = UserForm()
     
     return render(request, 'redirect_form.html')
+
+

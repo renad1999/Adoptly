@@ -1,4 +1,5 @@
-/* TODO GATEWAY PAGE */
+
+
 body.gateway {
     background: url("/static/images/gateway-hero.jpg");
     background-repeat: no-repeat;
@@ -863,19 +864,13 @@ position: relative;
 top: -13vmin;
 left: 40px; */
 
-<<<<<<< HEAD
-=======
 
->>>>>>> development
 
-  
-  
-
-body {
+/* body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
+} */
 
 
 
@@ -916,7 +911,7 @@ body {
     margin: 0 auto;
   }
   
-  /* Add additional styles as needed */
+
   
 
 
@@ -972,7 +967,7 @@ body {
     margin-top: 20px;
   }
   
-<<<<<<< HEAD
+
   /* Styling for profile settings page */
 
 
@@ -990,112 +985,63 @@ body {
     /* margin-top: 20px; */
 }
 
+  /* Add any other necessary styles for the questionnaire form */
 
+.pet-container {
+    display: flex;
+    justify-content: center;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 5px;
+}
 
+.pet-info-container {
+    border: 2px solid #000000;
+    border-radius: 10px;
+    width: 380px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
 
-/* navbar styling  */
-.button-link:hover {
+.top-row {
+    display: inline-flex;
+    padding: 5px;
+    justify-content: center;
+}
+
+/* 
+.img-container {
+
+} */
+
+.like-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     background-color: #ff8800;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
-  
-
-  
- .mynav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: black;
-    border-top: 1px solid #cccccc;
-    box-shadow: 0 0 2px rgba(227, 204, 204, 0.25);
-    justify-content: space-between;
-    align-items: center;
-
- }
-
-  .fixnav{
-    position: relative;
-    padding: 10px;
-    float: center;
-    outline: none;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .centered-text {
-    text-align: center;
-    padding-top: 20px;
-    margin-left: 20px;
-  }
-
-/*   
-
-  button-container {
-    text-align: left;
-    padding-top: 20px;
-    margin-left: 20px;
-  } */
-  
-
-  .words{
-    text-align: center;
-
-  }
-
-  .content {
-    flex: 1;
-    padding: 20px;
-} 
-
-
-
-
-
-
-
-
-
-/* Help center page style */
-
-.helptitle{
-    text-align: center;
-    color: darkgrey;
-
-}
-
-.helpcenter{
-    text-align: left;
-    padding-left: 10px;
+.no-like-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ff8800;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 
-/* about page styling */
-.adoptly{
-    text-align: center;
-    color: darkgrey;
-}
 
-.paw {
-    text-align: left;
-    padding-left: 10px;
-}
 
-.furever 
-{
-    text-align: left;
-    padding-left: 10px;
-}
 
-img.paws {
-    height: 8vmin;
-    width: 8vmin;
-    padding-top: 20px;
-    width:100px;
-    height:100px;
-    display: block;
-    margin: 0 auto;
-}
+
+
+
 
 
 
@@ -1139,56 +1085,141 @@ img.paws {
 
 
 
-=======
-  /* Add any other necessary styles for the questionnaire form */
+/* about page styling */
+.adoptly{
+    text-align: center;
+    color: darkgrey;
+    font-family: "Helvetica", sans-serif;
+}
+
+.paw {
+    text-align: left;
+    padding-left: 10px;
+    font-family: "Helvetica", sans-serif;
+}
+
+.furever 
+{
+    text-align: left;
+    padding-left: 10px;
+    font-family: "Helvetica", sans-serif;
+    
+}
+
+img.paws {
+    height: 8vmin;
+    width: 8vmin;
+    padding-top: 20px;
+    width:100px;
+    height:100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn.btn-secondary {
+    display: block;
+    width: 95%;
+    text-align: center;
+    padding: 10px 20px;
+    color: white; 
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: "Helvetica", sans-serif;
+    font-size: 18px; 
+    border: 1.5px solid darkgrey;
+  }
 
   
 
+/* navbar styling  */
+.button-link:hover {
+    background-color: #ff8800;
+}
 
-.pet-container {
+.button-link{
     display: flex;
     justify-content: center;
-    border: 2px solid #000000;
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.pet-info-container {
-    border: 2px solid #000000;
-    border-radius: 10px;
-    width: 380px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
-.top-row {
-    display: inline-flex;
-    padding: 5px;
-    justify-content: center;
-}
-
-
-.img-container {
+    width: 100%;
+     box-sizing: border-box;
 
 }
 
-.like-btn {
+ .mynav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+   
+    align-items: center;
+    padding: 10px;
+
+ }
+
+
+.material-icons
+{
     width: 20px;
     height: 20px;
-    border-radius: 50%;
-    background-color: #ff8800;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    padding-left: 20px;
+
+    
 }
 
-.no-like-btn {
+.fa.fa-comment {
+    padding-right: 200px;
     width: 20px;
     height: 20px;
-    border-radius: 50%;
-    background-color: #ff8800;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    
+  }
+
+.fa.fa-heart {
+    padding-right: 10px;
+    width: 20px;
+    height: 20px;
+    
+}
+
+.material-icons
+ {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+ }
+
+
+  /* .centered-text {
+    text-align: center;
+    padding-top: 20px;
+    margin-left: 20px;
+  } */
+
+  /* button-container {
+    text-align: left;
+    padding-top: 20px;
+    margin-left: 20px;
+  }  */
+  .words{
+    text-align: center;
+
+  }
+
+  .content {
+    flex: 1;
+    padding: 20px;
+} 
+
+/* Help center page style */
+
+.helptitle{
+    text-align: center;
+    color: darkgrey;
+    font-family: "Helvetica", sans-serif;
+
+}
+
+.helpcenter{
+    text-align: left;
+    padding-left: 10px;
+    font-family: "Helvetica", sans-serif;
 }

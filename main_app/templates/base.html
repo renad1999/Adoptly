@@ -5,46 +5,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   <title>Adoptly</title>
 </head>
 <body>
-  <header class="navbar-fixed">
-    <nav>
-
-      <!-- <div class="nav-wrapper hide-on-med-and-up" style="background-color: black;">
-        <ul id="nav-mobile" class="center">
-          <li><a href="{% url 'gateway' %}" class="brand-logo stylish-a"><i class="material-icons" style="color: orange;">pets</i></a></li>
-    <nav id="navbar">
-      <div class="nav-wrapper">
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li><a href="{% url 'home' %}" class="brand-logo stylish-a">A</a></li> -->
-
-  <header>
-    <nav class="mynav">
-  
-        </ul>
-      <div class="fixnav" style="background-color: black;">
-        <ul id="nav-mobile" class="left">
-          <li><a href="{% url 'home' %}" class="brand-logo stylish-a"><i class="material-icons" style="color: orange;">pets</i></a></li>
-        </ul>
-        <ul id="nav-mobile" class="right">
-          <li><a href="{% url 'messages' %}"><i class="fa fa-comment" style="color: white;"></i></a></li>
-          <li><a href="{% url 'matches' %}"><i class="fa fa-heart" style="color: red;"></i></a></li>
-          <li><a href="{% url 'settings' %}"><i class="material-icons" style="color: grey;">person</i></a></li>
-        
-        </ul>
-      </div>
+   <nav class="mynav">
+          <a href="{% url 'home' %}" ><i class="material-icons" style="color: orange;">pets</i></a>
+          <a href="{% url 'messages' %}"><i class="fa fa-comment" style="color: white;"></i></a>
+          <a href="{% url 'matches' %}"><i class="fa fa-heart" style="color: red;"></i></a>
+          <a href="{% url 'settings' %}"><i class="material-icons" style="color: grey;">person</i></a>
     </nav>
-  </header>
-
-  
 </body>
 </html>
 {% block content %}
