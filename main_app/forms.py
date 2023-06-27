@@ -277,7 +277,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = UserDetails # Specify the model
         fields = ['adopter']  # Specify the field(s) to include in the form
-       
+
 
 # class UserForm(forms.ModelForm):
 #     ADOPTER_CHOICES = [

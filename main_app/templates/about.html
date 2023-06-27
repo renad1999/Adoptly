@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-    <div class="content">
-
+        <a href="{% url 'settings' %}" class="btn btn-secondary" style="background-color: orange;">Back</a>
     
-        <h1>Welcome to Adoptly, the pawfect place to find your furry soulmate!</h1>
-        <p> Fill your life with wagging tails and endless cuddles as you open your heart to the pawsibilities that await you.</p>
+        <h3 class="adoptly">Welcome to Adoptly, the pawfect place to find your furry soulmate!</h3>
 
+        <h5 class="paw"> Fill your life with wagging tails and endless cuddles as you open your heart to the pawsibilities that await you.</h5>
 
-         <p>  Find your fur-ever soulmate and create a forever home filled with love, joy, and unforgettable memories. Join us in celebrating the magic of adoption at Adoptly.</p> 
+         <h6 class="furever">  Find your fur-ever soulmate and create a forever home filled with love, joy, and unforgettable memories. Join us in celebrating the magic of adoption at Adoptly.</h6> 
+         <img class="paws" src="{% static 'images/paw-icon.png' %}" >
+
     </div>
-    <a href="{% url 'settings' %}" class="btn btn-secondary" style="background-color: orange;">Back</a>
-    <footer>All Rights Reserved, &copy; 2023 Adoptly</footer>
+   
+   
 
 
 

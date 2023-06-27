@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +17,7 @@
 <body>
   <header class="navbar-fixed">
     <nav>
+
       <!-- <div class="nav-wrapper hide-on-med-and-up" style="background-color: black;">
         <ul id="nav-mobile" class="center">
           <li><a href="{% url 'gateway' %}" class="brand-logo stylish-a"><i class="material-icons" style="color: orange;">pets</i></a></li>
@@ -26,25 +26,26 @@
         <ul id="nav-mobile" class="left hide-on-med-and-down">
           <li><a href="{% url 'home' %}" class="brand-logo stylish-a">A</a></li> -->
 
+  <header>
+    <nav class="mynav">
+  
         </ul>
-      </div>
-      <div class="nav-wrapper hide-on-small-only" style="background-color: black;">
+      <div class="fixnav" style="background-color: black;">
         <ul id="nav-mobile" class="left">
-          <li><a href="{% url 'gateway' %}" class="brand-logo stylish-a"><i class="material-icons" style="color: orange;">pets</i></a></li>
+          <li><a href="{% url 'home' %}" class="brand-logo stylish-a"><i class="material-icons" style="color: orange;">pets</i></a></li>
         </ul>
-        
         <ul id="nav-mobile" class="right">
           <li><a href="{% url 'messages' %}"><i class="fa fa-comment" style="color: white;"></i></a></li>
           <li><a href="{% url 'matches' %}"><i class="fa fa-heart" style="color: red;"></i></a></li>
           <li><a href="{% url 'settings' %}"><i class="material-icons" style="color: grey;">person</i></a></li>
+        
         </ul>
       </div>
     </nav>
   </header>
 
-  {% block content %}
-  {% endblock %}
-
-  <!-- Footer -->
+  
 </body>
 </html>
+{% block content %}
+  {% endblock %}

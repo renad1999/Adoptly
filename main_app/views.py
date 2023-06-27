@@ -36,8 +36,8 @@ PETFORMS = [
 FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
     ("size", AdoptionPreferencesSize),
     ("sociability", AdoptionPreferencesSociability),
-     ("energyLevel", AdoptionPreferencesEnergy), ]
-    #  ("Are you a pet owner?", )]
+     ("energyLevel", AdoptionPreferencesEnergy),
+     ("Are you a pet owner?" , ) ]
 
 #! Functions
 
@@ -119,7 +119,7 @@ def signup(request): #! Sign up function
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('redirect_form')
+      return redirect('user_create')
     
     else:
       error_message = 'Invalid sign up - try again'
@@ -413,6 +413,9 @@ class PetNameCreate(CreateView):
         return reverse('pet_update')
 
 
+  
+  
+
 class AdoptionPreferencesCreateView(CreateView):
     model = AdoptionPreferences
     form_class = AdoptionPreferencesForm
@@ -427,9 +430,6 @@ class AdoptionPreferencesCreateView(CreateView):
     def get_success_url(self):
         return reverse('')
     
-def preferences_complete(request):
-    return render(request, '')
-
 
 @login_required
 def preferences_complete(request):
@@ -454,14 +454,12 @@ def messages(request):
     return render(request, 'messages.html')
 
 
-
 def redirect_form(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
             user_details = form.save(commit=False)
             user_details.user = request.user
-            user_details.save()
 
             user_type = request.POST.get('user_type')
             if user_type == 'adopter':
