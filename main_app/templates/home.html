@@ -24,10 +24,10 @@
   <!-- like and dislike buttons sit here - KB -->
   <!-- should float as the user scrolls - KB -->
   <div class="like-btn">
-    <a href="{% url 'match' user.id pet.id %}"></a>
+    <a href="{% url 'match' user.id pet.id %}">L</a>
   </div>
   <div class="no-like-btn">
-    <a href="{% url 'unmatch' user.id pet.id %}"></a>
+    <a href="{% url 'unmatch' user.id pet.id %}">D</a>
   </div>
   {% endfor %}
 </div>
