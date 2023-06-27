@@ -76,7 +76,7 @@ def find_matches(request):
       if user.size == pet.size:
         score += 1
         
-      if score >= 2:
+      if score >= 1:
         matches.append((pet)) #Append the pet and its score as a tuple
         # sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
         # sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
