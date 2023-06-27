@@ -1,25 +1,25 @@
-{% extends 'base.html' %} {% block content %} {% if user %}
+{% extends 'base.html' %} {% block content %} {% if user.adopter %}
+{% for pet in pets %}
 <div id="pet-container">
-  {% for pet in pets %}
   <h1>{{ pet.name }}</h1>
-  <div class="img-container" id="img1-container"></div>
+  <div class="img-container" id="img1-container">{{ PetImage.url }}</div>
   <div class="prompt-container" id="prompt1-container">{{ pet.prompt1 }}</div>
   <!-- Do we need this much info on the matching/home page when we have all this in
                 the pet details page? - KB -->
   <div class="pet-info-container">
     <ul>
-      <li>{{ pet.gender }}</li>
-      <li>{{ pet.age }}</li>
-      <li>{{ pet.breed }}</li>
-      <li>{{ pet.size }}</li>
-      <li>{{ pet.activity_level }}</li>
-      <li>{{ pet.vaccinationInformation }}</li>
-      <li>{{ pet.healthStatus }}</li>
+      <li class="top-row">Gender: {{ pet.gender }}</li>
+      <li class="top-row">Age: {{ pet.age }}</li>
+      <li class="top-row">Breed: {{ pet.breed }}</li>
+      <li class="top-row">Size: {{ pet.size }}</li>
+      <li>Activity level: {{ pet.activity_level }}</li>
+      <li>Vaccination info: {{ pet.vaccinationInformation }}</li>
+      <li>Health status: {{ pet.healthStatus }}</li>
     </ul>
   </div>
-  <div class="img-container" id="img2-container"></div>
+  <div class="img-container" id="img2-container">{{ PetImage.url }}</div>
   <div class="prompt-container" id="prompt2container">{{ pet.prompt2 }}</div>
-  <div class="img-container" id="img3-container"></div>
+  <div class="img-container" id="img3-container">{{ PetImage.url }}</div>
   <div class="prompt-container" id="prompt3container">{{ pet.prompt3 }}</div>
   <!-- like and dislike buttons sit here - KB -->
   <!-- should float as the user scrolls - KB -->
@@ -33,32 +33,76 @@
 </div>
 <script>
   // function to show the pet at the given index
-  function showPet(index) {
-    for (let i = 0; i < pets.length; i++) {
-      if (i === index) {
-        pets[i].style.display = "block";
-      } else {
-        pets[i].style.display = "none";
-      }
-    }
-  }
-  // handle like and dislike actions
-  document.addEventListener("DOMContentLoaded", function () {
-    let pets = document.getElementById("pet-container");
-    let index = 0;
-  });
-  showPet(index);
+    document.addEventListener("DOMContentLoaded", function () {
+        let pets = document.getElementsByClassName("pet-container");
+        let index = 0;
+    
+        function showPet(index) {
+            for (let i = 0; i < pets.length; i++) {
+                if (i === index) {
+                    pets[i].style.display = "block";
+                } else {
+                    pets[i].style.display = "none";
+                }
+            }
+        }
 
-  // for (let i = 0; i < likeBtn.length; i++) {
-  //     likeBtns[i].addEventListener('click', function(){
-  //         handleAction(true);
-  //     });
-  // }
-  // for (let i = 0; i < dislikeBtn.length; i++) {
-  //     likeBtns[i].addEventListener('click', function(){
-  //         handleAction(false);
-  //     });
-  // }
+        function handleAction(liked) {
+            let pet = pets[index]
+            let petId = pets[index].getAttribute("data-pet-id");
+            let userId = pets[index].getAttribute("data-user-id");
+
+            if (liked) {
+                // Request to assoc pet to user
+                fetch(`/${userId}/assoc_pet/${petId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data); 
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+            } else {
+                // Request to unassociate pet from user
+                fetch(`/${userId}/unassoc_pet/${petId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data); 
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+            }
+
+            // Move to the next pet
+            index++;
+            if (index >= pets.length){
+                index = 0
+            }
+
+            showPet(index);
+        }
+
+        
+        showPet(index)
+            // handle like and dislike actions
+            let likeBtns = document.getElementsByClassName("like-btn");
+            let dislikeBtns = document.getElementsByClassName("no-like-btn");
+
+            for (let i = 0; i < likeBtns.length; i++) {
+                likeBtns[i].addEventListener("click", function () {
+                    handleAction(true);
+                });
+            }
+
+            for (let i = 0; i < dislikeBtns.length; i++) {
+                dislikeBtns[i].addEventListener("click", function () {
+                    handleAction(false);
+                });
+            }
+        showPet(index)
+    });
+
 </script>
 <!-- If not a pet adopter you won't see the list of potential matches - KB -->
 {% else %}

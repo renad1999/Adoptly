@@ -461,7 +461,6 @@ def redirect_form(request):
         if form.is_valid():
             user_details = form.save(commit=False)
             user_details.user = request.user
-            user_details.save()
 
             user_type = request.POST.get('user_type')
             if user_type == 'adopter':
