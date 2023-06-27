@@ -1196,6 +1196,7 @@ img.paws {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    color: orange;
 }
 
 .top-row {
