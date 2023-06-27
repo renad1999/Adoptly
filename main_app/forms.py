@@ -2,7 +2,11 @@ from django import forms
 from django.forms import inlineformset_factory
 from .models import PetTable, Prompt,AdoptionPreferences, UserDetails
    
-
+class UserDetailsForm(forms.ModelForm):
+    class Meta:
+        model = UserDetails
+        fields = ['email', 'username', 'password', 'firstName', 'lastName', 'phone', 'adopter']
+        
 class PromptForm(forms.ModelForm):
     class Meta:
         model = Prompt

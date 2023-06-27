@@ -15,8 +15,9 @@ from .models import PetTable, AdoptionPreferences, UserDetails, Prompt, PetImage
 from formtools.wizard.views import SessionWizardView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views import View
 from django.conf import settings
-from .forms import PromptForm, InlinePromptFormset, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, UserForm
+from .forms import PromptForm, InlinePromptFormset, AdoptionPreferencesActivity, AdoptionPreferencesSize, AdoptionPreferencesSociability, AdoptionPreferencesEnergy, PetNameForm, PetActivityForm, PetSociabilityForm, PetSizeForm,PetHealthStatusForm, PetEnergyLevelForm, UserDetailsForm, PetVaccinationInformationForm, PetMonthlyCostForm, PetAgeForm, UserForm
 
 #! Forms
 
@@ -39,28 +40,72 @@ FORMS = [ ("activityLevel", AdoptionPreferencesActivity),
      ("Are you a pet owner?" , ) ]
 
 #! Functions
+
+class UserDetailsView(View):
+    form_class = UserDetailsForm
+    template_name = 'redirect_form.html'  
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            userdetails = form.save(commit=False)
+            userdetails.user = request.user
+            userdetails.save()
+            return redirect('home')
+        return render(request, self.template_name, {'form': form})
+    
 #? Pawfect matches
     # if score = 3 show pet.name else append
 def find_matches(request):
-  user_id = request.session['user_id']
-  user = AdoptionPreferences.objects.get(id=user_id)
-  pets = PetTable.objects.all()
-  matches = []
-  for pet in pets:
-    score = 0
-    if user.activityLevel == pet.activity_level:
+    user, created = AdoptionPreferences.objects.get_or_create(user=request.user)
+    pets = PetTable.objects.all()
+    matches = []
+    print(user)
+    pets = PetTable.objects.all()
+    matches = []
+    for pet in pets:
+      score = 0
+      if user.activityLevel == pet.activity_level:
+          score += 1
+      if user.sociability == pet.sociability:
+          score += 1
+      if user.size == pet.size:
         score += 1
-    if user.sociability == pet.sociability:
-        score += 1
-    if user.size == pet.size:
-       score += 1
-       
-    if score >= 2:
-       matches.append((pet, score)) #Append the pet and its score as a tuple
-    sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
-    sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
-  return render(request, 'home.html', {'pets': sorted_pets})
+        
+      if score >= 2:
+        matches.append((pet)) #Append the pet and its score as a tuple
+        # sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True) #Sort by score in a descending order
+        # sorted_pets = [pet for pet, score in sorted_matches] #Extract sorted pets
+    return matches
 
+#? Home, render request home.html
+@login_required
+def home(request):
+    matches = find_matches(request)
+    try:
+        user_details = UserDetails.objects.get(user=request.user)
+    except UserDetails.DoesNotExist:
+        user_details = None
+
+    try:
+        adoption_preferences = AdoptionPreferences.objects.get(user=request.user)
+        # Check if the user has set any preferences
+        if (adoption_preferences.activityLevel is None or
+            adoption_preferences.sociability is None or
+            adoption_preferences.size is None):
+            messages.warning(request, 'Please set your adoption preferences to get better matches.')
+    except AdoptionPreferences.DoesNotExist:
+        adoption_preferences = None
+
+    return render(request, 'home.html', {
+      'pets': matches, 
+      'user': user_details,
+      'pref': adoption_preferences
+      })
 
 #? Login and signup, render request gateway.html
 def signup(request): #! Sign up function
@@ -141,14 +186,6 @@ def pet_update(request, pet_id):
 #! Create your views here.
 
 
-#? Home, render request home.html
-@login_required
-def home(request):
-    # pet = PetTable.objects.get(id=pet_id)
-    pets = PetTable.objects.all()
-    return render(request, 'home.html', {
-      'pets': pets
-    })
 
 
 #? pet details, render request pets/details.html
@@ -423,33 +460,19 @@ def redirect_form(request):
         if form.is_valid():
             user_details = form.save(commit=False)
             user_details.user = request.user
-            user_details.save()
-            if user_details.adopter == True:
+
+            user_type = request.POST.get('user_type')
+            if user_type == 'adopter':
+                user_details.adopter = True
+                user_details.save() 
                 return redirect('user_create')
-            elif user_details.owner == True:
+            elif user_type == 'owner':
+                user_details.adopter = False
+                user_details.save() 
                 return redirect('pet_create')
+        else:
+            print(form.errors)
     else:
         form = UserForm()
+    
     return render(request, 'redirect_form.html')
-
-
-# def profile_settings(request):
-#     return render(request, 'profile_settings.html', {'pet': pets, 'user': user_details})
-#     user = request.user
-#     matches = find_matches(request)
-#     try:
-#         user_details = UserDetails.objects.get(user=user)
-#     except UserDetails.DoesNotExist:
-#         user_details = None
-
-def profile_settings(request):
-    user = request.user
-    pets = PetTable.object.all()
-    try:
-        user_details = UserDetails.objects.get(user=user)
-    except UserDetails.DoesNotExist:
-        user_details = None
-    return render(request, 'home.html', {
-      'pets': pets, 
-      'user': user_details,
-    })

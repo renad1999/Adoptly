@@ -1,18 +1,48 @@
 <!-- redirect_form.html -->
-{% load static %}
+{% load static %} {% block content %}
 
-{% block content %}
-
-
-<form method="POST" action="{% url 'redirect_form' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<body class="redirect">
+  <div class="form-group"></div>
+  <div class="container"></div>
+  <h1 class="redirect">I am a...</h1>
+  <form method="POST" action="{% url 'redirect_form' %}">
     {% csrf_token %}
-    <label>
-        <input type="radio" name="user_type" value="owner" required> Owner
-    </label>
-    <label>
-        <input type="radio" name="user_type" value="adopter" required> Adopter
-    </label>
-    <button type="submit">Submit</button>
-</form>
+    <div class="redirect">
+      <label class="owner">
+        <input type="radio" name="user_type" value="owner" required /> Owner
+      </label>
+      <label class="adopter">
+        <input type="radio" name="user_type" value="adopter" required /> Adopter
+      </label>
+      <button type="submit" class="redirect-btn">></button>
+    </div>
+  </form>
 
-{% endblock %}
+  {% endblock %}
+
+  <script>
+    window.onload = function () {
+      const labels = document.querySelectorAll("label");
+      for (let label of labels) {
+        let input = document.getElementById(label.getAttribute("for"));
+        if (input && input.type === "radio") {
+          label.style.cursor = "pointer";
+          label.addEventListener("click", function () {
+            for (let otherLabel of labels) {
+              let otherInput = document.getElementById(
+                otherLabel.getAttribute("for")
+              );
+              if (otherInput && otherInput.type === "radio") {
+                otherLabel.style.backgroundColor = "";
+                otherInput.checked = false;
+              }
+            }
+            label.style.backgroundColor = "#fab005";
+            input.checked = true;
+          });
+        }
+      }
+    };
+  </script>
+</body>
