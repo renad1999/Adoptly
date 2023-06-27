@@ -197,9 +197,9 @@ span.helptext {
     margin-bottom: 4vmin;
 }
 
-li {
+/* li {
     margin-bottom: 1vmin;
-}
+} */
 
 /* TODO PET PROFILE CREATE */
 /* NEXT button */
@@ -1033,6 +1033,10 @@ left: 40px; */
     border: 2px solid #000000;
     border-radius: 10px;
     padding: 5px;
+}
+
+input[value="Delete My Account"] {
+    background: white;
 }
 
 .pet-info-container {
