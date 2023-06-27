@@ -11,32 +11,29 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
   <title>Adoptly</title>
 </head>
-<body>
-  <header class="navbar-fixed">
-    <nav>
+
+  <header>
+    <nav class="mynav">
   
         </ul>
-      </div>
-      <div class="nav-wrapper hide-on-small-only" style="background-color: black;">
+      <div class="fixnav" style="background-color: black;">
         <ul id="nav-mobile" class="left">
-          <li><a href="{% url 'gateway' %}" class="brand-logo stylish-a"><i class="material-icons" style="color: orange;">pets</i></a></li>
+          <li><a href="{% url 'home' %}" class="brand-logo stylish-a"><i class="material-icons" style="color: orange;">pets</i></a></li>
         </ul>
-        
         <ul id="nav-mobile" class="right">
           <li><a href="{% url 'messages' %}"><i class="fa fa-comment" style="color: white;"></i></a></li>
           <li><a href="{% url 'matches' %}"><i class="fa fa-heart" style="color: red;"></i></a></li>
           <li><a href="{% url 'settings' %}"><i class="material-icons" style="color: grey;">person</i></a></li>
+        
         </ul>
       </div>
     </nav>
   </header>
 
-  {% block content %}
-  {% endblock %}
-
-  <!-- Footer -->
+  
 </body>
 </html>
+{% block content %}
+  {% endblock %}
