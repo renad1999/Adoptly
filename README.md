@@ -100,6 +100,7 @@ OUR WIREFRAMES
 <img width="619" alt="Screenshot 2023-08-15 at 21 21 30" src="https://github.com/renad1999/Adoptly/assets/112344006/dff9d3c1-3312-4dc6-a701-41842e149b86">
 
 Build/Code Process
+
 <img width="617" alt="Screenshot 2023-08-15 at 21 22 02" src="https://github.com/renad1999/Adoptly/assets/112344006/2bbbe72e-951e-4801-9bd1-e93875d33b6b">
 
 
